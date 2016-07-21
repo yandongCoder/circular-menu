@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>天合数据管理</title>
+</head>
+<body>
+<div id="circle-menu"></div>
+</body>
+</html>
+
+<script>
+    var cmenu = CMenu("#id")
+            .set({
+                    animation: "into"
+                 })
+            .menu([
+                      {
+                          title: 'menu1',
+                          icon: '',
+                          href: ''
+                      },
+                      {
+                          title: 'menu2',
+                          icon: '',
+                          href: ''
+                      },
+                      {
+                          title: 'menu3',
+                          icon: '',
+                          href: ''
+                      },
+                      {
+                          title: 'menu4',
+                          icon: '',
+                          href: ''
+                      }
+                  ])
+            .on({
+                    'click': function (menu) {
+
+                    }
+                });
+
+    cmenu.show();
+</script>
