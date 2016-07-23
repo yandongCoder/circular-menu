@@ -1,0 +1,267 @@
+@import 'compass';
+@import "compass/reset";
+
+/// Remove the unit of a length
+/// @param {Number} $number - Number to remove unit from
+/// @return {Number} - Unitless number
+@function strip-unit($number) {
+  @if type-of($number) == 'number' and not unitless($number) {
+    @return $number / ($number * 0 + 1);
+  }
+
+  @return $number;
+}
+
+* {
+    position: relative;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: "Microsoft YaHei";
+}
+
+
+html,
+body {
+    height: 100%;
+}
+
+$background: #52be7f;
+body {
+    background: $background;
+    color: #fff;
+}
+$percent: 0.32;
+
+$items : 4;// item number;
+$total-angle: 360deg; //sum angle of all items, < 360 semi-circle, = 360 complete-circle
+$space: 0deg; // space between items
+$diameter: 500px;//complete circle radius
+$central-angle: $total-angle / $items; //central angle of each item, it must < 90 deg
+$rotate: $central-angle + $space;
+$skew: 90deg - $central-angle;
+$unskew: - (90deg - $central-angle / 2);
+$top: - ( ($total-angle - 180deg) / 2);
+$left: $top - 90deg;
+$right: $top + 90deg;
+$bottom: $top + 180deg;
+$start: $top;
+$text-top: $diameter / 2 * $percent / 2 + 5px;
+$time: 0.3s;
+.cn-wrapper {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    z-index: 10;
+    margin-top: - $diameter / 2;
+    margin-left: - $diameter / 2;
+    width: $diameter;
+    height: $diameter;
+    border-radius: 50%;
+    background: $background;//transparent
+    opacity: 0;
+    transition: all .3s ease 0.3s;
+    transform: scale(0.1);
+    pointer-events: none;
+    overflow: hidden;
+}
+
+/*cover to prevent extra space of anchors from being clickable*/
+.cn-wrapper:after{
+    $radius: $diameter / 2;
+    $x: ($radius * strip-unit($radius)) * 2;
+    $cover-radius:  sqrt($x) * $percent * 2;
+    content:".";
+    display:block;
+    width: $cover-radius;
+    height: $cover-radius;
+
+    position: absolute;
+    left: 50%;
+    margin-left: (- $cover-radius / 2);
+    top:50%;
+    margin-top: (- $cover-radius / 2);
+    border-radius: 50%;
+    z-index:10;
+    color: transparent;
+    box-sizing: border-box;
+    border: 1px solid #fff;
+}
+
+.opened-nav {
+    border-radius: 50%;
+    opacity: 1;
+    transition: all .3s ease;
+    transform: scale(1);
+    pointer-events: auto;
+}
+
+.cn-wrapper li {
+    position: absolute;
+    overflow: hidden;
+    width: $diameter / 2;
+    height: $diameter / 2;
+    transition: all .3s ease;
+    transform: rotate(76deg) skew($skew);
+    border: 1px solid transparent;
+    transform-origin: 100% 100%;
+    pointer-events: none;
+}
+
+.cn-wrapper li a {
+    position: absolute;
+    right: - $diameter / 2;
+    bottom: - $diameter / 2;
+    display: block;
+    width: $diameter;
+    height: $diameter;
+    border-radius: 50%;
+    background: #429a67;
+    background: radial-gradient(transparent $percent * 100%, #515151 $percent * 100%);
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    line-height: 2;
+    transform: skew(-$skew) rotate($unskew) scale(1);
+    backface-visibility: hidden;
+    pointer-events: auto;
+}
+
+.cn-wrapper li a span {
+    position: relative;
+    top: $text-top;
+    display: block;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+
+.cn-wrapper li a:hover,
+.cn-wrapper li a:active,
+.cn-wrapper li a:focus {
+    background: radial-gradient(transparent $percent * 100%, #449e6a $percent * 100%);
+}
+.cn-wrapper li a:focus {
+    position: fixed; /* fix the displacement bug in webkit browsers when using tab key */
+}
+
+.opened-nav li {
+    transition: all .3s ease .3s;
+}
+
+.opened-nav li:first-child {
+    transform: rotate($start) skew($skew);
+}
+
+.opened-nav li:nth-child(2) {
+    transform: rotate($start + $rotate * 1) skew($skew);
+}
+
+.opened-nav  li:nth-child(3) {
+    transform: rotate($start + $rotate * 2) skew($skew);
+}
+
+.opened-nav li:nth-child(4) {
+    transform: rotate($start + $rotate * 3) skew($skew);
+}
+
+.opened-nav li:nth-child(5) {
+    transform: rotate($start + $rotate * 4) skew($skew);
+}
+
+.opened-nav li:nth-child(6) {
+    transform: rotate($start + $rotate * 5) skew($skew);
+}
+
+.opened-nav li:nth-child(7) {
+    transform: rotate($start + $rotate * 6) skew($skew);
+}
+
+.opened-nav li:nth-child(8) {
+    transform: rotate($start + $rotate * 7) skew($skew);
+}
+
+
+.no-csstransforms .cn-wrapper {
+    overflow: hidden;
+    margin: 10em auto;
+    padding: .5em;
+    text-align: center;
+}
+
+.no-csstransforms .cn-wrapper ul {
+    display: inline-block;
+}
+
+.no-csstransforms .cn-wrapper li {
+    float: left;
+    width: 5em;
+    height: 5em;
+    background-color: #fff;
+    text-align: center;
+    font-size: 1em;
+    line-height: 5em;
+}
+
+.no-csstransforms .cn-wrapper li a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: inherit;
+    text-decoration: none;
+}
+
+.no-csstransforms .cn-wrapper li a:hover,
+.no-csstransforms .cn-wrapper li a:active,
+.no-csstransforms .cn-wrapper li a:focus {
+    background-color: #f8f8f8;
+}
+
+.no-csstransforms .cn-wrapper li.active a{
+    background-color: #6F325C;
+    color: #fff;
+}
+
+.no-csstransforms .cn-button {
+    display: none;
+}
+
+@media only screen and (max-width: 620px) {
+    .no-csstransforms li {
+        width: 4em;
+        height: 4em;
+        line-height: 4em;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .no-ccstransforms .cn-wrapper {
+        padding: .5em;
+    }
+
+    .no-csstransforms .cn-wrapper li {
+        width: 4em;
+        height: 4em;
+        font-size: .9em;
+        line-height: 4em;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .cn-wrapper {
+        font-size: .68em;
+    }
+
+    .cn-button {
+        font-size: 1em;
+    }
+}
+
+@media only screen and (max-width:420px) {
+    .no-csstransforms .cn-wrapper li {
+        width: 100%;
+        height: 3em;
+        line-height: 3em;
+    }
+}
