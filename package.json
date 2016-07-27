@@ -1,0 +1,36 @@
+{
+  "name": "circular-menu",
+  "version": "1.0.0",
+  "description": "cool,highly interactive circular menu",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "rollup": "rollup -o circular-menu.js --banner //circular-menu -f umd -n CMenu index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yandongCoder/circular-menu.git"
+  },
+  "keywords": [
+    "circular",
+    "menu",
+    "wheel",
+    "menu",
+    "circular",
+    "navigation",
+    "wheel",
+    "navigation"
+  ],
+  "author": "yandong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yandongCoder/circular-menu/issues"
+  },
+  "homepage": "https://github.com/yandongCoder/circular-menu#readme",
+  "devDependencies": {
+    "rollup": "^0.34.1"
+  }
+}

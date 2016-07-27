@@ -2,45 +2,68 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>天合数据管理</title>
+    <title>circular-menu</title>
+    <link rel="stylesheet" href="../stylesheets/circular-menu.css">
 </head>
 <body>
-<div id="circle-menu"></div>
+<div id="circle-menu" class="abc"></div>
 </body>
 </html>
-
+<script src="../circular-menu.js"></script>
 <script>
-    var cmenu = CMenu("#id")
-            .set({
-                    animation: "into"
-                 })
-            .menu([
-                      {
-                          title: 'menu1',
-                          icon: '',
-                          href: ''
-                      },
-                      {
-                          title: 'menu2',
-                          icon: '',
-                          href: ''
-                      },
-                      {
-                          title: 'menu3',
-                          icon: '',
-                          href: ''
-                      },
-                      {
-                          title: 'menu4',
-                          icon: '',
-                          href: ''
-                      }
-                  ])
-            .on({
-                    'click': function (menu) {
+    var cmenu = CMenu("#circle-menu")
+            .config({
+                        totalAngle: 360,//deg,
+                        spaceDeg: 0,//deg
+                        background: "#52be7f",
+                        percent: 0.32,//%
+                        diameter: 450,//px
+                        position: 'top',
+                        //start: -45,//deg
+                        animation: "into",
+                        menus: [
+                            {
+                                title: 'menu1',
+                                icon: '',
+                                href: '#123'
+                            },
+                            {
+                                title: 'menu2',
+                                icon: '',
+                                href: ''
+                            },
+                            {
+                                title: 'menu3',
+                                icon: '',
+                                href: ''
+                            },
+                            {
+                                title: 'menu4',
+                                icon: '',
+                                href: ''
+                            },{
+                                title: 'menu5',
+                                icon: '',
+                                href: ''
+                            },
+                            {
+                                title: 'menu6',
+                                icon: '',
+                                href: ''
+                            },
+                            {
+                                title: 'menu7',
+                                icon: '',
+                                href: ''
+                            }
+                        ]
+                    });
+    //            .on({
+    //                    'click': function (menu) {
+    //
+    //                    }
+    //                });
 
-                    }
-                });
-
-    cmenu.show();
+    //cmenu.show();
+    //console.log(cmenu);
 </script>

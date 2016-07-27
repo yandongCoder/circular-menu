@@ -6,13 +6,18 @@
     <link rel="stylesheet" type="text/css" href="../../stylesheets/base.css" />
 </head>
 <body>
-<div class="cn-wrapper opened-nav" id="cn-wrapper">
+<div class="cn-wrapper" id="cn-wrapper">
     <ul>
-        <li><a href="#"><span>menu1</span></a></li>
-        <li><a href="#"><span>菜单2</span></a></li>
-        <li><a href="#"><span>menu3</span></a></li>
-        <li><a href="#"><span>菜单4</span></a></li>
+        <li><a href=""><span>menu1</span></a></li>
+        <li><a href=""><span>菜单2</span></a></li>
+        <li><a href=""><span>menu3</span></a></li>
+        <li><a href=""><span>菜单4</span></a></li>
     </ul>
 </div>
 </body>
 </html>
+<script>
+    setTimeout(function(){
+        document.getElementById('cn-wrapper').setAttribute('class', 'cn-wrapper opened-nav');
+    },1000);
+</script>

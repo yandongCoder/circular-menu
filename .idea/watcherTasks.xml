@@ -83,5 +83,43 @@
       <option name="workingDir" value="$PROJECT_DIR$" />
       <envs />
     </TaskOptions>
+    <TaskOptions isEnabled="false">
+      <option name="arguments" value="--source-maps --out-file $FileNameWithoutExtension$-compiled.js $FilePath$" />
+      <option name="checkSyntaxErrors" value="true" />
+      <option name="description" value="Transpiles ECMAScript 6 code to ECMAScript 5" />
+      <option name="exitCodeBehavior" value="ERROR" />
+      <option name="fileExtension" value="js" />
+      <option name="immediateSync" value="true" />
+      <option name="name" value="Babel" />
+      <option name="output" value="$FileNameWithoutExtension$-compiled.js:$FileNameWithoutExtension$-compiled.js.map" />
+      <option name="outputFilters">
+        <array />
+      </option>
+      <option name="outputFromStdout" value="false" />
+      <option name="program" value="$USER_HOME$/AppData/Roaming/npm/babel.cmd" />
+      <option name="scopeName" value="Project Files" />
+      <option name="trackOnlyRoot" value="true" />
+      <option name="workingDir" value="$FileDir$" />
+      <envs />
+    </TaskOptions>
+    <TaskOptions isEnabled="true">
+      <option name="arguments" value="-o circular-menu.js --banner //circular-menu -m -f umd -n CMenu C:\opt\circular-menu\index.js" />
+      <option name="checkSyntaxErrors" value="true" />
+      <option name="description" value="rollup JS" />
+      <option name="exitCodeBehavior" value="ERROR" />
+      <option name="fileExtension" value="js" />
+      <option name="immediateSync" value="false" />
+      <option name="name" value="Rollup" />
+      <option name="output" value="C:\opt\circular-menu" />
+      <option name="outputFilters">
+        <array />
+      </option>
+      <option name="outputFromStdout" value="false" />
+      <option name="program" value="$USER_HOME$/AppData/Roaming/npm/rollup.cmd" />
+      <option name="scopeName" value="Current File" />
+      <option name="trackOnlyRoot" value="true" />
+      <option name="workingDir" value="C:\opt\circular-menu" />
+      <envs />
+    </TaskOptions>
   </component>
 </project>

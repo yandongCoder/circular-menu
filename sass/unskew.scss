@@ -1,6 +1,4 @@
 @import 'compass';
-@import "compass/reset";
-@import "compass/css3";
 /// Remove the unit of a length
 /// @param {Number} $number - Number to remove unit from
 /// @return {Number} - Unitless number
@@ -33,23 +31,30 @@ body {
 }
 $background: #52be7f;
 $percent: 0.32;
-$items : 4;// item number;
-$total-angle: 360deg; //sum angle of all items, < 360 semi-circle, = 360 complete-circle
-$space: 3deg; // space between items
-$diameter: 400px;//complete circle radius
+$items : 7;// item number;
+$total-angle: 280deg; //sum angle of all items, < 360 semi-circle, = 360 complete-circle
+$space: 0deg; // space between items
+
+$diameter: 300px;//complete circle radius
 $space-number: if($total-angle == 360deg, $items, $items - 1);
 $central-angle: ($total-angle - ($space * $space-number )) / $items;// - ($space * ($items - 1) ) //central angle of each item, it must < 90 deg
 $rotate-unit: $central-angle + $space;
 $skew: 90deg - $central-angle;
-
 $unskew: - (90deg - $central-angle / 2);
 $top: - ( ($total-angle - 180deg) / 2); // - ( ($total-angle + ($items - 1) * $space - 180deg) / 2);
 $left: $top - 90deg;
 $right: $top + 90deg;
 $bottom: $top + 180deg;
-$start: $top;
-$text-top: $diameter / 2 * $percent / 2 + 5px;
+$start: -45deg;//$top;
+//$text-top: $diameter / 2 * $percent / 2 + 5px;
 $time: 0.3s;
+
+$radius: $diameter / 2 + 4px;
+$square: ($radius * strip-unit($radius)) * 2;
+$cover-radius:  sqrt($square) * $percent;
+
+$text-top: ($radius - $cover-radius) * 0.38;
+
 .cn-wrapper {
   position: absolute;
   top: 100%;
@@ -70,19 +75,16 @@ $time: 0.3s;
 
 /*cover to prevent extra space of anchors from being clickable*/
 .cn-wrapper:after{
-  $radius: $diameter / 2 + 4px;
-  $x: ($radius * strip-unit($radius)) * 2;
-  $cover-radius:  sqrt($x) * $percent * 2;
   content:".";
   display:block;
-  width: $cover-radius;
-  height: $cover-radius;
+  width: $cover-radius * 2;
+  height: $cover-radius * 2;
 
   position: absolute;
   left: 50%;
-  margin-left: (- $cover-radius / 2);
+  margin-left: -$cover-radius;
   top:50%;
-  margin-top: (- $cover-radius / 2);
+  margin-top: -$cover-radius;
   border-radius: 50%;
   z-index:10;
   color: transparent;
@@ -130,8 +132,9 @@ $time: 0.3s;
 }
 
 .cn-wrapper li a span {
-  position: relative;
-  top: $text-top;
+  //position: relative;
+  //top: $text-top;
+  margin-top: $text-top;
   display: block;
   font-size: 13px;
   text-transform: uppercase;
@@ -150,36 +153,49 @@ $time: 0.3s;
   transition: all .3s ease .3s;
 }
 
+@mixin rotate($index){
+  $rotate: $start + $rotate-unit * $index;
+  transform: rotate($rotate) skew($skew);
+
+  @include reverse($rotate);
+}
+
+@mixin reverse($rotate){
+  .reverse{
+    transform: rotate(- ($rotate + $unskew));
+  }
+}
+
 .opened-nav li:first-child {
-  transform: rotate($start) skew($skew);
+  @include rotate(0);
 }
 
 .opened-nav li:nth-child(2) {
-  transform: rotate($start + $rotate-unit * 1) skew($skew);
+  @include rotate(1);
 }
 
 .opened-nav  li:nth-child(3) {
-  transform: rotate($start + $rotate-unit * 2) skew($skew);
+  @include rotate(2);
 }
 
 .opened-nav li:nth-child(4) {
-  transform: rotate($start + $rotate-unit * 3) skew($skew);
+  @include rotate(3);
 }
 
 .opened-nav li:nth-child(5) {
-  transform: rotate($start + $rotate-unit * 4) skew($skew);
+  @include rotate(4);
 }
 
 .opened-nav li:nth-child(6) {
-  transform: rotate($start + $rotate-unit * 5) skew($skew);
+  @include rotate(5);
 }
 
 .opened-nav li:nth-child(7) {
-  transform: rotate($start + $rotate-unit * 6) skew($skew);
+  @include rotate(6);
 }
 
 .opened-nav li:nth-child(8) {
-  transform: rotate($start + $rotate-unit * 7) skew($skew);
+  @include rotate(7);
 }
 
 
