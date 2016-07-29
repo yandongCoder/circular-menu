@@ -1,0 +1,293 @@
+@import 'compass';
+/// Remove the unit of a length
+/// @param {Number} $number - Number to remove unit from
+/// @return {Number} - Unitless number
+@function strip-unit($number) {
+  @if type-of($number) == 'number' and not unitless($number) {
+    @return $number / ($number * 0 + 1);
+  }
+
+  @return $number;
+}
+
+* {
+  position: relative;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: "Microsoft YaHei";
+}
+
+.rect-icon{
+  width: 49px;
+  height: 49px;
+  background: #fff;
+  border-radius: 50%;
+  display: inline-block !important;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  background: #52be7f;
+  color: #fff;
+}
+$background: #52be7f;
+$percent: 0.32;
+$items : 7;// item number;
+$total-angle: 360deg; //sum angle of all items, < 360 semi-circle, = 360 complete-circle
+$space: 0deg; // space between items
+
+$diameter: 300px;//complete circle radius
+$space-number: if($total-angle == 360deg, $items, $items - 1);
+$central-angle: ($total-angle - ($space * $space-number )) / $items;// - ($space * ($items - 1) ) //central angle of each item, it must < 90 deg
+$rotate-unit: $central-angle + $space;
+$skew: 90deg - $central-angle;
+$unskew: - (90deg - $central-angle / 2);
+$top: - ( ($total-angle - 180deg) / 2); // - ( ($total-angle + ($items - 1) * $space - 180deg) / 2);
+$left: $top - 90deg;
+$right: $top + 90deg;
+$bottom: $top + 180deg;
+$start: -45deg;//$top;
+//$text-top: $diameter / 2 * $percent / 2 + 5px;
+$time: 0.3s;
+
+$radius: $diameter / 2 + 4px;
+$square: ($radius * strip-unit($radius)) * 2;
+$cover-radius:  sqrt($square) * $percent;
+
+$text-top: -12px;//with iocn; //($radius - $cover-radius) * 0.38;//without icon
+
+.cn-wrapper {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  z-index: 10;
+  margin-top: - $diameter / 2;
+  margin-left: - $diameter / 2;
+  width: $diameter;
+  height: $diameter;
+  border-radius: 50%;
+  background: $background;//transparent
+  opacity: 0;
+  transition: all .3s ease 0.3s;
+  transform: scale(0.1);
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/*cover to prevent extra space of anchors from being clickable*/
+.cn-wrapper:after{
+  content:".";
+  display:block;
+  width: $cover-radius * 2;
+  height: $cover-radius * 2;
+
+  position: absolute;
+  left: 50%;
+  margin-left: -$cover-radius;
+  top:50%;
+  margin-top: -$cover-radius;
+  border-radius: 50%;
+  z-index:10;
+  color: transparent;
+  box-sizing: border-box;
+  border: 3px solid $background;
+}
+
+.opened-nav {
+  border-radius: 50%;
+  opacity: 1;
+  transition: all .3s ease;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.cn-wrapper li {
+  position: absolute;
+  overflow: hidden;
+  width: $diameter / 2;
+  height: $diameter / 2;
+  transition: all .3s ease;
+  transform: rotate(76deg) skew($skew);
+  border: 1px solid transparent;
+  transform-origin: 100% 100%;
+  pointer-events: none;
+}
+
+.cn-wrapper li a {
+  position: absolute;
+  padding-top: 10px;
+  right: - $diameter / 2;
+  bottom: - $diameter / 2;
+  display: block;
+  width: $diameter;
+  height: $diameter;
+  border-radius: 50%;
+  background: #429a67;
+  background: radial-gradient(transparent $percent * 100%, #515151 $percent * 100%);
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  transform: skew(-$skew) rotate($unskew) scale(1);
+  backface-visibility: hidden;
+  pointer-events: auto;
+}
+
+.cn-wrapper li a span.text {
+  //position: relative;
+  //top: $text-top;
+  margin-top: -5px;
+  //position: relative;
+  //top: -2px;
+  display: block;
+  font-size: 13px;
+  //text-transform: uppercase;
+}
+
+.cn-wrapper li a:hover,
+.cn-wrapper li a:active,
+.cn-wrapper li a:focus {
+  background: radial-gradient(transparent $percent * 100%, #449e6a $percent * 100%);
+}
+.cn-wrapper li a:focus {
+  position: fixed; /* fix the displacement bug in webkit browsers when using tab key */
+}
+
+.opened-nav li {
+  transition: all .3s ease .3s;
+}
+
+@mixin rotate($index){
+  $rotate: $start + $rotate-unit * $index;
+  transform: rotate($rotate) skew($skew);
+
+  @include reverse($rotate);
+}
+
+@mixin reverse($rotate){
+  .reverse{
+    display: inline-block;
+    transform: rotate(- ($rotate + $unskew));
+  }
+}
+
+.opened-nav li:first-child {
+  @include rotate(0);
+}
+
+.opened-nav li:nth-child(2) {
+  @include rotate(1);
+}
+
+.opened-nav  li:nth-child(3) {
+  @include rotate(2);
+}
+
+.opened-nav li:nth-child(4) {
+  @include rotate(3);
+}
+
+.opened-nav li:nth-child(5) {
+  @include rotate(4);
+}
+
+.opened-nav li:nth-child(6) {
+  @include rotate(5);
+}
+
+.opened-nav li:nth-child(7) {
+  @include rotate(6);
+}
+
+.opened-nav li:nth-child(8) {
+  @include rotate(7);
+}
+
+
+.no-csstransforms .cn-wrapper {
+  overflow: hidden;
+  margin: 10em auto;
+  padding: .5em;
+  text-align: center;
+}
+
+.no-csstransforms .cn-wrapper ul {
+  display: inline-block;
+}
+
+.no-csstransforms .cn-wrapper li {
+  float: left;
+  width: 5em;
+  height: 5em;
+  background-color: #fff;
+  text-align: center;
+  font-size: 1em;
+  line-height: 5em;
+}
+
+.no-csstransforms .cn-wrapper li a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+
+.no-csstransforms .cn-wrapper li a:hover,
+.no-csstransforms .cn-wrapper li a:active,
+.no-csstransforms .cn-wrapper li a:focus {
+  background-color: #f8f8f8;
+}
+
+.no-csstransforms .cn-wrapper li.active a{
+  background-color: #6F325C;
+  color: #fff;
+}
+
+.no-csstransforms .cn-button {
+  display: none;
+}
+
+@media only screen and (max-width: 620px) {
+  .no-csstransforms li {
+    width: 4em;
+    height: 4em;
+    line-height: 4em;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .no-ccstransforms .cn-wrapper {
+    padding: .5em;
+  }
+
+  .no-csstransforms .cn-wrapper li {
+    width: 4em;
+    height: 4em;
+    font-size: .9em;
+    line-height: 4em;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .cn-wrapper {
+    font-size: .68em;
+  }
+
+  .cn-button {
+    font-size: 1em;
+  }
+}
+
+@media only screen and (max-width:420px) {
+  .no-csstransforms .cn-wrapper li {
+    width: 100%;
+    height: 3em;
+    line-height: 3em;
+  }
+}

@@ -310,10 +310,29 @@
         style(a, 'right', this._calc.clickZoneSize.marginRight);
         style(a, 'bottom', this._calc.clickZoneSize.marginBottom);
         style(a, 'transform', 'skew('+ -this._calc.skewDeg +'deg) rotate('+ this._calc.unskewDeg +'deg) scale(1)');
+        //radial-gradient(transparent $percent * 100%, #515151 $percent * 100%);
+
+        var percent = this._config.percent * 100 + "%";
+        style(a, 'background', 'radial-gradient(transparent '+ percent +', '+ this._config.background +' '+ percent +')');
 
         parent.appendChild(a);
 
         this._createHorizontal(a, data, index);
+    }
+
+    function hasIcon(icon){
+        return icon !== "";
+    }
+
+    function createIcon (parent, data, index) {
+        if(!hasIcon(data.icon)) return;
+
+        var span = document.createElement('span');
+
+        classed(span, data.icon, true);
+        //style(span, 'margin-top', this._calc.textTop);
+
+        parent.appendChild(span);
     }
 
     function createText (parent, data, index) {
@@ -321,7 +340,8 @@
         var span = document.createElement('span');
         span.textContent = data.title;
 
-        style(span, 'margin-top', this._calc.textTop);
+        classed(span, 'text', true);
+        style(span, 'margin-top', hasIcon(data.icon)? "-10px": this._calc.textTop);
 
         parent.appendChild(span);
     }
@@ -329,10 +349,12 @@
     function createHorizontal (parent, data, index) {
 
         var div = document.createElement('div');
-        style(div, 'transform', 'rotate('+ this._calc.horizontalDeg(index) +'deg)');
+        
+        if(this._config.horizontal) style(div, 'transform', 'rotate('+ this._calc.horizontalDeg(index) +'deg)');
 
         parent.appendChild(div);
 
+        this._createIcon(div, data, index);
         this._createText(div, data, index);
     }
 
@@ -349,7 +371,8 @@
         _createList: createList,
         _createClickZone: createClickZone,
         _createText: createText,
-        _createHorizontal: createHorizontal
+        _createHorizontal: createHorizontal,
+        _createIcon: createIcon
     };
 
     function config (config) {

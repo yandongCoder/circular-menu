@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>circular-menu</title>
+    <link rel="stylesheet" type="text/css" href="../node_modules/font-awesome/css/font-awesome.css"/>
     <link rel="stylesheet" href="../stylesheets/circular-menu.css">
 </head>
 <body>
@@ -15,45 +16,52 @@
             .config({
                         totalAngle: 360,//deg,
                         spaceDeg: 0,//deg
-                        background: "#52be7f",
+                        background: "#515151",
+                        webBackground: "#52be7f",
                         percent: 0.32,//%
-                        diameter: 450,//px
+                        diameter: 300,//px
                         position: 'top',
+                        horizontal: true,
                         //start: -45,//deg
                         animation: "into",
                         menus: [
                             {
                                 title: 'menu1',
-                                icon: '',
+                                icon: 'rect-icon',
                                 href: '#123'
                             },
                             {
-                                title: 'menu2',
+                                title: '菜单2',
                                 icon: '',
                                 href: ''
                             },
                             {
                                 title: 'menu3',
-                                icon: '',
+                                icon: 'rect-icon',
                                 href: ''
                             },
                             {
-                                title: 'menu4',
+                                title: '菜单4',
                                 icon: '',
                                 href: ''
-                            },{
+                            }, {
                                 title: 'menu5',
-                                icon: '',
+                                icon: 'rect-icon',
                                 href: ''
                             },
                             {
-                                title: 'menu6',
-                                icon: '',
+                                title: '菜单6',
+                                icon: 'rect-icon',
                                 href: ''
                             },
                             {
                                 title: 'menu7',
                                 icon: '',
+                                href: ''
+                            },
+                            {
+                                title: '菜单8',
+                                icon: 'rect-icon',
                                 href: ''
                             }
                         ]

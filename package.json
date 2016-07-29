@@ -31,6 +31,7 @@
   },
   "homepage": "https://github.com/yandongCoder/circular-menu#readme",
   "devDependencies": {
+    "font-awesome": "^4.6.3",
     "rollup": "^0.34.1"
   }
 }

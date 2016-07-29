@@ -116,14 +116,8 @@ $text-top: ($radius - $cover-radius) * 0.38;
 
 .cn-wrapper li a {
     position: absolute;
-    right: - $diameter / 2;
-    bottom: - $diameter / 2;
     display: block;
-    width: $diameter;
-    height: $diameter;
     border-radius: 50%;
-    background: #429a67;
-    background: radial-gradient(transparent $percent * 100%, #515151 $percent * 100%);
     color: #fff;
     text-align: center;
     text-decoration: none;
@@ -136,11 +130,17 @@ $text-top: ($radius - $cover-radius) * 0.38;
     //}
 }
 
-.cn-wrapper li a span {
+.rect-icon{
+    width: 40px;
+    height: 40px;
+    background: #fff;
+    display: inline-block !important;
+}
+
+.cn-wrapper li a span.text {
     //position: relative;
     //top: $text-top;
     display: block;
-    margin-top: $text-top;
     font-size: 13px;
     text-transform: uppercase;
 }

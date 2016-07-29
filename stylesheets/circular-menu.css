@@ -148,14 +148,8 @@ body {
 /* line 117, ../sass/circular-menu.scss */
 .cn-wrapper li a {
   position: absolute;
-  right: -200px;
-  bottom: -200px;
   display: block;
-  width: 400px;
-  height: 400px;
   border-radius: 50%;
-  background: #429a67;
-  background: radial-gradient(rgba(0, 0, 0, 0) 32%, #515151 32%);
   color: #fff;
   text-align: center;
   text-decoration: none;
@@ -164,10 +158,17 @@ body {
   pointer-events: auto;
 }
 
-/* line 139, ../sass/circular-menu.scss */
-.cn-wrapper li a span {
+/* line 133, ../sass/circular-menu.scss */
+.rect-icon {
+  width: 40px;
+  height: 40px;
+  background: #fff;
+  display: inline-block !important;
+}
+
+/* line 140, ../sass/circular-menu.scss */
+.cn-wrapper li a span.text {
   display: block;
-  margin-top: 42.43845px;
   font-size: 13px;
   text-transform: uppercase;
 }

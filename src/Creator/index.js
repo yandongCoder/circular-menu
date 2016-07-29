@@ -4,6 +4,7 @@ import createList from "./createList";
 import createMenu from "./createMenu";
 import createClickZone from "./createClickZone";
 import createText from "./createText";
+import createIcon from "./createIcon";
 import createHorizontal from "./createHorizontal";
 
 export default function Creator(parent, config){
@@ -19,5 +20,6 @@ Creator.prototype = {
     _createList: createList,
     _createClickZone: createClickZone,
     _createText: createText,
-    _createHorizontal: createHorizontal
+    _createHorizontal: createHorizontal,
+    _createIcon: createIcon
 };
