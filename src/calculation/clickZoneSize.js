@@ -1,3 +1,5 @@
+export const fixedTop  = 10;
+
 export default function (config) {
     var l = config.diameter;
     var m = - config.diameter / 2;

@@ -1,16 +1,6 @@
 @import 'compass';
 @import "compass/reset";
 @import "compass/css3";
-/// Remove the unit of a length
-/// @param {Number} $number - Number to remove unit from
-/// @return {Number} - Unitless number
-@function strip-unit($number) {
-  @if type-of($number) == 'number' and not unitless($number) {
-    @return $number / ($number * 0 + 1);
-  }
-
-  @return $number;
-}
 
 * {
     position: relative;
@@ -19,9 +9,30 @@
     margin: 0;
     padding: 0;
     list-style: none;
-    font-family: "Microsoft YaHei";
+    font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "STHeitiSC-Light", "Microsoft YaHei", Arial, sans-serif;
 }
 
+.cn-menu1{
+    position: absolute;
+    left: 30%;
+    top:50%;
+}
+.cn-menu2{
+    position: absolute;
+    left: 60%;
+    top:50%;
+}
+
+.rect-icon{
+    background: #fff;
+    display: inline-block !important;
+}
+
+.circle-icon{
+    background: #123456;
+    display: inline-block !important;
+    border-radius: 50%;
+}
 
 html,
 body {
@@ -31,45 +42,16 @@ body {
     background: #52be7f;
     color: #fff;
 }
-$background: #52be7f;
+
 $percent: 0.32;
-$items : 7;// item number;
-$total-angle: 360deg; //sum angle of all items, < 360 semi-circle, = 360 complete-circle
-$space: 3deg; // space between items
-$diameter: 400px;//complete circle radius
-$space-number: if($total-angle == 360deg, $items, $items - 1);
-$central-angle: ($total-angle - ($space * $space-number )) / $items;// - ($space * ($items - 1) ) //central angle of each item, it must < 90 deg
-$rotate: $central-angle + $space;
-$skew: 90deg - $central-angle;
-
-$unskew: - (90deg - $central-angle / 2);
-$top: - ( ($total-angle - 180deg) / 2); // - ( ($total-angle + ($items - 1) * $space - 180deg) / 2);
-$left: $top - 90deg;
-$right: $top + 90deg;
-$bottom: $top + 180deg;
-$start: $top;
-//$text-top: $diameter / 2 * $percent / 2 + 5px;
-
 $time: 0.3s;
 
-$radius: $diameter / 2 + 4px;
-$square: ($radius * strip-unit($radius)) * 2;
-$cover-radius:  sqrt($square) * $percent;
-
-$text-top: ($radius - $cover-radius) * 0.38;
-
 .cn-wrapper {
-    position: absolute;
-    top: 100%;
-    left: 50%;
     z-index: 10;
-    margin-top: - $diameter / 2;
-    margin-left: - $diameter / 2;
-    width: $diameter;
-    height: $diameter;
     border-radius: 50%;
-    background: $background;//transparent
+    background: transparent;
     opacity: 0;
+    position: absolute;
     transition: all .3s ease 0.3s;
     transform: scale(0.1);
     pointer-events: none;
@@ -80,19 +62,13 @@ $text-top: ($radius - $cover-radius) * 0.38;
 .cn-wrapper:after{
     content:".";
     display:block;
-    width: $cover-radius * 2;
-    height: $cover-radius * 2;
-
     position: absolute;
     left: 50%;
-    margin-left: -$cover-radius;
     top:50%;
-    margin-top: -$cover-radius;
     border-radius: 50%;
     z-index:10;
     color: transparent;
     box-sizing: border-box;
-    border: 3px solid $background;
 }
 
 .opened-nav {
@@ -106,8 +82,6 @@ $text-top: ($radius - $cover-radius) * 0.38;
 .cn-wrapper li {
     position: absolute;
     overflow: hidden;
-    width: $diameter / 2;
-    height: $diameter / 2;
     transition: all .3s ease;
     border: 1px solid transparent;
     transform-origin: 100% 100%;
@@ -119,9 +93,9 @@ $text-top: ($radius - $cover-radius) * 0.38;
     display: block;
     border-radius: 50%;
     color: #fff;
+    padding-top: 10px;
     text-align: center;
     text-decoration: none;
-    line-height: 2;
     backface-visibility: hidden;
     pointer-events: auto;
 
@@ -130,19 +104,12 @@ $text-top: ($radius - $cover-radius) * 0.38;
     //}
 }
 
-.rect-icon{
-    width: 40px;
-    height: 40px;
-    background: #fff;
-    display: inline-block !important;
-}
-
 .cn-wrapper li a span.text {
     //position: relative;
-    //top: $text-top;
     display: block;
     font-size: 13px;
     text-transform: uppercase;
+    font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "STHeitiSC-Light", "Microsoft YaHei", Arial, sans-serif;
 }
 
 .cn-wrapper li a:hover,

@@ -63,7 +63,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   display: block;
 }
 
-/* line 15, ../sass/circular-menu.scss */
+/* line 5, ../sass/circular-menu.scss */
 * {
   position: relative;
   -moz-box-sizing: border-box;
@@ -71,34 +71,55 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   margin: 0;
   padding: 0;
   list-style: none;
-  font-family: "Microsoft YaHei";
+  font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "STHeitiSC-Light", "Microsoft YaHei", Arial, sans-serif;
+}
+
+/* line 15, ../sass/circular-menu.scss */
+.cn-menu1 {
+  position: absolute;
+  left: 30%;
+  top: 50%;
+}
+
+/* line 20, ../sass/circular-menu.scss */
+.cn-menu2 {
+  position: absolute;
+  left: 60%;
+  top: 50%;
 }
 
 /* line 26, ../sass/circular-menu.scss */
+.rect-icon {
+  background: #fff;
+  display: inline-block !important;
+}
+
+/* line 31, ../sass/circular-menu.scss */
+.circle-icon {
+  background: #123456;
+  display: inline-block !important;
+  border-radius: 50%;
+}
+
+/* line 37, ../sass/circular-menu.scss */
 html,
 body {
   height: 100%;
 }
 
-/* line 30, ../sass/circular-menu.scss */
+/* line 41, ../sass/circular-menu.scss */
 body {
   background: #52be7f;
   color: #fff;
 }
 
-/* line 61, ../sass/circular-menu.scss */
+/* line 49, ../sass/circular-menu.scss */
 .cn-wrapper {
-  position: absolute;
-  top: 100%;
-  left: 50%;
   z-index: 10;
-  margin-top: -200px;
-  margin-left: -200px;
-  width: 400px;
-  height: 400px;
   border-radius: 50%;
-  background: #52be7f;
+  background: transparent;
   opacity: 0;
+  position: absolute;
   transition: all .3s ease 0.3s;
   transform: scale(0.1);
   pointer-events: none;
@@ -106,25 +127,20 @@ body {
 }
 
 /*cover to prevent extra space of anchors from being clickable*/
-/* line 80, ../sass/circular-menu.scss */
+/* line 62, ../sass/circular-menu.scss */
 .cn-wrapper:after {
   content: ".";
   display: block;
-  width: 184.63972px;
-  height: 184.63972px;
   position: absolute;
   left: 50%;
-  margin-left: -92.31986px;
   top: 50%;
-  margin-top: -92.31986px;
   border-radius: 50%;
   z-index: 10;
   color: transparent;
   box-sizing: border-box;
-  border: 3px solid #52be7f;
 }
 
-/* line 98, ../sass/circular-menu.scss */
+/* line 74, ../sass/circular-menu.scss */
 .opened-nav {
   border-radius: 50%;
   opacity: 1;
@@ -133,65 +149,56 @@ body {
   pointer-events: auto;
 }
 
-/* line 106, ../sass/circular-menu.scss */
+/* line 82, ../sass/circular-menu.scss */
 .cn-wrapper li {
   position: absolute;
   overflow: hidden;
-  width: 200px;
-  height: 200px;
   transition: all .3s ease;
   border: 1px solid transparent;
   transform-origin: 100% 100%;
   pointer-events: none;
 }
 
-/* line 117, ../sass/circular-menu.scss */
+/* line 91, ../sass/circular-menu.scss */
 .cn-wrapper li a {
   position: absolute;
   display: block;
   border-radius: 50%;
   color: #fff;
+  padding-top: 10px;
   text-align: center;
   text-decoration: none;
-  line-height: 2;
   backface-visibility: hidden;
   pointer-events: auto;
 }
 
-/* line 133, ../sass/circular-menu.scss */
-.rect-icon {
-  width: 40px;
-  height: 40px;
-  background: #fff;
-  display: inline-block !important;
-}
-
-/* line 140, ../sass/circular-menu.scss */
+/* line 107, ../sass/circular-menu.scss */
 .cn-wrapper li a span.text {
   display: block;
   font-size: 13px;
   text-transform: uppercase;
+  font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "STHeitiSC-Light", "Microsoft YaHei", Arial, sans-serif;
 }
 
-/* line 148, ../sass/circular-menu.scss */
+/* line 115, ../sass/circular-menu.scss */
 .cn-wrapper li a:hover,
 .cn-wrapper li a:active,
 .cn-wrapper li a:focus {
   background: radial-gradient(rgba(0, 0, 0, 0) 32%, #449e6a 32%);
 }
 
-/* line 153, ../sass/circular-menu.scss */
+/* line 120, ../sass/circular-menu.scss */
 .cn-wrapper li a:focus {
   position: fixed;
   /* fix the displacement bug in webkit browsers when using tab key */
 }
 
-/* line 157, ../sass/circular-menu.scss */
+/* line 124, ../sass/circular-menu.scss */
 .opened-nav li {
   transition: all .3s ease .3s;
 }
 
-/* line 162, ../sass/circular-menu.scss */
+/* line 129, ../sass/circular-menu.scss */
 .no-csstransforms .cn-wrapper {
   overflow: hidden;
   margin: 10em auto;
@@ -199,12 +206,12 @@ body {
   text-align: center;
 }
 
-/* line 169, ../sass/circular-menu.scss */
+/* line 136, ../sass/circular-menu.scss */
 .no-csstransforms .cn-wrapper ul {
   display: inline-block;
 }
 
-/* line 173, ../sass/circular-menu.scss */
+/* line 140, ../sass/circular-menu.scss */
 .no-csstransforms .cn-wrapper li {
   float: left;
   width: 5em;
@@ -215,7 +222,7 @@ body {
   line-height: 5em;
 }
 
-/* line 183, ../sass/circular-menu.scss */
+/* line 150, ../sass/circular-menu.scss */
 .no-csstransforms .cn-wrapper li a {
   display: block;
   width: 100%;
@@ -224,26 +231,26 @@ body {
   text-decoration: none;
 }
 
-/* line 191, ../sass/circular-menu.scss */
+/* line 158, ../sass/circular-menu.scss */
 .no-csstransforms .cn-wrapper li a:hover,
 .no-csstransforms .cn-wrapper li a:active,
 .no-csstransforms .cn-wrapper li a:focus {
   background-color: #f8f8f8;
 }
 
-/* line 197, ../sass/circular-menu.scss */
+/* line 164, ../sass/circular-menu.scss */
 .no-csstransforms .cn-wrapper li.active a {
   background-color: #6F325C;
   color: #fff;
 }
 
-/* line 202, ../sass/circular-menu.scss */
+/* line 169, ../sass/circular-menu.scss */
 .no-csstransforms .cn-button {
   display: none;
 }
 
 @media only screen and (max-width: 620px) {
-  /* line 207, ../sass/circular-menu.scss */
+  /* line 174, ../sass/circular-menu.scss */
   .no-csstransforms li {
     width: 4em;
     height: 4em;
@@ -251,12 +258,12 @@ body {
   }
 }
 @media only screen and (max-width: 500px) {
-  /* line 215, ../sass/circular-menu.scss */
+  /* line 182, ../sass/circular-menu.scss */
   .no-ccstransforms .cn-wrapper {
     padding: .5em;
   }
 
-  /* line 219, ../sass/circular-menu.scss */
+  /* line 186, ../sass/circular-menu.scss */
   .no-csstransforms .cn-wrapper li {
     width: 4em;
     height: 4em;
@@ -265,18 +272,18 @@ body {
   }
 }
 @media only screen and (max-width: 480px) {
-  /* line 228, ../sass/circular-menu.scss */
+  /* line 195, ../sass/circular-menu.scss */
   .cn-wrapper {
     font-size: .68em;
   }
 
-  /* line 232, ../sass/circular-menu.scss */
+  /* line 199, ../sass/circular-menu.scss */
   .cn-button {
     font-size: 1em;
   }
 }
 @media only screen and (max-width: 420px) {
-  /* line 238, ../sass/circular-menu.scss */
+  /* line 205, ../sass/circular-menu.scss */
   .no-csstransforms .cn-wrapper li {
     width: 100%;
     height: 3em;

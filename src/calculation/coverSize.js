@@ -1,7 +1,12 @@
-export default function (config) {
-    var radius = config.diameter / 2 + 4,
-        square = radius * radius * 2;
-    var l = Math.sqrt(square) * config.percent * 2;
+const antialiasing = 3;
+
+export function coverRadius(radius, percent) {
+    var square = radius * radius * 2;
+    return Math.sqrt(square) * percent + antialiasing;
+}
+
+export default function (coverRadius) {
+    var l = coverRadius * 2;
     var m = -l / 2;
 
     l += "px";

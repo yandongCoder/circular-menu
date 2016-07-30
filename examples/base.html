@@ -7,17 +7,80 @@
     <link rel="stylesheet" href="../stylesheets/circular-menu.css">
 </head>
 <body>
-<div id="circle-menu" class="abc"></div>
+<div id="circle-menu1" class="cn-menu1"></div>
+<div id="circle-menu2" class="cn-menu2"></div>
 </body>
 </html>
 <script src="../circular-menu.js"></script>
 <script>
-    var cmenu = CMenu("#circle-menu")
+    var cmenu = CMenu("#circle-menu1")
             .config({
                         totalAngle: 360,//deg,
                         spaceDeg: 0,//deg
                         background: "#515151",
-                        webBackground: "#52be7f",
+                        pageBackground: "#52be7f",
+                        percent: 0.32,//%
+                        diameter: 300,//px
+                        position: 'top',
+                        horizontal: true,
+                        //start: -45,//deg
+                        animation: "into",
+                        menus: [
+                            {
+                                title: 'menu1',
+                                icon: '',
+                                href: '#123'
+                            },
+                            {
+                                title: '菜单2',
+                                icon: '',
+                                href: ''
+                            },
+                            {
+                                title: 'menu3',
+                                icon: '',
+                                href: ''
+                            },
+                            {
+                                title: '菜单4',
+                                icon: '',
+                                href: ''
+                            }, {
+                                title: 'menu5',
+                                icon: '',
+                                href: ''
+                            },
+                            {
+                                title: '菜单6',
+                                icon: '',
+                                href: ''
+                            },
+                            {
+                                title: 'menu7',
+                                icon: '',
+                                href: ''
+                            },
+                            {
+                                title: '菜单8',
+                                icon: '',
+                                href: ''
+                            }
+                        ]
+                    });
+    //            .on({
+    //                    'click': function (menu) {
+    //
+    //                    }
+    //                });
+
+    //cmenu.show();
+    //console.log(cmenu);
+    var cmenu2 = CMenu("#circle-menu2")
+            .config({
+                        totalAngle: 360,//deg,
+                        spaceDeg: 0,//deg
+                        background: "#515151",
+                        pageBackground: "#52be7f",
                         percent: 0.32,//%
                         diameter: 300,//px
                         position: 'top',
@@ -32,46 +95,38 @@
                             },
                             {
                                 title: '菜单2',
-                                icon: '',
+                                icon: 'circle-icon',
                                 href: ''
                             },
                             {
                                 title: 'menu3',
-                                icon: 'rect-icon',
+                                icon: 'fa fa-cc-visa',
                                 href: ''
                             },
                             {
                                 title: '菜单4',
-                                icon: '',
+                                icon: ['fa fa-gg-circle', '#11efab'],
                                 href: ''
                             }, {
                                 title: 'menu5',
-                                icon: 'rect-icon',
+                                icon: ['fa fa-bicycle', '#f2d1a3'],
                                 href: ''
                             },
                             {
                                 title: '菜单6',
-                                icon: 'rect-icon',
+                                icon: 'fa fa-comment',
                                 href: ''
                             },
                             {
                                 title: 'menu7',
-                                icon: '',
+                                icon: 'fa fa-tree',
                                 href: ''
                             },
                             {
                                 title: '菜单8',
-                                icon: 'rect-icon',
+                                icon: 'fa fa-google-wallet',
                                 href: ''
                             }
                         ]
                     });
-    //            .on({
-    //                    'click': function (menu) {
-    //
-    //                    }
-    //                });
-
-    //cmenu.show();
-    //console.log(cmenu);
 </script>

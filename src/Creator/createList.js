@@ -10,6 +10,6 @@ export default function(parent, data, index){
 
     parent.appendChild(list);
 
-    this._createClickZone(list, data, index);
+    this._createAnchor(list, data, index);
 
 }

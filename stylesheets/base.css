@@ -71,7 +71,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   margin: 0;
   padding: 0;
   list-style: none;
-  font-family: "Microsoft YaHei";
+  font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "STHeitiSC-Light", "Microsoft YaHei", Arial, sans-serif;
 }
 
 /* line 26, ../sass/base.scss */

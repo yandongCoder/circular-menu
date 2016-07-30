@@ -25,10 +25,15 @@
         return config.start !== undefined ? config.start : positions[config.position];
     }
 
-    function coverSize (config) {
-        var radius = config.diameter / 2 + 4,
-            square = radius * radius * 2;
-        var l = Math.sqrt(square) * config.percent * 2;
+    const antialiasing = 3;
+
+    function coverRadius(radius, percent) {
+        var square = radius * radius * 2;
+        return Math.sqrt(square) * percent + antialiasing;
+    }
+
+    function coverSize (coverRadius) {
+        var l = coverRadius * 2;
         var m = -l / 2;
 
         l += "px";
@@ -57,6 +62,8 @@
         };
     }
 
+    const fixedTop  = 10;
+
     function clickZoneSize (config) {
         var l = config.diameter;
         var m = - config.diameter / 2;
@@ -81,12 +88,11 @@
         };
     }
 
-    function textTop (config) {
-        var radius = config.diameter / 2 + 4,
-            square = radius * radius * 2;
-        var coverRadius = Math.sqrt(square) * config.percent;
-        
-        return (radius - coverRadius) * 0.38 + 'px';
+    const middleRatio = 0.41;
+
+    function textTop (clickZoneRadius) {
+        return clickZoneRadius * middleRatio - fixedTop + 'px';
+
     }
 
     function Calculation(config) {
@@ -95,37 +101,23 @@
         var c = this.config = config,
             itemsNum = c.menus.length,
             spaceNumber = c.totalAngle === 360 ? itemsNum : itemsNum - 1;
-        // $background: #52be7f;
-        // $percent: 0.32;
-        // $items : 7;// item number;
-        // $total-angle: 360deg; //sum angle of all items, < 360 semi-circle, = 360 complete-circle
-        // $space: 0deg; // space between items
-        // $diameter: 400px;//complete circle radius
-        // $space-number: if($total-angle == 360deg, $items, $items - 1);
-        // $central-angle: ($total-angle - ($space * $space-number )) / $items;// - ($space * ($items - 1) ) //central angle of each item, it must < 90 deg
-        // $rotate: $central-angle + $space;
-        // $skew: 90deg - $central-angle;
-        //
-        // $unskew: - (90deg - $central-angle / 2);
-        // $top: - ( ($total-angle - 180deg) / 2); // - ( ($total-angle + ($items - 1) * $space - 180deg) / 2);
-        // $left: $top - 90deg;
-        // $right: $top + 90deg;
-        // $bottom: $top + 180deg;
-        // $start: $top;
-        // $text-top: $diameter / 2 * $percent / 2 + 5px;
-        // $time: 0.3s;
+
+        this.radius = config.diameter / 2;
+        this.coverRadius = coverRadius(this.radius, config.percent);
+        this.clickZoneRadius = this.radius - this.coverRadius;
+
 
 
         this.listSize = listSize(config);
         this.clickZoneSize = clickZoneSize(config);
         this.menuSize = menuSize(config);
-        this.coverSize = coverSize(config);
+        this.coverSize = coverSize(this.coverRadius);
         this.startDeg = startDeg(config);
         this.centralDeg = (c.totalAngle - (c.spaceDeg * spaceNumber)) / itemsNum;
         this.rotateUnit = this.centralDeg + c.spaceDeg;
         this.skewDeg = 90 - this.centralDeg;
         this.unskewDeg = - (90 - this.centralDeg / 2);
-        this.textTop = textTop(config);
+        this.textTop = textTop(this.clickZoneRadius);
     }
 
     Calculation.prototype = {
@@ -186,7 +178,7 @@
 
         parent.appendChild(list);
 
-        this._createClickZone(list, data, index);
+        this._createAnchor(list, data, index);
 
     }
 
@@ -296,12 +288,13 @@
         pseudoStyle(p, 'after', 'height', this._calc.coverSize.height);
         pseudoStyle(p, 'after', 'margin-left', this._calc.coverSize.marginLeft);
         pseudoStyle(p, 'after', 'margin-top', this._calc.coverSize.marginTop);
+        pseudoStyle(p, 'after', 'border', "3px solid " + this._config.pageBackground);
 
         var ul = p.appendChild(document.createElement('ul'));
         this._createLists(ul);
     }
 
-    function createClickZone (parent, data, index) {
+    function createAnchor (parent, data, index) {
         var a = document.createElement('a');
         a.href = data.href;
 
@@ -320,8 +313,21 @@
         this._createHorizontal(a, data, index);
     }
 
+    const sizeRatio = 0.65;
+    const marginTopRatio = 0.25;
+    const fontHeight = 13;
+
     function hasIcon(icon){
-        return icon !== "";
+        if(typeof icon === "string") return icon !== "";
+        else return icon.length && icon[0] !== "";
+    }
+
+    function getIcon(icon){
+        return typeof icon === "string"? icon : icon[0];
+    }
+
+    function getIconColor(icon){
+        return typeof icon === "string"? null : icon[1];
     }
 
     function createIcon (parent, data, index) {
@@ -329,11 +335,23 @@
 
         var span = document.createElement('span');
 
-        classed(span, data.icon, true);
-        //style(span, 'margin-top', this._calc.textTop);
+        var icon = getIcon(data.icon),
+            color = getIconColor(data.icon);
+
+        classed(span, icon, true);
+        style(span, 'color', color);
+
+        var l = this._calc.clickZoneRadius * sizeRatio - fontHeight + "px",
+            m = this._calc.clickZoneRadius * marginTopRatio - fontHeight + "px";
+        style(span, 'width', l);
+        style(span, 'height', l);
+        style(span, 'font-size', l);
+        style(span, 'margin-top', m);
 
         parent.appendChild(span);
     }
+
+    const withIconTop = "3px";
 
     function createText (parent, data, index) {
 
@@ -341,7 +359,7 @@
         span.textContent = data.title;
 
         classed(span, 'text', true);
-        style(span, 'margin-top', hasIcon(data.icon)? "-10px": this._calc.textTop);
+        style(span, 'margin-top', hasIcon(data.icon)? withIconTop : this._calc.textTop);
 
         parent.appendChild(span);
     }
@@ -349,7 +367,8 @@
     function createHorizontal (parent, data, index) {
 
         var div = document.createElement('div');
-        
+        classed(div, "horizontal", true);
+
         if(this._config.horizontal) style(div, 'transform', 'rotate('+ this._calc.horizontalDeg(index) +'deg)');
 
         parent.appendChild(div);
@@ -364,12 +383,13 @@
         this._calc = new Calculation(config);
     }
 
+
     Creator.prototype = {
         constructor: Creator,
         createMenu: createMenu,
         _createLists: createLists,
         _createList: createList,
-        _createClickZone: createClickZone,
+        _createAnchor: createAnchor,
         _createText: createText,
         _createHorizontal: createHorizontal,
         _createIcon: createIcon

@@ -15,6 +15,7 @@ export default function(){
     pseudoStyle(p, 'after', 'height', this._calc.coverSize.height);
     pseudoStyle(p, 'after', 'margin-left', this._calc.coverSize.marginLeft);
     pseudoStyle(p, 'after', 'margin-top', this._calc.coverSize.marginTop);
+    pseudoStyle(p, 'after', 'border', "3px solid " + this._config.pageBackground);
 
     var ul = p.appendChild(document.createElement('ul'));
     this._createLists(ul);
