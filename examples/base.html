@@ -81,7 +81,7 @@
                                 title: 'menu1',
                                 icon: 'fa fa-circle',
                                 href: '#1',
-                                click: function(e, data){
+                                click: function (e, data) {
                                     console.log(data);
                                     console.log(e);
                                     console.log(this);
@@ -167,9 +167,14 @@
                         ]
                     });
 
-    setTimeout(function(){
-        cmenu.show();
-    },1000);
+    setTimeout(function () {
+        cmenu
+//                .styles({
+//                            top: '200px',
+//                            left: '600px'
+//                        })
+                .show();
+    }, 1000);
     var cmenu2 = CMenu("#circle-menu2")
             .config({
                         totalAngle: 360,//deg,

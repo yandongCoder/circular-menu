@@ -10,8 +10,6 @@ export default function createSubMenu (menus, index) {
     var subMenu = document.createElement('div');
 
     classed(subMenu, 'sub-menu', true);
-    style(subMenu, 'top', this._container.offsetTop +  this._calc.radius + 'px');
-    style(subMenu, 'left', this._container.offsetLeft + this._calc.radius + 'px');
 
     this._container.parentNode.insertBefore(subMenu, this._container);
 

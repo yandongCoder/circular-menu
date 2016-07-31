@@ -312,8 +312,6 @@
         var subMenu = document.createElement('div');
 
         classed(subMenu, 'sub-menu', true);
-        style(subMenu, 'top', this._container.offsetTop +  this._calc.radius + 'px');
-        style(subMenu, 'left', this._container.offsetLeft + this._calc.radius + 'px');
 
         this._container.parentNode.insertBefore(subMenu, this._container);
 
@@ -337,7 +335,7 @@
                     });
     }
 
-    function hasSubMenus(menus){
+    function hasSubMenus(menus) {
         return menus instanceof Array && menus.length !== 0;
     }
 
@@ -349,17 +347,17 @@
         style(a, 'height', this._calc.clickZoneSize.height);
         style(a, 'right', this._calc.clickZoneSize.marginRight);
         style(a, 'bottom', this._calc.clickZoneSize.marginBottom);
-        style(a, 'transform', 'skew('+ -this._calc.skewDeg +'deg) rotate('+ this._calc.unskewDeg +'deg) scale(1)');
+        style(a, 'transform', 'skew(' + -this._calc.skewDeg + 'deg) rotate(' + this._calc.unskewDeg + 'deg) scale(1)');
 
-        if(data.disabled) classed(a, 'disabled', true);
+        if (data.disabled) classed(a, 'disabled', true);
 
 
         var percent = this._config.percent * 100 + "%";
-        styleSheet(a, 'background', 'radial-gradient(transparent '+ percent +', '+ this._config.background +' '+ percent +')');
-        styleSheet(a, 'background', 'radial-gradient(transparent '+ percent +', '+ this._config.backgroundHover +' '+ percent +')', 'hover');
+        styleSheet(a, 'background', 'radial-gradient(transparent ' + percent + ', ' + this._config.background + ' ' + percent + ')');
+        styleSheet(a, 'background', 'radial-gradient(transparent ' + percent + ', ' + this._config.backgroundHover + ' ' + percent + ')', 'hover');
 
         
-        if(data.click) on(a, 'click', data.click, data);
+        if (data.click) on(a, 'click', data.click, data);
 
         parent.appendChild(a);
 
@@ -367,29 +365,35 @@
         
         
         //toggle subMenu
-        if(hasSubMenus(data.menus)){
+        if (hasSubMenus(data.menus)) {
+            var menu = this;
+
             var subMenu = this._createSubMenu(data.menus, index);
             var delayHide = null;
 
-            on(a, 'mouseenter', function(){
-                subMenu.show();
+            on(a, 'mouseenter', function () {
+                subMenu
+                    .styles({
+                                top: menu._container.offsetTop + menu._calc.radius + 'px',
+                                left: menu._container.offsetLeft + menu._calc.radius + 'px'
+                            })
+                    .show();
             });
 
-            on(a, 'mouseleave', function(e){
-                if(!subMenu._element.contains(e.toElement)){
-                    delayHide = setTimeout(function(){
+            on(a, 'mouseleave', function (e) {
+                if (!subMenu._container.contains(e.toElement)) {
+                    delayHide = setTimeout(function () {
                         subMenu.hide();
-                    },200);
+                    }, 200);
                 }
             });
 
-
-            on(subMenu._element, 'mouseenter', function(){
+            on(subMenu._container, 'mouseenter', function () {
                 clearTimeout(delayHide);
             });
 
-            on(subMenu._element, 'mouseleave', function(e){
-                if(!a.contains(e.toElement)){
+            on(subMenu._container, 'mouseleave', function (e) {
+                if (!a.contains(e.toElement)) {
                     subMenu.hide();
                 }
             });
@@ -536,31 +540,42 @@
 
         config = extend$1(defaultConfig, config);
 
-        this._creator = new Creator(this._element, config);
+        this._creator = new Creator(this._container, config);
         this._creator.createMenu();
 
         return this;
     }
 
     function show () {
-        classed(this._element, 'opened-nav', true);
+        classed(this._container, 'opened-nav', true);
         return this;
     }
 
     function hide () {
-        classed(this._element, 'opened-nav', false);
+        classed(this._container, 'opened-nav', false);
+        return this;
+    }
+
+    function styles (styles) {
+        if(!styles instanceof Object) return this;
+        
+        for(var k in styles){
+            if(styles.hasOwnProperty(k)) style(this._container, k, styles[k]);
+        }
+
         return this;
     }
 
     function CMenu$1(element){
-        this._element = element;
+        this._container = element;
     }
 
     CMenu$1.prototype = {
         constructor: CMenu$1,
         config: config,
         show: show,
-        hide: hide
+        hide: hide,
+        styles: styles
 
     };
 
