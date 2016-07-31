@@ -1,0 +1,293 @@
+/* line 13, ../sass/horizontal.scss */
+* {
+  position: relative;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: "Microsoft YaHei";
+}
+
+/* line 24, ../sass/horizontal.scss */
+html,
+body {
+  height: 100%;
+}
+
+/* line 28, ../sass/horizontal.scss */
+body {
+  background: #52be7f;
+  color: #fff;
+}
+
+/* line 58, ../sass/horizontal.scss */
+.cn-wrapper {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  z-index: 10;
+  margin-top: -150px;
+  margin-left: -150px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: #52be7f;
+  opacity: 0;
+  transition: all .3s ease 0.3s;
+  transform: scale(0.1);
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/*cover to prevent extra space of anchors from being clickable*/
+/* line 77, ../sass/horizontal.scss */
+.cn-wrapper:after {
+  content: ".";
+  display: block;
+  width: 139.38489px;
+  height: 139.38489px;
+  position: absolute;
+  left: 50%;
+  margin-left: -69.69244px;
+  top: 50%;
+  margin-top: -69.69244px;
+  border-radius: 50%;
+  z-index: 10;
+  color: transparent;
+  box-sizing: border-box;
+  border: 3px solid #52be7f;
+}
+
+/* line 95, ../sass/horizontal.scss */
+.opened-nav {
+  border-radius: 50%;
+  opacity: 1;
+  transition: all .3s ease;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+/* line 103, ../sass/horizontal.scss */
+.cn-wrapper li {
+  position: absolute;
+  overflow: hidden;
+  width: 150px;
+  height: 150px;
+  transition: all .3s ease;
+  transform: rotate(76deg) skew(50deg);
+  border: 1px solid transparent;
+  transform-origin: 100% 100%;
+  pointer-events: none;
+}
+
+/* line 115, ../sass/horizontal.scss */
+.cn-wrapper li a {
+  position: absolute;
+  right: -150px;
+  bottom: -150px;
+  display: block;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: #429a67;
+  background: radial-gradient(rgba(0, 0, 0, 0) 32%, #515151 32%);
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  line-height: 2;
+  transform: skew(-50deg) rotate(-70deg) scale(1);
+  backface-visibility: hidden;
+  pointer-events: auto;
+}
+
+/* line 134, ../sass/horizontal.scss */
+.cn-wrapper li a span {
+  margin-top: 32.03687px;
+  display: block;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
+/* line 143, ../sass/horizontal.scss */
+.cn-wrapper li a:hover,
+.cn-wrapper li a:active,
+.cn-wrapper li a:focus {
+  background: radial-gradient(rgba(0, 0, 0, 0) 32%, #449e6a 32%);
+}
+
+/* line 148, ../sass/horizontal.scss */
+.cn-wrapper li a:focus {
+  position: fixed;
+  /* fix the displacement bug in webkit browsers when using tab key */
+}
+
+/* line 152, ../sass/horizontal.scss */
+.opened-nav li {
+  transition: all .3s ease .3s;
+}
+
+/* line 169, ../sass/horizontal.scss */
+.opened-nav li:first-child {
+  transform: rotate(-45deg) skew(50deg);
+}
+/* line 164, ../sass/horizontal.scss */
+.opened-nav li:first-child .reverse {
+  transform: rotate(115deg);
+}
+
+/* line 173, ../sass/horizontal.scss */
+.opened-nav li:nth-child(2) {
+  transform: rotate(-5deg) skew(50deg);
+}
+/* line 164, ../sass/horizontal.scss */
+.opened-nav li:nth-child(2) .reverse {
+  transform: rotate(75deg);
+}
+
+/* line 177, ../sass/horizontal.scss */
+.opened-nav li:nth-child(3) {
+  transform: rotate(35deg) skew(50deg);
+}
+/* line 164, ../sass/horizontal.scss */
+.opened-nav li:nth-child(3) .reverse {
+  transform: rotate(35deg);
+}
+
+/* line 181, ../sass/horizontal.scss */
+.opened-nav li:nth-child(4) {
+  transform: rotate(75deg) skew(50deg);
+}
+/* line 164, ../sass/horizontal.scss */
+.opened-nav li:nth-child(4) .reverse {
+  transform: rotate(-5deg);
+}
+
+/* line 185, ../sass/horizontal.scss */
+.opened-nav li:nth-child(5) {
+  transform: rotate(115deg) skew(50deg);
+}
+/* line 164, ../sass/horizontal.scss */
+.opened-nav li:nth-child(5) .reverse {
+  transform: rotate(-45deg);
+}
+
+/* line 189, ../sass/horizontal.scss */
+.opened-nav li:nth-child(6) {
+  transform: rotate(155deg) skew(50deg);
+}
+/* line 164, ../sass/horizontal.scss */
+.opened-nav li:nth-child(6) .reverse {
+  transform: rotate(-85deg);
+}
+
+/* line 193, ../sass/horizontal.scss */
+.opened-nav li:nth-child(7) {
+  transform: rotate(195deg) skew(50deg);
+}
+/* line 164, ../sass/horizontal.scss */
+.opened-nav li:nth-child(7) .reverse {
+  transform: rotate(-125deg);
+}
+
+/* line 197, ../sass/horizontal.scss */
+.opened-nav li:nth-child(8) {
+  transform: rotate(235deg) skew(50deg);
+}
+/* line 164, ../sass/horizontal.scss */
+.opened-nav li:nth-child(8) .reverse {
+  transform: rotate(-165deg);
+}
+
+/* line 202, ../sass/horizontal.scss */
+.no-csstransforms .cn-wrapper {
+  overflow: hidden;
+  margin: 10em auto;
+  padding: .5em;
+  text-align: center;
+}
+
+/* line 209, ../sass/horizontal.scss */
+.no-csstransforms .cn-wrapper ul {
+  display: inline-block;
+}
+
+/* line 213, ../sass/horizontal.scss */
+.no-csstransforms .cn-wrapper li {
+  float: left;
+  width: 5em;
+  height: 5em;
+  background-color: #fff;
+  text-align: center;
+  font-size: 1em;
+  line-height: 5em;
+}
+
+/* line 223, ../sass/horizontal.scss */
+.no-csstransforms .cn-wrapper li a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+
+/* line 231, ../sass/horizontal.scss */
+.no-csstransforms .cn-wrapper li a:hover,
+.no-csstransforms .cn-wrapper li a:active,
+.no-csstransforms .cn-wrapper li a:focus {
+  background-color: #f8f8f8;
+}
+
+/* line 237, ../sass/horizontal.scss */
+.no-csstransforms .cn-wrapper li.active a {
+  background-color: #6F325C;
+  color: #fff;
+}
+
+/* line 242, ../sass/horizontal.scss */
+.no-csstransforms .cn-button {
+  display: none;
+}
+
+@media only screen and (max-width: 620px) {
+  /* line 247, ../sass/horizontal.scss */
+  .no-csstransforms li {
+    width: 4em;
+    height: 4em;
+    line-height: 4em;
+  }
+}
+@media only screen and (max-width: 500px) {
+  /* line 255, ../sass/horizontal.scss */
+  .no-ccstransforms .cn-wrapper {
+    padding: .5em;
+  }
+
+  /* line 259, ../sass/horizontal.scss */
+  .no-csstransforms .cn-wrapper li {
+    width: 4em;
+    height: 4em;
+    font-size: .9em;
+    line-height: 4em;
+  }
+}
+@media only screen and (max-width: 480px) {
+  /* line 268, ../sass/horizontal.scss */
+  .cn-wrapper {
+    font-size: .68em;
+  }
+
+  /* line 272, ../sass/horizontal.scss */
+  .cn-button {
+    font-size: 1em;
+  }
+}
+@media only screen and (max-width: 420px) {
+  /* line 278, ../sass/horizontal.scss */
+  .no-csstransforms .cn-wrapper li {
+    width: 100%;
+    height: 3em;
+    line-height: 3em;
+  }
+}
