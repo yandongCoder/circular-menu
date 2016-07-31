@@ -5,3 +5,4 @@ export default function (selector) {
         ? new CMenu(document.querySelector(selector))
         : new CMenu(selector);
 }
+

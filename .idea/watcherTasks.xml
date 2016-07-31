@@ -103,7 +103,7 @@
       <envs />
     </TaskOptions>
     <TaskOptions isEnabled="true">
-      <option name="arguments" value="-o circular-menu.js --banner //circular-menu -m -f umd -n CMenu C:\opt\circular-menu\index.js" />
+      <option name="arguments" value="-o dist/js/circular-menu.js --banner //circular-menu -m -f umd -n CMenu C:\opt\circular-menu\index.js" />
       <option name="checkSyntaxErrors" value="true" />
       <option name="description" value="rollup JS" />
       <option name="exitCodeBehavior" value="ERROR" />
