@@ -63,7 +63,8 @@
 </html>
 <script src="../dist/js/circular-menu.js"></script>
 <script>
-    var cmenu = CMenu("#circle-menu1")
+    var ele = document.querySelector('#circle-menu1');
+    var cmenu = CMenu(ele)
             .config({
                         totalAngle: 360,//deg,
                         spaceDeg: 0,//deg

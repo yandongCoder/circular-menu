@@ -1,14 +1,6 @@
-* {
-  position: relative;
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "STHeitiSC-Light", "Microsoft YaHei", Arial, sans-serif;
-}
-
 $time: 0.3s;
 .circular-menu {
+  font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "STHeitiSC-Light", "Microsoft YaHei", Arial, sans-serif;
   z-index: 10;
   border-radius: 50%;
   background: transparent;
@@ -51,50 +43,60 @@ $time: 0.3s;
     }
   }
 
-  li {
-    position: absolute;
-    overflow: hidden;
-    transition: all .3s ease;
-    border: 1px solid transparent;
-    transform-origin: 100% 100%;
-    pointer-events: none;
-
-    a {
+  ul{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    li {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
       position: absolute;
-      display: block;
-      border-radius: 50%;
-      color: #fff;
-      padding-top: 10px;
-      text-align: center;
-      text-decoration: none;
-      backface-visibility: hidden;
-      pointer-events: auto;
+      overflow: hidden;
+      transition: all .3s ease;
+      border: 1px solid transparent;
+      transform-origin: 100% 100%;
+      pointer-events: none;
 
-      span.text {
-        //position: relative;
+      a {
+        box-sizing: border-box;
+        position: absolute;
         display: block;
-        font-size: 13px;
-        text-transform: uppercase;
-        position: relative;
-        font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "STHeitiSC-Light", "Microsoft YaHei", Arial, sans-serif;
+        border-radius: 50%;
+        color: #fff;
+        padding-top: 10px;
+        text-align: center;
+        text-decoration: none;
+        backface-visibility: hidden;
+        pointer-events: auto;
+
+        span.text {
+          //position: relative;
+          display: block;
+          font-size: 13px;
+          text-transform: uppercase;
+          position: relative;
+          font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "STHeitiSC-Light", "Microsoft YaHei", Arial, sans-serif;
+        }
+
+        //disable margin-collapsing
+        .cn-icon:before{
+          display: table;
+        }
+
+        &.disabled {
+          -webkit-filter: grayscale(100%);
+          pointer-events: none !important;
+          cursor: default;
+        }
+
+        &:focus {
+          position: fixed; /* fix the displacement bug in webkit browsers when using tab key */
+        }
       }
 
-      //disable margin-collapsing
-      .cn-icon:before{
-        display: table;
-      }
-
-      &.disabled {
-        -webkit-filter: grayscale(100%);
-        pointer-events: none !important;
-        cursor: default;
-      }
-
-      &:focus {
-        position: fixed; /* fix the displacement bug in webkit browsers when using tab key */
-      }
     }
-
   }
 }
 
