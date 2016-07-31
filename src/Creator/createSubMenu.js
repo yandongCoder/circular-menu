@@ -9,7 +9,7 @@ const centralDegRatio = 0.618;
 export default function createSubMenu (menus, index) {
     var subMenu = document.createElement('div');
 
-    classed(subMenu, 'sub-menu', true);
+    classed(subMenu, 'circular-sub-menu', true);
 
     this._container.parentNode.insertBefore(subMenu, this._container);
 

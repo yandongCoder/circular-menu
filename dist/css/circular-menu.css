@@ -9,7 +9,7 @@
 }
 
 /* line 11, ../../sass/circular-menu.scss */
-.cn-wrapper {
+.circular-menu {
   z-index: 10;
   border-radius: 50%;
   background: transparent;
@@ -23,15 +23,15 @@
   /*cover to prevent extra space of anchors from being clickable*/
 }
 /* line 23, ../../sass/circular-menu.scss */
-.cn-wrapper.sub-menu {
+.circular-menu.circular-sub-menu {
   transition: all 0s ease 0s;
 }
 /* line 25, ../../sass/circular-menu.scss */
-.cn-wrapper.sub-menu:after {
+.circular-menu.circular-sub-menu:after {
   display: none;
 }
 /* line 31, ../../sass/circular-menu.scss */
-.cn-wrapper:after {
+.circular-menu:after {
   content: ".";
   display: block;
   position: absolute;
@@ -43,7 +43,7 @@
   box-sizing: border-box;
 }
 /* line 43, ../../sass/circular-menu.scss */
-.cn-wrapper.opened-nav {
+.circular-menu.opened-nav {
   opacity: 1;
   display: block;
   transition: all .3s ease;
@@ -51,11 +51,11 @@
   pointer-events: auto;
 }
 /* line 49, ../../sass/circular-menu.scss */
-.cn-wrapper.opened-nav li {
+.circular-menu.opened-nav li {
   transition: all .3s ease .3s;
 }
 /* line 54, ../../sass/circular-menu.scss */
-.cn-wrapper li {
+.circular-menu li {
   position: absolute;
   overflow: hidden;
   transition: all .3s ease;
@@ -64,7 +64,7 @@
   pointer-events: none;
 }
 /* line 62, ../../sass/circular-menu.scss */
-.cn-wrapper li a {
+.circular-menu li a {
   position: absolute;
   display: block;
   border-radius: 50%;
@@ -76,7 +76,7 @@
   pointer-events: auto;
 }
 /* line 73, ../../sass/circular-menu.scss */
-.cn-wrapper li a span.text {
+.circular-menu li a span.text {
   display: block;
   font-size: 13px;
   text-transform: uppercase;
@@ -84,17 +84,17 @@
   font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "STHeitiSC-Light", "Microsoft YaHei", Arial, sans-serif;
 }
 /* line 83, ../../sass/circular-menu.scss */
-.cn-wrapper li a .cn-icon:before {
+.circular-menu li a .cn-icon:before {
   display: table;
 }
 /* line 87, ../../sass/circular-menu.scss */
-.cn-wrapper li a.disabled {
+.circular-menu li a.disabled {
   -webkit-filter: grayscale(100%);
   pointer-events: none !important;
   cursor: default;
 }
 /* line 93, ../../sass/circular-menu.scss */
-.cn-wrapper li a:focus {
+.circular-menu li a:focus {
   position: fixed;
   /* fix the displacement bug in webkit browsers when using tab key */
 }

@@ -8,7 +8,7 @@
 }
 
 $time: 0.3s;
-.cn-wrapper {
+.circular-menu {
   z-index: 10;
   border-radius: 50%;
   background: transparent;
@@ -20,7 +20,7 @@ $time: 0.3s;
   pointer-events: none;
   overflow: hidden;
 
-  &.sub-menu{
+  &.circular-sub-menu{
     transition: all 0s ease 0s;
     &:after{
       display: none;

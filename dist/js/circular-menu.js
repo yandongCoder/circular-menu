@@ -280,7 +280,7 @@
     function createMenu(){
         var p = this._container;
 
-        classed(p, 'cn-wrapper', true);
+        classed(p, 'circular-menu', true);
         style(p, 'width', this._calc.menuSize.width);
         style(p, 'height', this._calc.menuSize.height);
         style(p, 'margin-top', this._calc.menuSize.marginTop);
@@ -311,7 +311,7 @@
     function createSubMenu (menus, index) {
         var subMenu = document.createElement('div');
 
-        classed(subMenu, 'sub-menu', true);
+        classed(subMenu, 'circular-sub-menu', true);
 
         this._container.parentNode.insertBefore(subMenu, this._container);
 
