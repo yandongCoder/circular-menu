@@ -1,72 +1,6 @@
-/* line 5, ../../../APP/Ruby22-x64/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font: inherit;
-  font-size: 100%;
-  vertical-align: baseline;
-}
-
-/* line 22, ../../../APP/Ruby22-x64/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
-html {
-  line-height: 1;
-}
-
-/* line 24, ../../../APP/Ruby22-x64/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
-ol, ul {
-  list-style: none;
-}
-
-/* line 26, ../../../APP/Ruby22-x64/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-/* line 28, ../../../APP/Ruby22-x64/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
-caption, th, td {
-  text-align: left;
-  font-weight: normal;
-  vertical-align: middle;
-}
-
-/* line 30, ../../../APP/Ruby22-x64/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
-q, blockquote {
-  quotes: none;
-}
-/* line 103, ../../../APP/Ruby22-x64/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
-q:before, q:after, blockquote:before, blockquote:after {
-  content: "";
-  content: none;
-}
-
-/* line 32, ../../../APP/Ruby22-x64/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
-a img {
-  border: none;
-}
-
-/* line 116, ../../../APP/Ruby22-x64/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
-article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
-  display: block;
-}
-
-/* line 3, ../sass/circular-menu.scss */
+/* line 1, ../sass/circular-menu.scss */
 * {
   position: relative;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -74,7 +8,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "STHeitiSC-Light", "Microsoft YaHei", Arial, sans-serif;
 }
 
-/* line 15, ../sass/circular-menu.scss */
+/* line 12, ../sass/circular-menu.scss */
 .cn-wrapper {
   z-index: 10;
   border-radius: 50%;
@@ -86,18 +20,17 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   transform: scale(0.1);
   pointer-events: none;
   overflow: hidden;
+  /*cover to prevent extra space of anchors from being clickable*/
 }
-/* line 26, ../sass/circular-menu.scss */
+/* line 24, ../sass/circular-menu.scss */
 .cn-wrapper.sub-menu {
   transition: all 0s ease 0s;
 }
-/* line 28, ../sass/circular-menu.scss */
+/* line 26, ../sass/circular-menu.scss */
 .cn-wrapper.sub-menu:after {
   display: none;
 }
-
-/*cover to prevent extra space of anchors from being clickable*/
-/* line 35, ../sass/circular-menu.scss */
+/* line 32, ../sass/circular-menu.scss */
 .cn-wrapper:after {
   content: ".";
   display: block;
@@ -109,16 +42,18 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   color: transparent;
   box-sizing: border-box;
 }
-
-/* line 47, ../sass/circular-menu.scss */
-.opened-nav {
+/* line 44, ../sass/circular-menu.scss */
+.cn-wrapper.opened-nav {
   opacity: 1;
   display: block;
   transition: all .3s ease;
   transform: scale(1);
   pointer-events: auto;
 }
-
+/* line 50, ../sass/circular-menu.scss */
+.cn-wrapper.opened-nav li {
+  transition: all .3s ease .3s;
+}
 /* line 55, ../sass/circular-menu.scss */
 .cn-wrapper li {
   position: absolute;
@@ -128,8 +63,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   transform-origin: 100% 100%;
   pointer-events: none;
 }
-
-/* line 64, ../sass/circular-menu.scss */
+/* line 63, ../sass/circular-menu.scss */
 .cn-wrapper li a {
   position: absolute;
   display: block;
@@ -141,18 +75,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   backface-visibility: hidden;
   pointer-events: auto;
 }
-/* line 76, ../sass/circular-menu.scss */
-.cn-wrapper li a .cn-icon:before {
-  display: table;
-}
-/* line 79, ../sass/circular-menu.scss */
-.cn-wrapper li a.disabled {
-  -webkit-filter: grayscale(100%);
-  pointer-events: none !important;
-  cursor: default;
-}
-
-/* line 89, ../sass/circular-menu.scss */
+/* line 74, ../sass/circular-menu.scss */
 .cn-wrapper li a span.text {
   display: block;
   font-size: 13px;
@@ -160,107 +83,18 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   position: relative;
   font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "STHeitiSC-Light", "Microsoft YaHei", Arial, sans-serif;
 }
-
-/* line 103, ../sass/circular-menu.scss */
+/* line 84, ../sass/circular-menu.scss */
+.cn-wrapper li a .cn-icon:before {
+  display: table;
+}
+/* line 88, ../sass/circular-menu.scss */
+.cn-wrapper li a.disabled {
+  -webkit-filter: grayscale(100%);
+  pointer-events: none !important;
+  cursor: default;
+}
+/* line 94, ../sass/circular-menu.scss */
 .cn-wrapper li a:focus {
   position: fixed;
   /* fix the displacement bug in webkit browsers when using tab key */
-}
-
-/* line 107, ../sass/circular-menu.scss */
-.opened-nav li {
-  transition: all .3s ease .3s;
-}
-
-/* line 111, ../sass/circular-menu.scss */
-.no-csstransforms .cn-wrapper {
-  overflow: hidden;
-  margin: 10em auto;
-  padding: .5em;
-  text-align: center;
-}
-
-/* line 118, ../sass/circular-menu.scss */
-.no-csstransforms .cn-wrapper ul {
-  display: inline-block;
-}
-
-/* line 122, ../sass/circular-menu.scss */
-.no-csstransforms .cn-wrapper li {
-  float: left;
-  width: 5em;
-  height: 5em;
-  background-color: #fff;
-  text-align: center;
-  font-size: 1em;
-  line-height: 5em;
-}
-
-/* line 132, ../sass/circular-menu.scss */
-.no-csstransforms .cn-wrapper li a {
-  display: block;
-  width: 100%;
-  height: 100%;
-  color: inherit;
-  text-decoration: none;
-}
-
-/* line 140, ../sass/circular-menu.scss */
-.no-csstransforms .cn-wrapper li a:hover,
-.no-csstransforms .cn-wrapper li a:active,
-.no-csstransforms .cn-wrapper li a:focus {
-  background-color: #f8f8f8;
-}
-
-/* line 146, ../sass/circular-menu.scss */
-.no-csstransforms .cn-wrapper li.active a {
-  background-color: #6F325C;
-  color: #fff;
-}
-
-/* line 151, ../sass/circular-menu.scss */
-.no-csstransforms .cn-button {
-  display: none;
-}
-
-@media only screen and (max-width: 620px) {
-  /* line 156, ../sass/circular-menu.scss */
-  .no-csstransforms li {
-    width: 4em;
-    height: 4em;
-    line-height: 4em;
-  }
-}
-@media only screen and (max-width: 500px) {
-  /* line 164, ../sass/circular-menu.scss */
-  .no-ccstransforms .cn-wrapper {
-    padding: .5em;
-  }
-
-  /* line 168, ../sass/circular-menu.scss */
-  .no-csstransforms .cn-wrapper li {
-    width: 4em;
-    height: 4em;
-    font-size: .9em;
-    line-height: 4em;
-  }
-}
-@media only screen and (max-width: 480px) {
-  /* line 177, ../sass/circular-menu.scss */
-  .cn-wrapper {
-    font-size: .68em;
-  }
-
-  /* line 181, ../sass/circular-menu.scss */
-  .cn-button {
-    font-size: 1em;
-  }
-}
-@media only screen and (max-width: 420px) {
-  /* line 187, ../sass/circular-menu.scss */
-  .no-csstransforms .cn-wrapper li {
-    width: 100%;
-    height: 3em;
-    line-height: 3em;
-  }
 }
