@@ -1,5 +1,5 @@
-import style from "./style";
-import classed from "./classed";
+import style from "./../style";
+import classed from "./../classed";
 
 export default function (parent, data, index) {
 

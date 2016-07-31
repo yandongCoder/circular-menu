@@ -1,4 +1,4 @@
-import style from "./style";
+import style from "./../style";
 
 
 export default function(parent, data, index){

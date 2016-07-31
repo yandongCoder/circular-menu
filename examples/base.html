@@ -5,10 +5,60 @@
     <title>circular-menu</title>
     <link rel="stylesheet" type="text/css" href="../node_modules/font-awesome/css/font-awesome.css"/>
     <link rel="stylesheet" href="../stylesheets/circular-menu.css">
+    <style>
+
+        .cn-menu1 {
+            position: absolute;
+            left: 20%;
+            top: 50%;
+        }
+
+        .cn-menu2 {
+            position: absolute;
+            left: 40%;
+            top: 50%;
+        }
+
+        .cn-menu3 {
+            position: absolute;
+            left: 60%;
+            top: 50%;
+        }
+
+        .cn-menu4 {
+            position: absolute;
+            left: 80%;
+            top: 50%;
+        }
+
+        .rect-icon {
+            background: #fff;
+            display: inline-block !important;
+        }
+
+        .circle-icon {
+            background: #123456;
+            display: inline-block !important;
+            border-radius: 50%;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            background: #52be7f;
+            color: #fff;
+        }
+
+    </style>
 </head>
 <body>
 <div id="circle-menu1" class="cn-menu1"></div>
 <div id="circle-menu2" class="cn-menu2"></div>
+<div id="circle-menu3" class="cn-menu3"></div>
+<div id="circle-menu4" class="cn-menu4"></div>
 </body>
 </html>
 <script src="../circular-menu.js"></script>
@@ -17,7 +67,8 @@
             .config({
                         totalAngle: 360,//deg,
                         spaceDeg: 0,//deg
-                        background: "#515151",
+                        background: "#323232",
+                        backgroundHover: "#123321",
                         pageBackground: "#52be7f",
                         percent: 0.32,//%
                         diameter: 300,//px
@@ -28,58 +79,157 @@
                         menus: [
                             {
                                 title: 'menu1',
-                                icon: '',
-                                href: '#123'
+                                icon: 'fa fa-circle',
+                                href: '#1',
+                                click: function(e, data){
+                                    console.log(data);
+                                    console.log(e);
+                                    console.log(this);
+                                },
+                                menus: [
+                                    {
+                                        title: 'menu1-1',
+                                        icon: 'fa fa-circle'
+                                    },
+                                    {
+                                        title: 'menu1-2',
+                                        icon: 'fa fa-cc-visa'
+                                    }
+                                ]
                             },
                             {
+                                disabled: true,
                                 title: '菜单2',
                                 icon: '',
-                                href: ''
+                                href: '#2'
                             },
                             {
                                 title: 'menu3',
                                 icon: '',
-                                href: ''
+                                href: '#3'
                             },
                             {
                                 title: '菜单4',
                                 icon: '',
-                                href: ''
+                                href: '#4',
+                                menus: [
+                                    {
+                                        title: 'menu4-1',
+                                        icon: 'fa fa-circle'
+                                    },
+                                    {
+                                        title: 'menu4-2',
+                                        icon: 'fa fa-cc-visa'
+                                    },
+                                    {
+                                        title: 'menu4-3',
+                                        icon: 'fa fa-cc-visa'
+                                    },
+                                    {
+                                        title: 'menu4-1',
+                                        icon: 'fa fa-circle'
+                                    },
+                                    {
+                                        title: 'menu4-2',
+                                        icon: 'fa fa-cc-visa'
+                                    },
+                                    {
+                                        title: 'menu4-3',
+                                        icon: 'fa fa-cc-visa'
+                                    }
+                                ]
                             }, {
                                 title: 'menu5',
                                 icon: '',
-                                href: ''
+                                href: '#5'
                             },
                             {
                                 title: '菜单6',
                                 icon: '',
-                                href: ''
+                                href: '#6',
+                                menus: [
+                                    {
+                                        title: 'menu6-1',
+                                        icon: 'fa fa-circle'
+                                    }
+                                ]
                             },
                             {
                                 title: 'menu7',
                                 icon: '',
-                                href: ''
+                                href: '#7'
                             },
                             {
                                 title: '菜单8',
                                 icon: '',
-                                href: ''
+                                href: '#8'
                             }
                         ]
                     });
-    //            .on({
-    //                    'click': function (menu) {
-    //
-    //                    }
-    //                });
 
-    //cmenu.show();
-    //console.log(cmenu);
+    setTimeout(function(){
+        cmenu.show();
+    },1000);
     var cmenu2 = CMenu("#circle-menu2")
             .config({
                         totalAngle: 360,//deg,
                         spaceDeg: 0,//deg
-                        background: "#515151",
+                        background: "#323232",
+                        pageBackground: "#52be7f",
+                        percent: 0.32,//%
+                        diameter: 300,//px
+                        position: 'top',
+                        horizontal: true,
+                        //start: -45,//deg
+                        animation: "into",
+                        menus: [
+                            {
+                                title: 'menu1',
+                                icon: 'rect-icon',
+                                href: '#1'
+                            },
+                            {
+                                title: '菜单2',
+                                icon: 'circle-icon',
+                                href: '#2'
+                            },
+                            {
+                                title: 'menu3',
+                                icon: 'fa fa-cc-visa',
+                                href: '#3'
+                            },
+                            {
+                                title: '菜单4',
+                                icon: ['fa fa-gg-circle', '#11efab'],
+                                href: '#4'
+                            }, {
+                                title: 'menu5',
+                                icon: ['fa fa-bicycle', '#f2d1a3'],
+                                href: '#5'
+                            },
+                            {
+                                title: '菜单6',
+                                icon: 'fa fa-comment',
+                                href: '#6'
+                            },
+                            {
+                                title: 'menu7',
+                                icon: 'fa fa-tree',
+                                href: '#7'
+                            },
+                            {
+                                title: '菜单8',
+                                icon: 'fa fa-google-wallet',
+                                href: '#8'
+                            }
+                        ]
+                    });
+
+    var cmenu3 = CMenu("#circle-menu3")
+            .config({
+                        totalAngle: 180,//deg,
+                        spaceDeg: 0,//deg
+                        background: "#323232",
                         pageBackground: "#52be7f",
                         percent: 0.32,//%
                         diameter: 300,//px
@@ -107,24 +257,60 @@
                                 title: '菜单4',
                                 icon: ['fa fa-gg-circle', '#11efab'],
                                 href: ''
+                            }
+                        ]
+                    });
+
+    var cmenu4 = CMenu("#circle-menu4")
+            .config({
+                        totalAngle: 180,//deg,
+                        spaceDeg: 0,//deg
+                        background: "#323232",
+                        pageBackground: "#52be7f",
+                        percent: 0.32,//%
+                        diameter: 300,//px
+                        position: 'top',
+                        horizontal: true,
+                        //start: -45,//deg
+                        animation: "into",
+                        menus: [
+                            {
+                                title: 'menu1',
+                                icon: '',
+                                href: '#123'
+                            },
+                            {
+                                title: '菜单2',
+                                icon: '',
+                                href: ''
+                            },
+                            {
+                                title: 'menu3',
+                                icon: '',
+                                href: ''
+                            },
+                            {
+                                title: '菜单4',
+                                icon: '',
+                                href: ''
                             }, {
                                 title: 'menu5',
-                                icon: ['fa fa-bicycle', '#f2d1a3'],
+                                icon: '',
                                 href: ''
                             },
                             {
                                 title: '菜单6',
-                                icon: 'fa fa-comment',
+                                icon: '',
                                 href: ''
                             },
                             {
                                 title: 'menu7',
-                                icon: 'fa fa-tree',
+                                icon: '',
                                 href: ''
                             },
                             {
                                 title: '菜单8',
-                                icon: 'fa fa-google-wallet',
+                                icon: '',
                                 href: ''
                             }
                         ]

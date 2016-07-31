@@ -1,12 +1,13 @@
-import style from "./style";
-import classed from "./classed";
+import style from "./../style";
+import classed from "./../classed";
 
 const sizeRatio = 0.65;
 const marginTopRatio = 0.25;
 const fontHeight = 13;
 
 export function hasIcon(icon){
-    if(typeof icon === "string") return icon !== "";
+    if(icon === undefined) return false;
+    else if(typeof icon === "string") return icon !== "";
     else return icon.length && icon[0] !== "";
 }
 
@@ -26,7 +27,7 @@ export default function (parent, data, index) {
     var icon = getIcon(data.icon),
         color = getIconColor(data.icon);
 
-    classed(span, icon, true);
+    classed(span, icon + " cn-icon", true);
     style(span, 'color', color);
 
     var l = this._calc.clickZoneRadius * sizeRatio - fontHeight + "px",

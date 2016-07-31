@@ -259,66 +259,150 @@
             return this._current;
         }
     };
-    function pseudoStyle (element, pseudo, prop, value) {
+    function styleSheet (element, prop, value, pseudo) {
         
         var _this = element;
-        var _sheetId = "pseudoStyles";
+        var _sheetId = "sheetStyles";
         var _head = document.head || document.getElementsByTagName('head')[0];
         var _sheet = document.getElementById(_sheetId) || document.createElement('style');
         _sheet.id = _sheetId;
-        var className = "pseudoStyle" + UID.getNew();
+        var className = "s-S" + UID.getNew();
         
         _this.className += " " + className;
-        
-        _sheet.innerHTML += " ." + className + ":" + pseudo + "{" + prop + ":" + value + "}";
+
+
+
+        _sheet.innerHTML += " ." + className + ( pseudo ? (":" + pseudo) : "" ) + "{" + prop + ":" + value + "}";
         _head.appendChild(_sheet);
         return this;
     };
 
     function createMenu(){
-        var p = this._parent;
+        var p = this._container;
 
-        classed(p, 'cn-wrapper opened-nav', true);
+        classed(p, 'cn-wrapper', true);
         style(p, 'width', this._calc.menuSize.width);
         style(p, 'height', this._calc.menuSize.height);
         style(p, 'margin-top', this._calc.menuSize.marginTop);
         style(p, 'margin-left', this._calc.menuSize.marginLeft);
 
-        pseudoStyle(p, 'after', 'width', this._calc.coverSize.width);
-        pseudoStyle(p, 'after', 'height', this._calc.coverSize.height);
-        pseudoStyle(p, 'after', 'margin-left', this._calc.coverSize.marginLeft);
-        pseudoStyle(p, 'after', 'margin-top', this._calc.coverSize.marginTop);
-        pseudoStyle(p, 'after', 'border', "3px solid " + this._config.pageBackground);
+        styleSheet(p, 'width', this._calc.coverSize.width, 'after');
+        styleSheet(p, 'height', this._calc.coverSize.height, 'after');
+        styleSheet(p, 'margin-left', this._calc.coverSize.marginLeft, 'after');
+        styleSheet(p, 'margin-top', this._calc.coverSize.marginTop, 'after');
+        styleSheet(p, 'border', "3px solid " + this._config.pageBackground, 'after');
+
 
         var ul = p.appendChild(document.createElement('ul'));
         this._createLists(ul);
     }
 
+    function on (ele, type, callback, data) {
+        ele.addEventListener(type, function(e){
+            callback.call(this, e, data);
+        });
+    }
+
+    const sizeRatio = 5/3;
+    const percentRatio = 0.45;
+    const centralDegRatio = 0.618;
+
+
+    function createSubMenu (menus, index) {
+        var subMenu = document.createElement('div');
+
+        classed(subMenu, 'sub-menu', true);
+        style(subMenu, 'top', this._container.offsetTop +  this._calc.radius + 'px');
+        style(subMenu, 'left', this._container.offsetLeft + this._calc.radius + 'px');
+
+        this._container.parentNode.insertBefore(subMenu, this._container);
+
+        var totalAngle = this._calc.centralDeg * centralDegRatio * menus.length;
+        var startDeg = this._calc.rotateDeg(index) - totalAngle / 2 + this._calc.centralDeg / 2;
+
+
+        return CMenu(subMenu)
+            .config({
+                        totalAngle: totalAngle,//deg,
+                        spaceDeg: 0,//deg
+                        background: "#323232",
+                        backgroundHover: "#123321",
+                        pageBackground: "#52be7f",
+                        percent: percentRatio,//%
+                        diameter: this._config.diameter * sizeRatio,//px
+                        horizontal: this._config.horizontal,
+                        start: startDeg,//deg
+                        animation: "into",
+                        menus: menus
+                    });
+    }
+
+    function hasSubMenus(menus){
+        return menus instanceof Array && menus.length !== 0;
+    }
+
     function createAnchor (parent, data, index) {
         var a = document.createElement('a');
-        a.href = data.href;
+        a.href = data.href || "";
 
         style(a, 'width', this._calc.clickZoneSize.width);
         style(a, 'height', this._calc.clickZoneSize.height);
         style(a, 'right', this._calc.clickZoneSize.marginRight);
         style(a, 'bottom', this._calc.clickZoneSize.marginBottom);
         style(a, 'transform', 'skew('+ -this._calc.skewDeg +'deg) rotate('+ this._calc.unskewDeg +'deg) scale(1)');
-        //radial-gradient(transparent $percent * 100%, #515151 $percent * 100%);
+
+        if(data.disabled) classed(a, 'disabled', true);
+
 
         var percent = this._config.percent * 100 + "%";
-        style(a, 'background', 'radial-gradient(transparent '+ percent +', '+ this._config.background +' '+ percent +')');
+        styleSheet(a, 'background', 'radial-gradient(transparent '+ percent +', '+ this._config.background +' '+ percent +')');
+        styleSheet(a, 'background', 'radial-gradient(transparent '+ percent +', '+ this._config.backgroundHover +' '+ percent +')', 'hover');
+
+        
+        if(data.click) on(a, 'click', data.click, data);
 
         parent.appendChild(a);
 
         this._createHorizontal(a, data, index);
+        
+        
+        //toggle subMenu
+        if(hasSubMenus(data.menus)){
+            var subMenu = this._createSubMenu(data.menus, index);
+            var delayHide = null;
+
+            on(a, 'mouseenter', function(){
+                subMenu.show();
+            });
+
+            on(a, 'mouseleave', function(e){
+                if(!subMenu._element.contains(e.toElement)){
+                    delayHide = setTimeout(function(){
+                        subMenu.hide();
+                    },200);
+                }
+            });
+
+
+            on(subMenu._element, 'mouseenter', function(){
+                clearTimeout(delayHide);
+            });
+
+            on(subMenu._element, 'mouseleave', function(e){
+                if(!a.contains(e.toElement)){
+                    subMenu.hide();
+                }
+            });
+        }
     }
 
-    const sizeRatio = 0.65;
+    const sizeRatio$1 = 0.65;
     const marginTopRatio = 0.25;
     const fontHeight = 13;
 
     function hasIcon(icon){
-        if(typeof icon === "string") return icon !== "";
+        if(icon === undefined) return false;
+        else if(typeof icon === "string") return icon !== "";
         else return icon.length && icon[0] !== "";
     }
 
@@ -338,10 +422,10 @@
         var icon = getIcon(data.icon),
             color = getIconColor(data.icon);
 
-        classed(span, icon, true);
+        classed(span, icon + " cn-icon", true);
         style(span, 'color', color);
 
-        var l = this._calc.clickZoneRadius * sizeRatio - fontHeight + "px",
+        var l = this._calc.clickZoneRadius * sizeRatio$1 - fontHeight + "px",
             m = this._calc.clickZoneRadius * marginTopRatio - fontHeight + "px";
         style(span, 'width', l);
         style(span, 'height', l);
@@ -351,7 +435,8 @@
         parent.appendChild(span);
     }
 
-    const withIconTop = "3px";
+    const withIconMarginTop = "5px";
+    const withIconTop = "-3px";
 
     function createText (parent, data, index) {
 
@@ -359,7 +444,8 @@
         span.textContent = data.title;
 
         classed(span, 'text', true);
-        style(span, 'margin-top', hasIcon(data.icon)? withIconTop : this._calc.textTop);
+        style(span, 'margin-top', hasIcon(data.icon)? withIconMarginTop : this._calc.textTop);
+        style(span, 'top', hasIcon(data.icon)? withIconTop : 0);
 
         parent.appendChild(span);
     }
@@ -377,8 +463,8 @@
         this._createText(div, data, index);
     }
 
-    function Creator(parent, config){
-        this._parent = parent;
+    function Creator(container, config){
+        this._container = container;
         this._config = config;
         this._calc = new Calculation(config);
     }
@@ -392,32 +478,96 @@
         _createAnchor: createAnchor,
         _createText: createText,
         _createHorizontal: createHorizontal,
-        _createIcon: createIcon
+        _createIcon: createIcon,
+        _createSubMenu: createSubMenu
+    };
+
+    function extend$1 () {
+        // Variables
+        var extended = {};
+        var deep = false;
+        var i = 0;
+        var length = arguments.length;
+
+        // Check if a deep merge
+        if (Object.prototype.toString.call(arguments[0]) === '[object Boolean]') {
+            deep = arguments[0];
+            i++;
+        }
+
+        // Merge the object into the extended object
+        var merge = function (obj) {
+            for (var prop in obj) {
+                if (Object.prototype.hasOwnProperty.call(obj, prop)) {
+                    // If deep merge and property is an object, merge properties
+                    if (deep && Object.prototype.toString.call(obj[prop]) === '[object Object]') {
+                        extended[prop] = extend(true, extended[prop], obj[prop]);
+                    } else {
+                        extended[prop] = obj[prop];
+                    }
+                }
+            }
+        };
+
+        // Loop through each object and conduct a merge
+        for (; i < length; i++) {
+            var obj = arguments[i];
+            merge(obj);
+        }
+
+        return extended;
+
+    };
+
+    const defaultConfig = {
+        totalAngle: 360,//deg,
+        spaceDeg: 0,//deg
+        background: "#323232",
+        backgroundHover: "#515151",
+        pageBackground: "#52be7f",
+        percent: 0.32,//%
+        diameter: 300,//px
+        position: 'top',
+        horizontal: true,
+        animation: "into"
     };
 
     function config (config) {
-        this._config = config;
 
-        var _creator =  new Creator(this._element, config);
-        _creator.createMenu();
+        config = extend$1(defaultConfig, config);
+
+        this._creator = new Creator(this._element, config);
+        this._creator.createMenu();
 
         return this;
     }
 
-    function CMenu(element){
+    function show () {
+        classed(this._element, 'opened-nav', true);
+        return this;
+    }
+
+    function hide () {
+        classed(this._element, 'opened-nav', false);
+        return this;
+    }
+
+    function CMenu$1(element){
         this._element = element;
     }
 
-    CMenu.prototype = {
-        constructor: CMenu,
-        config: config
+    CMenu$1.prototype = {
+        constructor: CMenu$1,
+        config: config,
+        show: show,
+        hide: hide
 
     };
 
     function index (selector) {
         return typeof selector === "string"
-            ? new CMenu(document.querySelector(selector))
-            : new CMenu(selector);
+            ? new CMenu$1(document.querySelector(selector))
+            : new CMenu$1(selector);
     }
 
     return index;

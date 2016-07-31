@@ -1,4 +1,4 @@
-import defaultView from "../window";
+import defaultView from "./window";
 
 function styleRemove(name) {
     this.style.removeProperty(name);
