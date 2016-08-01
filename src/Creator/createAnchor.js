@@ -21,8 +21,8 @@ export default function (parent, data, index) {
     var delayHide = null;// delayHide reference the last setTimeout triggered by the menu item itself
 
     var a = document.createElement('a');
-    a.href = data.href || "";
 
+    if(data.href) a.href = data.href;
 
     a.setDisabled = function(){
         classed(a, 'disabled', ifDisabled(data.disabled));

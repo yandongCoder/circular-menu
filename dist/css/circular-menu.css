@@ -68,17 +68,18 @@
   position: absolute;
   display: block;
   border-radius: 50%;
+  cursor: pointer;
   color: #fff;
   padding-top: 10px;
   text-align: center;
   text-decoration: none;
   backface-visibility: hidden;
 }
-/* line 73, ../../sass/circular-menu.scss */
+/* line 74, ../../sass/circular-menu.scss */
 .circular-menu ul li a span.circle-menu-icon {
   background-size: cover;
 }
-/* line 76, ../../sass/circular-menu.scss */
+/* line 77, ../../sass/circular-menu.scss */
 .circular-menu ul li a span.text {
   display: block;
   font-size: 13px;
@@ -87,17 +88,17 @@
   position: relative;
   font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "STHeitiSC-Light", "Microsoft YaHei", Arial, sans-serif;
 }
-/* line 87, ../../sass/circular-menu.scss */
+/* line 88, ../../sass/circular-menu.scss */
 .circular-menu ul li a .cn-icon:before {
   display: table;
 }
-/* line 91, ../../sass/circular-menu.scss */
+/* line 92, ../../sass/circular-menu.scss */
 .circular-menu ul li a.disabled {
   -webkit-filter: grayscale(100%);
   pointer-events: none !important;
   cursor: default;
 }
-/* line 97, ../../sass/circular-menu.scss */
+/* line 98, ../../sass/circular-menu.scss */
 .circular-menu ul li a:focus {
   position: fixed;
   /* fix the displacement bug in webkit browsers when using tab key */
