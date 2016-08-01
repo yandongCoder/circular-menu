@@ -59,8 +59,6 @@ $time: 0.3s;
       transition: all .3s ease;
       border: 1px solid transparent;
       transform-origin: 100% 100%;
-      pointer-events: none;
-
       a {
         box-sizing: border-box;
         position: absolute;
@@ -71,7 +69,6 @@ $time: 0.3s;
         text-align: center;
         text-decoration: none;
         backface-visibility: hidden;
-        pointer-events: auto;
 
         span.circle-menu-icon{
           background-size: cover;
