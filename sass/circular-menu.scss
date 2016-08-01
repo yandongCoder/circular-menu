@@ -9,7 +9,7 @@ $time: 0.3s;
   position: fixed;
   //display: none;
   transition: opacity .3s ease, transform .3s ease;
-
+  cursor: default;
   transform: scale(0.1);
   pointer-events: none;
   overflow: hidden;
