@@ -12,6 +12,7 @@ export default function Creator(container, config){
     this._container = container;
     this._config = config;
     this._calc = new Calculation(config);
+    this._anchors = [];
 }
 
 

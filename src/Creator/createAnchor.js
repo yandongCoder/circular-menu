@@ -2,7 +2,6 @@ import style from "./../style";
 import classed from "./../classed";
 import on from "./../on";
 import styleSheet from "./styleSheet";
-import createSubMenu from "./createSubMenu";
 
 function hasSubMenus(menus) {
     return menus instanceof Array && menus.length !== 0;
@@ -14,6 +13,8 @@ function ifDisabled(disabled){
         return Boolean(disabled);
 }
 
+
+
 var delayShow = null;// delayShow reference the last setTimeout triggered by any one of menu item(anchor)
 
 export default function (parent, data, index) {
@@ -21,6 +22,13 @@ export default function (parent, data, index) {
 
     var a = document.createElement('a');
     a.href = data.href || "";
+
+
+    a.setDisabled = function(){
+        classed(a, 'disabled', ifDisabled(data.disabled));
+    };
+    this._anchors.push(a);
+
 
     style(a, 'width', this._calc.clickZoneSize.width);
     style(a, 'height', this._calc.clickZoneSize.height);

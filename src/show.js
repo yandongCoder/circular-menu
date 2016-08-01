@@ -9,7 +9,18 @@ function setCoordinate(coordinate){
     style(this._container, 'top', coordinate[1] + "px");
 }
 
+//check disabled
+
+function setDisabled(){
+    this._creator._anchors.forEach(function(v){
+        v.setDisabled();
+    });
+}
+
 export default function (coordinate) {
+
+
+    setDisabled.call(this);
 
     setCoordinate.call(this, coordinate);
 

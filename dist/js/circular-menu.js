@@ -303,35 +303,6 @@
         });
     }
 
-    const sizeRatio = 5/3;
-    const percentRatio = 0.45;
-    const centralDegRatio = 0.618;
-
-
-    function createSubMenu (menus, index) {
-        var subMenu = document.createElement('div');
-
-        classed(subMenu, 'circular-sub-menu', true);
-
-        this._container.parentNode.insertBefore(subMenu, this._container);
-
-        var totalAngle = this._calc.centralDeg * centralDegRatio * menus.length;
-        var startDeg = this._calc.rotateDeg(index) - totalAngle / 2 + this._calc.centralDeg / 2;
-
-
-        return CMenu(subMenu)
-            .config({
-                        totalAngle: totalAngle,//deg,
-                        spaceDeg: this._config.spaceDeg,//deg
-                        percent: percentRatio,//%
-                        diameter: this._config.diameter * sizeRatio,//px
-                        horizontal: this._config.horizontal,
-                        start: startDeg,//deg
-                        animation: "into",
-                        menus: menus
-                    });
-    }
-
     function hasSubMenus(menus) {
         return menus instanceof Array && menus.length !== 0;
     }
@@ -342,6 +313,8 @@
             return Boolean(disabled);
     }
 
+
+
     var delayShow = null;// delayShow reference the last setTimeout triggered by any one of menu item(anchor)
 
     function createAnchor (parent, data, index) {
@@ -349,6 +322,13 @@
 
         var a = document.createElement('a');
         a.href = data.href || "";
+
+
+        a.setDisabled = function(){
+            classed(a, 'disabled', ifDisabled(data.disabled));
+        };
+        this._anchors.push(a);
+
 
         style(a, 'width', this._calc.clickZoneSize.width);
         style(a, 'height', this._calc.clickZoneSize.height);
@@ -408,7 +388,7 @@
         }
     }
 
-    const sizeRatio$1 = 0.65;
+    const sizeRatio = 0.65;
     const marginTopRatio = 0.2;
     const fontHeight = 13;
 
@@ -437,7 +417,7 @@
         classed(span, icon + " cn-icon", true);
         style(span, 'color', color);
 
-        var l = this._calc.clickZoneRadius * sizeRatio$1 - fontHeight + "px",
+        var l = this._calc.clickZoneRadius * sizeRatio - fontHeight + "px",
             m = this._calc.clickZoneRadius * marginTopRatio - fontHeight + "px";
         style(span, 'width', l);
         style(span, 'height', l);
@@ -475,10 +455,40 @@
         this._createText(div, data, index);
     }
 
+    const sizeRatio$1 = 5/3;
+    const percentRatio = 0.45;
+    const centralDegRatio = 0.618;
+
+
+    function createSubMenu (menus, index) {
+        var subMenu = document.createElement('div');
+
+        classed(subMenu, 'circular-sub-menu', true);
+
+        this._container.parentNode.insertBefore(subMenu, this._container);
+
+        var totalAngle = this._calc.centralDeg * centralDegRatio * menus.length;
+        var startDeg = this._calc.rotateDeg(index) - totalAngle / 2 + this._calc.centralDeg / 2;
+
+
+        return CMenu(subMenu)
+            .config({
+                        totalAngle: totalAngle,//deg,
+                        spaceDeg: this._config.spaceDeg,//deg
+                        percent: percentRatio,//%
+                        diameter: this._config.diameter * sizeRatio$1,//px
+                        horizontal: this._config.horizontal,
+                        start: startDeg,//deg
+                        animation: "into",
+                        menus: menus
+                    });
+    }
+
     function Creator(container, config){
         this._container = container;
         this._config = config;
         this._calc = new Calculation(config);
+        this._anchors = [];
     }
 
 
@@ -563,8 +573,19 @@
         style(this._container, 'top', coordinate[1] + "px");
     }
 
+    //check disabled
+
+    function setDisabled(){
+        this._creator._anchors.forEach(function(v){
+            v.setDisabled();
+        });
+    }
+
     function show (coordinate) {
-        console.log(this);
+
+
+        setDisabled.call(this);
+
         setCoordinate.call(this, coordinate);
 
         classed(this._container, 'opened-nav', true);
