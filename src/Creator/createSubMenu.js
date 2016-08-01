@@ -1,4 +1,3 @@
-import style from "./../style";
 import classed from "./../classed";
 
 const sizeRatio = 5/3;
@@ -20,10 +19,7 @@ export default function createSubMenu (menus, index) {
     return CMenu(subMenu)
         .config({
                     totalAngle: totalAngle,//deg,
-                    spaceDeg: 0,//deg
-                    background: "#323232",
-                    backgroundHover: "#123321",
-                    pageBackground: "#52be7f",
+                    spaceDeg: this._config.spaceDeg,//deg
                     percent: percentRatio,//%
                     diameter: this._config.diameter * sizeRatio,//px
                     horizontal: this._config.horizontal,
