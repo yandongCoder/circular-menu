@@ -338,8 +338,11 @@
     function hasSubMenus(menus) {
         return menus instanceof Array && menus.length !== 0;
     }
+    var delayShow = null;// delayShow reference the last setTimeout triggered by any one of menu item(anchor)
 
     function createAnchor (parent, data, index) {
+        var delayHide = null;// delayHide reference the last setTimeout triggered by the menu item itself
+
         var a = document.createElement('a');
         a.href = data.href || "";
 
@@ -367,17 +370,17 @@
         //toggle subMenu
         if (hasSubMenus(data.menus)) {
             var menu = this;
-
             var subMenu = this._createSubMenu(data.menus, index);
-            var delayHide = null;
 
             on(a, 'mouseenter', function () {
-                subMenu
-                    .styles({
-                                top: menu._container.offsetTop + menu._calc.radius + 'px',
-                                left: menu._container.offsetLeft + menu._calc.radius + 'px'
-                            })
-                    .show();
+                delayShow = setTimeout(function () {
+                    subMenu
+                        .styles({
+                                    top: menu._container.offsetTop + menu._calc.radius + 'px',
+                                    left: menu._container.offsetLeft + menu._calc.radius + 'px'
+                                })
+                        .show();
+                }, 100);
             });
 
             on(a, 'mouseleave', function (e) {
@@ -389,6 +392,7 @@
             });
 
             on(subMenu._container, 'mouseenter', function () {
+                clearTimeout(delayShow);
                 clearTimeout(delayHide);
             });
 
