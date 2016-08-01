@@ -401,7 +401,7 @@
     }
 
     const sizeRatio$1 = 0.65;
-    const marginTopRatio = 0.25;
+    const marginTopRatio = 0.2;
     const fontHeight = 13;
 
     function hasIcon(icon){
@@ -439,7 +439,7 @@
         parent.appendChild(span);
     }
 
-    const withIconMarginTop = "5px";
+    const withIconMarginTop = "3px";
     const withIconTop = "-3px";
 
     function createText (parent, data, index) {
@@ -528,13 +528,14 @@
         spaceDeg: 0,//deg
         background: "#323232",
         backgroundHover: "#515151",
-        pageBackground: "#52be7f",
+        pageBackground: "#ffffff",
         percent: 0.32,//%
         diameter: 300,//px
         position: 'top',
         horizontal: true,
         animation: "into"
     };
+
 
     function config (config) {
 

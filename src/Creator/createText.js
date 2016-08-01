@@ -2,7 +2,7 @@ import style from "./../style";
 import classed from "./../classed";
 import {hasIcon} from "./createIcon";
 
-const withIconMarginTop = "5px";
+const withIconMarginTop = "3px";
 const withIconTop = "-3px";
 
 export default function (parent, data, index) {

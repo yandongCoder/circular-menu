@@ -6,13 +6,14 @@ const defaultConfig = {
     spaceDeg: 0,//deg
     background: "#323232",
     backgroundHover: "#515151",
-    pageBackground: "#52be7f",
+    pageBackground: "#ffffff",
     percent: 0.32,//%
     diameter: 300,//px
     position: 'top',
     horizontal: true,
     animation: "into"
 };
+
 
 export default function (config) {
 

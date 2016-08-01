@@ -2,7 +2,7 @@ import style from "./../style";
 import classed from "./../classed";
 
 const sizeRatio = 0.65;
-const marginTopRatio = 0.25;
+const marginTopRatio = 0.2;
 const fontHeight = 13;
 
 export function hasIcon(icon){

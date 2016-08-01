@@ -1,4 +1,4 @@
-/* line 2, ../../sass/circular-menu.scss */
+/* line 3, ../../sass/circular-menu.scss */
 .circular-menu {
   font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "STHeitiSC-Light", "Microsoft YaHei", Arial, sans-serif;
   z-index: 10;
@@ -13,15 +13,15 @@
   overflow: hidden;
   /*cover to prevent extra space of anchors from being clickable*/
 }
-/* line 15, ../../sass/circular-menu.scss */
+/* line 16, ../../sass/circular-menu.scss */
 .circular-menu.circular-sub-menu {
   transition: all 0s ease 0s;
 }
-/* line 17, ../../sass/circular-menu.scss */
+/* line 18, ../../sass/circular-menu.scss */
 .circular-menu.circular-sub-menu:after {
   display: none;
 }
-/* line 23, ../../sass/circular-menu.scss */
+/* line 24, ../../sass/circular-menu.scss */
 .circular-menu:after {
   content: ".";
   display: block;
@@ -33,7 +33,7 @@
   color: transparent;
   box-sizing: border-box;
 }
-/* line 35, ../../sass/circular-menu.scss */
+/* line 36, ../../sass/circular-menu.scss */
 .circular-menu.opened-nav {
   opacity: 1;
   display: block;
@@ -41,18 +41,18 @@
   transform: scale(1);
   pointer-events: auto;
 }
-/* line 41, ../../sass/circular-menu.scss */
+/* line 42, ../../sass/circular-menu.scss */
 .circular-menu.opened-nav li {
   transition: all .3s ease .3s;
 }
-/* line 46, ../../sass/circular-menu.scss */
+/* line 47, ../../sass/circular-menu.scss */
 .circular-menu ul {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   list-style: none;
 }
-/* line 51, ../../sass/circular-menu.scss */
+/* line 52, ../../sass/circular-menu.scss */
 .circular-menu ul li {
   box-sizing: border-box;
   margin: 0;
@@ -64,7 +64,7 @@
   transform-origin: 100% 100%;
   pointer-events: none;
 }
-/* line 62, ../../sass/circular-menu.scss */
+/* line 63, ../../sass/circular-menu.scss */
 .circular-menu ul li a {
   box-sizing: border-box;
   position: absolute;
@@ -77,25 +77,30 @@
   backface-visibility: hidden;
   pointer-events: auto;
 }
-/* line 74, ../../sass/circular-menu.scss */
+/* line 75, ../../sass/circular-menu.scss */
+.circular-menu ul li a span.circle-menu-icon {
+  background-size: cover;
+}
+/* line 78, ../../sass/circular-menu.scss */
 .circular-menu ul li a span.text {
   display: block;
   font-size: 13px;
   text-transform: uppercase;
+  line-height: 1;
   position: relative;
   font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "STHeitiSC-Light", "Microsoft YaHei", Arial, sans-serif;
 }
-/* line 84, ../../sass/circular-menu.scss */
+/* line 89, ../../sass/circular-menu.scss */
 .circular-menu ul li a .cn-icon:before {
   display: table;
 }
-/* line 88, ../../sass/circular-menu.scss */
+/* line 93, ../../sass/circular-menu.scss */
 .circular-menu ul li a.disabled {
   -webkit-filter: grayscale(100%);
   pointer-events: none !important;
   cursor: default;
 }
-/* line 94, ../../sass/circular-menu.scss */
+/* line 99, ../../sass/circular-menu.scss */
 .circular-menu ul li a:focus {
   position: fixed;
   /* fix the displacement bug in webkit browsers when using tab key */
