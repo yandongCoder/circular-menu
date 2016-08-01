@@ -335,6 +335,13 @@
     function hasSubMenus(menus) {
         return menus instanceof Array && menus.length !== 0;
     }
+    function ifDisabled(disabled){
+        if(disabled instanceof Function)
+            return disabled();
+        else
+            return Boolean(disabled);
+    }
+
     var delayShow = null;// delayShow reference the last setTimeout triggered by any one of menu item(anchor)
 
     function createAnchor (parent, data, index) {
@@ -349,7 +356,7 @@
         style(a, 'bottom', this._calc.clickZoneSize.marginBottom);
         style(a, 'transform', 'skew(' + -this._calc.skewDeg + 'deg) rotate(' + this._calc.unskewDeg + 'deg) scale(1)');
 
-        if (data.disabled) classed(a, 'disabled', true);
+        classed(a, 'disabled', ifDisabled(data.disabled));
 
 
         var percent = this._config.percent * 100 + "%";
