@@ -555,10 +555,18 @@
         return this;
     }
 
-    function show (styles) {
+    function setCoordinate(coordinate){
+        if( !(coordinate instanceof Array) || !(coordinate.length === 2) ) return;
 
-        if(styles) this.styles(styles);
-        
+        //TODO verify if has unit
+        style(this._container, 'left', coordinate[0] + "px");
+        style(this._container, 'top', coordinate[1] + "px");
+    }
+
+    function show (coordinate) {
+
+        setCoordinate.call(this, coordinate);
+
         classed(this._container, 'opened-nav', true);
         return this;
     }
