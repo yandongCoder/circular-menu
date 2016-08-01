@@ -1,7 +1,7 @@
 /* line 3, ../../sass/circular-menu.scss */
 .circular-menu {
   font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "STHeitiSC-Light", "Microsoft YaHei", Arial, sans-serif;
-  z-index: 10;
+  z-index: 1040;
   border-radius: 50%;
   background: transparent;
   opacity: 0;

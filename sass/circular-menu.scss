@@ -2,7 +2,7 @@ $time: 0.3s;
 
 .circular-menu {
   font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "STHeitiSC-Light", "Microsoft YaHei", Arial, sans-serif;
-  z-index: 10;
+  z-index: 1040;//more than bootstrap fixed top
   border-radius: 50%;
   background: transparent;
   opacity: 0;

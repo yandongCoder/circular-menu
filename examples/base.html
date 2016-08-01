@@ -107,7 +107,7 @@
                             {
                                 title: 'menu3',
                                 disabled: function(){
-                                    return false;
+                                    return true;
                                 },
                                 icon: '',
                                 href: '#3'
@@ -183,10 +183,10 @@
 
     setTimeout(function () {
         cmenu
-//                .styles({
-//                            top: '200px',
-//                            left: '600px'
-//                        })
+                .styles({
+                            top: '200px',
+                            left: '600px'
+                        })
                 .show();
     }, 1000);
     var cmenu2 = CMenu("#circle-menu2")

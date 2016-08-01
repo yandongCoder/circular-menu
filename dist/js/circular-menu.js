@@ -564,7 +564,7 @@
     }
 
     function show (coordinate) {
-
+        console.log(this);
         setCoordinate.call(this, coordinate);
 
         classed(this._container, 'opened-nav', true);
