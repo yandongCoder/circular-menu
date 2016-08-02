@@ -76,10 +76,11 @@
   backface-visibility: hidden;
 }
 /* line 74, ../../sass/circular-menu.scss */
-.circular-menu ul li a span.circle-menu-icon {
+.circular-menu ul li a span.cm-icon {
+  display: inline-block;
   background-size: cover;
 }
-/* line 78, ../../sass/circular-menu.scss */
+/* line 79, ../../sass/circular-menu.scss */
 .circular-menu ul li a span.text {
   display: block;
   font-size: 13px;
@@ -87,17 +88,17 @@
   position: relative;
   font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "STHeitiSC-Light", "Microsoft YaHei", Arial, sans-serif;
 }
-/* line 88, ../../sass/circular-menu.scss */
+/* line 89, ../../sass/circular-menu.scss */
 .circular-menu ul li a .cn-icon:before {
   display: table;
 }
-/* line 92, ../../sass/circular-menu.scss */
+/* line 93, ../../sass/circular-menu.scss */
 .circular-menu ul li a.disabled {
   -webkit-filter: grayscale(100%);
   pointer-events: none !important;
   cursor: default;
 }
-/* line 98, ../../sass/circular-menu.scss */
+/* line 99, ../../sass/circular-menu.scss */
 .circular-menu ul li a:focus {
   position: fixed;
   /* fix the displacement bug in webkit browsers when using tab key */

@@ -425,7 +425,7 @@
         var icon = getIcon(data.icon),
             color = getIconColor(data.icon);
 
-        classed(span, icon + " cn-icon", true);
+        classed(span, icon + " cm-icon", true);
         style(span, 'color', color);
 
         var l = this._calc.clickZoneRadius * sizeRatio - fontHeight + "px",

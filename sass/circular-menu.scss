@@ -71,7 +71,8 @@ $time: 0.3s;
         text-decoration: none;
         backface-visibility: hidden;
 
-        span.circle-menu-icon{
+        span.cm-icon{
+          display: inline-block;
           background-size: cover;
         }
 
