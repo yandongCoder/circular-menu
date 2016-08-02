@@ -11,6 +11,7 @@ export default function(){
     style(p, 'margin-top', this._calc.menuSize.marginTop);
     style(p, 'margin-left', this._calc.menuSize.marginLeft);
 
+    
     setTimeout(function(){
         style(p, 'display', 'block');
     },100);
