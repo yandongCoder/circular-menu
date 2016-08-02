@@ -75,7 +75,7 @@ export default function (parent, data, index) {
                                 left: self._container.offsetLeft + self._calc.radius + 'px'
                             })
                     .show();
-            }, 100);
+            }, 150);
         });
 
         on(a, 'mouseleave', function (e) {

@@ -6,6 +6,7 @@
   background: transparent;
   opacity: 0;
   position: fixed;
+  display: none;
   transition: opacity .3s ease, transform .3s ease;
   cursor: default;
   transform: scale(0.1);

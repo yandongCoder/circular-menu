@@ -285,6 +285,7 @@
         style(p, 'height', this._calc.menuSize.height);
         style(p, 'margin-top', this._calc.menuSize.marginTop);
         style(p, 'margin-left', this._calc.menuSize.marginLeft);
+        style(p, 'display', 'block');
 
         styleSheet(p, 'width', this._calc.coverSize.width, 'after');
         styleSheet(p, 'height', this._calc.coverSize.height, 'after');
@@ -375,7 +376,7 @@
                                     left: self._container.offsetLeft + self._calc.radius + 'px'
                                 })
                         .show();
-                }, 100);
+                }, 150);
             });
 
             on(a, 'mouseleave', function (e) {
