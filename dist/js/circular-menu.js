@@ -466,55 +466,6 @@
         this._createText(div, data, index);
     }
 
-    const sizeRatio$1 = 5/3;
-    const percentRatio = 0.45;
-    const centralDegRatio = 0.618;
-
-
-    function createSubMenu (creator, menus, index) {
-        var subMenu = document.createElement('div');
-
-        classed(subMenu, 'circular-sub-menu', true);
-
-        this._container.parentNode.insertBefore(subMenu, this._container);
-
-        var totalAngle = this._calc.centralDeg * centralDegRatio * menus.length;
-        var startDeg = this._calc.rotateDeg(index) - totalAngle / 2 + this._calc.centralDeg / 2;
-
-        return  new CMenu(subMenu, creator._cMenu)
-            .config({
-                        totalAngle: totalAngle,//deg,
-                        spaceDeg: this._config.spaceDeg,//deg
-                        percent: percentRatio,//%
-                        diameter: this._config.diameter * sizeRatio$1,//px
-                        horizontal: this._config.horizontal,
-                        start: startDeg,//deg
-                        animation: "into",
-                        menus: menus
-                    });
-    }
-
-    function Creator(cMenu, config){
-        this._cMenu = cMenu;
-        this._container = cMenu._container;
-        this._config = config;
-        this._calc = new Calculation(config);
-        this._anchors = [];
-    }
-
-
-    Creator.prototype = {
-        constructor: Creator,
-        createMenu: createMenu,
-        _createLists: createLists,
-        _createList: createList,
-        _createAnchor: createAnchor,
-        _createText: createText,
-        _createHorizontal: createHorizontal,
-        _createIcon: createIcon,
-        _createSubMenu: createSubMenu
-    };
-
     function extend$1 () {
         // Variables
         var extended = {};
@@ -552,6 +503,55 @@
 
     };
 
+    const sizeRatio$1 = 5 / 3;
+    const percentRatio = 0.45;
+    const centralDegRatio = 0.618;
+
+
+    function createSubMenu(creator, menus, index) {
+        var subMenu = document.createElement('div');
+
+        classed(subMenu, 'circular-sub-menu', true);
+
+        this._container.parentNode.insertBefore(subMenu, this._container);
+
+        var totalAngle = this._calc.centralDeg * centralDegRatio * menus.length;
+        var startDeg = this._calc.rotateDeg(index) - totalAngle / 2 + this._calc.centralDeg / 2;
+
+        var config = extend$1(this._config, {
+            totalAngle: totalAngle,//deg,
+            percent: percentRatio,//%
+            diameter: this._config.diameter * sizeRatio$1,//px
+            start: startDeg,//deg
+            animation: "into",
+            menus: menus
+        });
+        
+        return new CMenu(subMenu, creator._cMenu)
+            .config(config);
+    }
+
+    function Creator(cMenu, config){
+        this._cMenu = cMenu;
+        this._container = cMenu._container;
+        this._config = config;
+        this._calc = new Calculation(config);
+        this._anchors = [];
+    }
+
+
+    Creator.prototype = {
+        constructor: Creator,
+        createMenu: createMenu,
+        _createLists: createLists,
+        _createList: createList,
+        _createAnchor: createAnchor,
+        _createText: createText,
+        _createHorizontal: createHorizontal,
+        _createIcon: createIcon,
+        _createSubMenu: createSubMenu
+    };
+
     const defaultConfig = {
         totalAngle: 360,//deg,
         spaceDeg: 0,//deg
@@ -563,7 +563,7 @@
         position: 'top',
         horizontal: true,
         animation: "into",
-        hideAfterClick: false
+        hideAfterClick: true
     };
 
 

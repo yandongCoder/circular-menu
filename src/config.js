@@ -12,7 +12,7 @@ const defaultConfig = {
     position: 'top',
     horizontal: true,
     animation: "into",
-    hideAfterClick: false
+    hideAfterClick: true
 };
 
 
