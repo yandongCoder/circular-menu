@@ -349,9 +349,11 @@
         function clickCallBack(e, data){
             if (data.click) data.click.call(this, e, data);
 
-            self._cMenu.hide();
-            if(self._cMenu._pMenu) self._cMenu._pMenu.hide();
-            if(subMenu) subMenu.hide();
+            if(self._config.hideAfterClick){
+                self._cMenu.hide();
+                if(self._cMenu._pMenu) self._cMenu._pMenu.hide();
+                if(subMenu) subMenu.hide();
+            }
         }
 
         on(a, 'click', clickCallBack, data);
@@ -560,7 +562,8 @@
         diameter: 300,//px
         position: 'top',
         horizontal: true,
-        animation: "into"
+        animation: "into",
+        hideAfterClick: false
     };
 
 

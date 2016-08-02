@@ -11,7 +11,8 @@ const defaultConfig = {
     diameter: 300,//px
     position: 'top',
     horizontal: true,
-    animation: "into"
+    animation: "into",
+    hideAfterClick: false
 };
 
 
