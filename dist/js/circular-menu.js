@@ -285,7 +285,10 @@
         style(p, 'height', this._calc.menuSize.height);
         style(p, 'margin-top', this._calc.menuSize.marginTop);
         style(p, 'margin-left', this._calc.menuSize.marginLeft);
-        style(p, 'display', 'block');
+
+        setTimeout(function(){
+            style(p, 'display', 'block');
+        },100);
 
         styleSheet(p, 'width', this._calc.coverSize.width, 'after');
         styleSheet(p, 'height', this._calc.coverSize.height, 'after');
