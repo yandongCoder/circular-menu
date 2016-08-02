@@ -8,8 +8,9 @@ import createIcon from "./createIcon";
 import createHorizontal from "./createHorizontal";
 import createSubMenu from "./createSubMenu";
 
-export default function Creator(container, config){
-    this._container = container;
+export default function Creator(cMenu, config){
+    this._cMenu = cMenu;
+    this._container = cMenu._container;
     this._config = config;
     this._calc = new Calculation(config);
     this._anchors = [];

@@ -19,7 +19,7 @@ export default function (config) {
 
     config = extend(defaultConfig, config);
 
-    this._creator = new Creator(this._container, config);
+    this._creator = new Creator(this, config);
     this._creator.createMenu();
 
     return this;

@@ -18,6 +18,8 @@ function ifDisabled(disabled){
 var delayShow = null;// delayShow reference the last setTimeout triggered by any one of menu item(anchor)
 
 export default function (parent, data, index) {
+    var self = this;
+
     var delayHide = null;// delayHide reference the last setTimeout triggered by the menu item itself
 
     var a = document.createElement('a');
@@ -43,8 +45,16 @@ export default function (parent, data, index) {
     styleSheet(a, 'background', 'radial-gradient(transparent ' + percent + ', ' + this._config.background + ' ' + percent + ')');
     styleSheet(a, 'background', 'radial-gradient(transparent ' + percent + ', ' + this._config.backgroundHover + ' ' + percent + ')', 'hover');
 
-    
-    if (data.click) on(a, 'click', data.click, data);
+
+    function clickCallBack(e, data){
+        if (data.click) data.click.call(this, e, data);
+
+        self._cMenu.hide();
+        if(self._cMenu._pMenu) self._cMenu._pMenu.hide();
+        if(subMenu) subMenu.hide();
+    }
+
+    on(a, 'click', clickCallBack, data);
 
     parent.appendChild(a);
 
@@ -53,15 +63,14 @@ export default function (parent, data, index) {
     
     //toggle subMenu
     if (hasSubMenus(data.menus)) {
-        var menu = this;
-        var subMenu = this._createSubMenu(data.menus, index);
+        var subMenu = this._createSubMenu(self, data.menus, index);
 
         on(a, 'mouseenter', function () {
             delayShow = setTimeout(function () {
                 subMenu
                     .styles({
-                                top: menu._container.offsetTop + menu._calc.radius + 'px',
-                                left: menu._container.offsetLeft + menu._calc.radius + 'px'
+                                top: self._container.offsetTop + self._calc.radius + 'px',
+                                left: self._container.offsetLeft + self._calc.radius + 'px'
                             })
                     .show();
             }, 100);

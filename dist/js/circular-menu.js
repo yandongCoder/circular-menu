@@ -318,6 +318,8 @@
     var delayShow = null;// delayShow reference the last setTimeout triggered by any one of menu item(anchor)
 
     function createAnchor (parent, data, index) {
+        var self = this;
+
         var delayHide = null;// delayHide reference the last setTimeout triggered by the menu item itself
 
         var a = document.createElement('a');
@@ -343,8 +345,16 @@
         styleSheet(a, 'background', 'radial-gradient(transparent ' + percent + ', ' + this._config.background + ' ' + percent + ')');
         styleSheet(a, 'background', 'radial-gradient(transparent ' + percent + ', ' + this._config.backgroundHover + ' ' + percent + ')', 'hover');
 
-        
-        if (data.click) on(a, 'click', data.click, data);
+
+        function clickCallBack(e, data){
+            if (data.click) data.click.call(this, e, data);
+
+            self._cMenu.hide();
+            if(self._cMenu._pMenu) self._cMenu._pMenu.hide();
+            if(subMenu) subMenu.hide();
+        }
+
+        on(a, 'click', clickCallBack, data);
 
         parent.appendChild(a);
 
@@ -353,15 +363,14 @@
         
         //toggle subMenu
         if (hasSubMenus(data.menus)) {
-            var menu = this;
-            var subMenu = this._createSubMenu(data.menus, index);
+            var subMenu = this._createSubMenu(self, data.menus, index);
 
             on(a, 'mouseenter', function () {
                 delayShow = setTimeout(function () {
                     subMenu
                         .styles({
-                                    top: menu._container.offsetTop + menu._calc.radius + 'px',
-                                    left: menu._container.offsetLeft + menu._calc.radius + 'px'
+                                    top: self._container.offsetTop + self._calc.radius + 'px',
+                                    left: self._container.offsetLeft + self._calc.radius + 'px'
                                 })
                         .show();
                 }, 100);
@@ -460,7 +469,7 @@
     const centralDegRatio = 0.618;
 
 
-    function createSubMenu (menus, index) {
+    function createSubMenu (creator, menus, index) {
         var subMenu = document.createElement('div');
 
         classed(subMenu, 'circular-sub-menu', true);
@@ -470,8 +479,7 @@
         var totalAngle = this._calc.centralDeg * centralDegRatio * menus.length;
         var startDeg = this._calc.rotateDeg(index) - totalAngle / 2 + this._calc.centralDeg / 2;
 
-
-        return CMenu(subMenu)
+        return  new CMenu(subMenu, creator._cMenu)
             .config({
                         totalAngle: totalAngle,//deg,
                         spaceDeg: this._config.spaceDeg,//deg
@@ -484,8 +492,9 @@
                     });
     }
 
-    function Creator(container, config){
-        this._container = container;
+    function Creator(cMenu, config){
+        this._cMenu = cMenu;
+        this._container = cMenu._container;
         this._config = config;
         this._calc = new Calculation(config);
         this._anchors = [];
@@ -559,7 +568,7 @@
 
         config = extend$1(defaultConfig, config);
 
-        this._creator = new Creator(this._container, config);
+        this._creator = new Creator(this, config);
         this._creator.createMenu();
 
         return this;
@@ -607,12 +616,14 @@
         return this;
     }
 
-    function CMenu$1(element){
+    function CMenu(element, pMenu){
         this._container = element;
+        
+        if(pMenu) this._pMenu = pMenu;
     }
 
-    CMenu$1.prototype = {
-        constructor: CMenu$1,
+    CMenu.prototype = {
+        constructor: CMenu,
         config: config,
         show: show,
         hide: hide,
@@ -622,8 +633,8 @@
 
     function index (selector) {
         return typeof selector === "string"
-            ? new CMenu$1(document.querySelector(selector))
-            : new CMenu$1(selector);
+            ? new CMenu(document.querySelector(selector))
+            : new CMenu(selector);
     }
 
     return index;
