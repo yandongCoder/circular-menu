@@ -13,6 +13,17 @@ function ifDisabled(disabled){
         return Boolean(disabled);
 }
 
+function setHref(ele, href){
+    if(!href) return;
+
+    if(href instanceof Object){
+        ele.href = href.url;
+        ele.target = href.blank? "_blank" : "";
+    }else{
+        ele.href = href;
+    }
+}
+
 
 
 var delayShow = null;// delayShow reference the last setTimeout triggered by any one of menu item(anchor)
@@ -24,7 +35,7 @@ export default function (parent, data, index) {
 
     var a = document.createElement('a');
 
-    if(data.href) a.href = data.href;
+    setHref(a, data.href);
 
     a.setDisabled = function(){
         classed(a, 'disabled', ifDisabled(data.disabled));
