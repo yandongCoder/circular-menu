@@ -58,7 +58,8 @@ I tested in newer chrome, firefox, and IE Edge.
         
 ### Method
 
-- styles(properties) > add styles to menus
+- styles(properties) 
+    add styles to menus
     - properties: acceptable css properties object ( like ```{ "background-color": "#ffe", "border-left": "5px solid #ccc" }```)
 - show (show menus)
 
