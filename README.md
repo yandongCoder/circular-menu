@@ -16,38 +16,38 @@ I tested in newer chrome, firefox, and IE Edge.
 
 ### Options
 
-- totalAngle: 
+- **totalAngle**: 
     - value: ```0-360``` (unit is unnecessary)
     - default: ```360```deg (complete circle)
-- spaceDeg: 
+- **spaceDeg**: 
     - value: ```Int``` (0-5 is suitable)
     - default: ```0``` (The default is good)
-- background: 
+- **background**: 
     - value: Acceptable CSS color value
     - default: ```#323232```
-- backgroundHover: 
+- **backgroundHover**: 
     - value: Acceptable CSS color value
     - default: ```#515151```
-- pageBackground: 
+- **pageBackground**: 
     - value: Acceptable CSS color value ( You should pass the color of your page. )
     - default: ```#ffffff```
-- diameter(circular menu radius): 
+- **diameter**(circular menu radius): 
     - value:  Int (unit is unnecessary)
     - default: ```300```px
-- position: 
+- **position**: 
     - value: "top" | "left" | "right" | "bottom"
     - default: "top"
-- start: 
+- **start**: 
     - value: ```0-360``` (unit is unnecessary)
     - default: ```0``` deg
-- horizontal (Horizontal icon and text): 
+- **horizontal** (Horizontal icon and text): 
     - value: ```true | false```
     - default: ```true```
-- hideAfterClick (Whether hide menu after click): 
+- **hideAfterClick** (Whether hide menu after click): 
     - value: ```true | false```
     - default: ```true```
     
-- menus: (Array of objects, specifying menu items, the number of items must > 4 ! )
+- **menus**: (Array of objects, specifying menu items, the number of items must > 4 ! )
     - title: String (Title is not too long, otherwise it will overflow container)
     - icon: String (css class, e.g. "fa fa-facebook" "custom-icon icon1")
     - href:
@@ -62,10 +62,10 @@ I tested in newer chrome, firefox, and IE Edge.
         
 ### Method
 
-- styles(properties): add styles to menus
+- **styles(**properties**)**: add styles to menus
     - properties: Acceptable css properties object ( like ```{ "background-color": "#ffe", "border-left": "5px solid #ccc" }```)
     
-- show ([left, top])：show menus
+- **show (**[left, top]**)**：show menus
     - [left, top] : Optional, set menu fixed position left and top, (like ```menus.show([e.pageX, e.pageY])```, unit is unnecessary)
     
-- hide(): hide menus
+- **hide()**: hide menus
