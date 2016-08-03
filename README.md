@@ -47,7 +47,7 @@ I tested in newer chrome, firefox, and IE Edge.
     - value: ```true | false```
     - default: ```true```
     
-- **menus**: (Array of objects, specifying menu items, the number of items must > 4 ! )
+- **menus**: (Array of objects, specifying menu items, **angle of each item mush < 90deg, it meaning "totalAngle / items number" must <= 90deg [wrong use demo](https://jsfiddle.net/yandongCoder/c00qb1kh/10/)** )
     - title: String (Title is not too long, otherwise it will overflow container)
     - icon: String (css class, e.g. "fa fa-facebook" "custom-icon icon1")
     - href:
