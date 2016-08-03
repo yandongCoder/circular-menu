@@ -16,10 +16,10 @@ I tested in newer chrome, firefox, and IE Edge.
 
 ### Options
 
-- **totalAngle**: 
+- **totalAngle** ([demo](https://jsfiddle.net/yandongCoder/c00qb1kh/2/)): 
     - value: ```0-360``` (unit is unnecessary)
     - default: ```360```deg (complete circle)
-- **spaceDeg**: 
+- **spaceDeg** ([demo](https://jsfiddle.net/yandongCoder/c00qb1kh/4/)): 
     - value: ```Int``` (0-5 is suitable)
     - default: ```0``` (The default is good)
 - **background**: 
@@ -28,7 +28,7 @@ I tested in newer chrome, firefox, and IE Edge.
 - **backgroundHover**: 
     - value: Acceptable CSS color value
     - default: ```#515151```
-- **pageBackground**: 
+- **pageBackground** (For antialiasing, d): 
     - value: Acceptable CSS color value ( You should pass the color of your page. )
     - default: ```transparent```
 - **diameter**(circular menu radius): 
