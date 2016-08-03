@@ -58,9 +58,10 @@ I tested in newer chrome, firefox, and IE Edge.
         
 ### Method
 
-- styles(properties) 
-    add styles to menus
-    - properties: acceptable css properties object ( like ```{ "background-color": "#ffe", "border-left": "5px solid #ccc" }```)
-- show (show menus)
-
-- hide (hide menus)
+- styles(properties): add styles to menus
+    - properties: Acceptable css properties object ( like ```{ "background-color": "#ffe", "border-left": "5px solid #ccc" }```)
+    
+- show ([left, top])：show menus
+    - [left, top] : Optional, set menu fixed position left and top, (like ```menus.show([e.pageX, e.pageY])```, unit is unnecessary)
+    
+- hide(): hide menus
