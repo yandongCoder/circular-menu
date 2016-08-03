@@ -34,13 +34,13 @@ I tested in newer chrome, firefox, and IE Edge.
 - **diameter**(circular menu radius): 
     - value:  Int (unit is unnecessary)
     - default: ```300```px
-- **position**: 
+- **position**([demo](https://jsfiddle.net/yandongCoder/c00qb1kh/7/)): 
     - value: "top" | "left" | "right" | "bottom"
     - default: "top"
-- **start**: 
+- **start**([demo](https://jsfiddle.net/yandongCoder/c00qb1kh/8/)): 
     - value: ```0-360``` (unit is unnecessary)
     - default: ```0``` deg
-- **horizontal** (Horizontal icon and text): 
+- **horizontal** (Whether horizontal icon and text [demo](https://jsfiddle.net/yandongCoder/c00qb1kh/9/)): 
     - value: ```true | false```
     - default: ```true```
 - **hideAfterClick** (Whether hide menu after click): 
