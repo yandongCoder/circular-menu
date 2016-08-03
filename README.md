@@ -2,7 +2,7 @@
 aka, circular menu, wheel menu, circular navigation, wheel navigation.
 
 ## Sample
-![sample menus](https://raw.githubusercontent.com/yandongCoder/circular-menu/master/examples/menu-sample.png)
+![sample menus](https://raw.githubusercontent.com/yandongCoder/circular-menu/master/examples/images/menu-sample.png)
 
 
 ## Live Demo
@@ -28,7 +28,7 @@ I tested in newer chrome, firefox, and IE Edge.
 - **backgroundHover**: 
     - value: Acceptable CSS color value
     - default: ```#515151```
-- **pageBackground** (For antialiasing, d): 
+- **pageBackground** (For antialiasing, [example explanation](https://raw.githubusercontent.com/yandongCoder/circular-menu/master/examples/images/CMenu-antialiasing.png)): 
     - value: Acceptable CSS color value ( You should pass the color of your page. )
     - default: ```transparent```
 - **diameter**(circular menu radius): 
