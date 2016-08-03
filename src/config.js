@@ -6,7 +6,7 @@ const defaultConfig = {
     spaceDeg: 0,//deg
     background: "#323232",
     backgroundHover: "#515151",
-    pageBackground: "#ffffff",
+    pageBackground: "transparent",
     percent: 0.32,//%
     diameter: 300,//px
     position: 'top',

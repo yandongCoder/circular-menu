@@ -30,7 +30,7 @@ I tested in newer chrome, firefox, and IE Edge.
     - default: ```#515151```
 - **pageBackground**: 
     - value: Acceptable CSS color value ( You should pass the color of your page. )
-    - default: ```#ffffff```
+    - default: ```transparent```
 - **diameter**(circular menu radius): 
     - value:  Int (unit is unnecessary)
     - default: ```300```px
