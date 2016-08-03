@@ -1,6 +1,13 @@
 # Circular-Menu
 aka, circular menu, wheel menu, circular navigation, wheel navigation.
 
+## install
+    ```npm install circular-menu```
+
+## usage
+    Directly include dist/js/circular-menu.js and dist/css/circular-menu.css
+    It is wrapped as AMD module, meaning could use with RequireJS or commonJS, or just global varible "CMenu" 
+
 ## Sample
 ![sample menus](https://raw.githubusercontent.com/yandongCoder/circular-menu/master/examples/images/menu-sample.png)
 
