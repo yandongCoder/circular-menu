@@ -1,5 +1,5 @@
-import classed from "./classed";
-import style from "./style";
+import classed from "./Element/classed";
+import style from "./Element/style";
 
 function setCoordinate(coordinate){
     if( !(coordinate instanceof Array) || !(coordinate.length === 2) ) return;

@@ -1,5 +1,5 @@
-import style from "./../style";
-import classed from "./../classed";
+import style from "./../Element/style";
+import classed from "./../Element/classed";
 
 const sizeRatio = 0.65;
 const marginTopRatio = 0.2;

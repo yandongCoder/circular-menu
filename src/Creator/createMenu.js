@@ -1,6 +1,6 @@
-import classed from "./../classed";
-import style from "./../style";
-import styleSheet from "./styleSheet";
+import classed from "./../Element/classed";
+import style from "./../Element/style";
+import styleSheet from "./../Element/styleSheet";
 
 export default function(){
     var p = this._container;

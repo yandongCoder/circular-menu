@@ -1,7 +1,7 @@
-import style from "./../style";
-import classed from "./../classed";
+import style from "./../Element/style";
+import classed from "./../Element/classed";
 import on from "./../on";
-import styleSheet from "./styleSheet";
+import styleSheet from "./../Element/styleSheet";
 
 function hasSubMenus(menus) {
     return menus instanceof Array && menus.length !== 0;

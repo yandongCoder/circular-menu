@@ -237,7 +237,8 @@
         (value.apply(this, arguments) ? classedAdd : classedRemove)(this, names);
     }
 
-    function classed(ele, name, value) {
+    function classed(name, value) {
+
         var names = classArray(name + "");
 
         if (arguments.length < 2) {
@@ -249,7 +250,7 @@
         var callee = (typeof value === "function"
             ? classedFunction : value
             ? classedTrue
-            : classedFalse).call(ele, names, value);
+            : classedFalse).call(this.element, names, value);
     }
 
     var UID = {
@@ -614,30 +615,82 @@
         if(!styles instanceof Object) return this;
         
         for(var k in styles){
-            if(styles.hasOwnProperty(k)) style(this._container, k, styles[k]);
+            if(styles.hasOwnProperty(k)) style(this.element, k, styles[k]);
         }
 
         return this;
     }
 
-    function render () {
-        console.log(this);
+    function styleSheets (styles, pseudo) {
+        if(!styles instanceof Object) return this;
+        
+        for(var k in styles){
+            if(styles.hasOwnProperty(k)) styleSheet(this.element, k, styles[k], pseudo);
+        }
+
+        return this;
     }
 
-    function Menu(parent, diameter) {
-        this.parent = parent;
-        this.width = this.height = diameter;
-        this.marginLeft = this.marginTop = diameter / 2;
+    function Element() {
+        
     }
 
-    Menu.prototype = {
-        constructor: Menu,
-        render: render
+    Element.prototype = {
+        constructor: Element,
+        styles: styles,
+        styleSheets: styleSheets,
+        classed: classed
     };
+
+    function render () {
+        this.element = document.createElement('div');
+        
+        this.classed('circular-menu', true);
+
+        this.styles({
+                        "width": this.width,
+                        "height": this.height,
+                        "marginTop": this.marginTop,
+                        "marginLeft": this.marginLeft
+                    });
+        
+
+        var self = this;
+        setTimeout(function () {
+            self.styles({'display': 'block'});
+        }, 100);
+
+        this.styleSheets({
+                             'width': this.width,
+                             'height': this.height,
+                             'margin-left': this.marginLeft,
+                             'margin-top': this.marginTop,
+                             'border': '3px solid ' + this.pageBackground
+                         }, 'after');
+
+        
+        this.parent.appendChild(this.element);
+
+        //var ul = p.appendChild(document.createElement('ul'));
+        //this._createLists(ul);
+    }
+
+    function Menu(parent, diameter, pageBackground) {
+        this.parent = parent;
+        this.width = this.height = diameter + "px";
+        this.marginLeft = this.marginTop = diameter / 2 + "px";
+        this.pageBackground = pageBackground;
+    }
+
+
+    Menu.prototype = Element.prototype;
+
+    Menu.prototype.constructor = Menu;
+    Menu.prototype.render = render;
 
     function _createMenus () {
         this.config.menus.forEach(function(v, i){
-            var menu = new Menu(this.element, this.config.diameter);
+            var menu = new Menu(this.element, this.config.diameter, this.config.pageBackground);
             this.menus.push(menu);
             menu.render();
         }, this);

@@ -1,5 +1,5 @@
-import style from "./../style";
-import classed from "./../classed";
+import style from "./../Element/style";
+import classed from "./../Element/classed";
 import {hasIcon} from "./createIcon";
 
 const withIconMarginTop = "3px";

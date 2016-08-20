@@ -1,4 +1,4 @@
-import classed from "./../classed";
+import classed from "./../Element/classed";
 import CMenu from "../CMenu";
 import extend from "../extend";
 

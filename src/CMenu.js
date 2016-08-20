@@ -1,7 +1,7 @@
 import config from "./config";
 import show from "./show";
 import hide from "./hide";
-import styles from "./styles";
+import styles from "./Element/styles";
 import _createMenus from "./createMenus";
 import extend from "./extend";
 
