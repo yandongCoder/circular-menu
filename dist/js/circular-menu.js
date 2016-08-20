@@ -568,21 +568,6 @@
         _createSubMenu: createSubMenu
     };
 
-    const defaultConfig = {
-        totalAngle: 360,//deg,
-        spaceDeg: 0,//deg
-        background: "#323232",
-        backgroundHover: "#515151",
-        pageBackground: "transparent",
-        percent: 0.32,//%
-        diameter: 300,//px
-        position: 'top',
-        horizontal: true,
-        animation: "into",
-        hideAfterClick: true
-    };
-
-
     function config (config) {
 
         config = extend$1(defaultConfig, config);
@@ -635,25 +620,67 @@
         return this;
     }
 
-    function CMenu(element, pMenu){
-        this._container = element;
-        
-        if(pMenu) this._pMenu = pMenu;
+    function render () {
+        console.log(this);
+    }
+
+    function Menu(parent, diameter) {
+        this.parent = parent;
+        this.width = this.height = diameter;
+        this.marginLeft = this.marginTop = diameter / 2;
+    }
+
+    Menu.prototype = {
+        constructor: Menu,
+        render: render
+    };
+
+    function _createMenus () {
+        this.config.menus.forEach(function(v, i){
+            var menu = new Menu(this.element, this.config.diameter);
+            this.menus.push(menu);
+            menu.render();
+        }, this);
+    }
+
+    const DefaultConfig = {
+        totalAngle: 360,//deg,
+        spaceDeg: 0,//deg
+        background: "#323232",
+        backgroundHover: "#515151",
+        pageBackground: "transparent",
+        percent: 0.32,//%
+        diameter: 300,//px
+        position: 'top',
+        horizontal: true,
+        animation: "into",
+        hideAfterClick: true
+    };
+
+    function CMenu(element, config){//pMenu
+        this.element = element;
+        this.menus = [];
+
+        this.config = extend$1(DefaultConfig, config);
+
+
+        this._createMenus();
     }
 
     CMenu.prototype = {
         constructor: CMenu,
-        config: config,
+        _createMenus: _createMenus,
+        config: config,//get,set config
         show: show,
         hide: hide,
         styles: styles
 
     };
 
-    function index (selector) {
+    function index (selector, config) {
         return typeof selector === "string"
-            ? new CMenu(document.querySelector(selector))
-            : new CMenu(selector);
+            ? new CMenu(document.querySelector(selector), config)
+            : new CMenu(selector, config);
     }
 
     return index;
