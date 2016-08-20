@@ -675,13 +675,17 @@
         //this._createLists(ul);
     }
 
-    function Menu(parent, diameter, pageBackground) {
+    const sizeRatio$2 = [1, 5/3, 5/3];
+    //const percent = [0.32, 0.45, 0.45];
+    //const centralDegRatio = [1, 0.618, 0.618];
+
+    function Menu(parent, config, menus, level) {
         this.parent = parent;
+        var diameter = config.diameter * sizeRatio$2;
         this.width = this.height = diameter + "px";
         this.marginLeft = this.marginTop = diameter / 2 + "px";
-        this.pageBackground = pageBackground;
+        this.pageBackground = config.pageBackground;
     }
-
 
     Menu.prototype = Element.prototype;
 
@@ -689,10 +693,24 @@
     Menu.prototype.render = render;
 
     function _createMenus () {
-        this.config.menus.forEach(function(v, i){
-            var menu = new Menu(this.element, this.config.diameter, this.config.pageBackground);
-            this.menus.push(menu);
-            menu.render();
+
+        createMenu$1.call(this, this.config.menus, 0);
+
+    }
+
+    function createMenu$1(menus, level) {
+
+        var menu = new Menu(this.element, this.config, menus, level);
+        menu.render();
+
+        this.menus.push(menu);
+
+        ++level;
+        
+        menus.forEach(function (v, i) {
+            if (v.menus) {
+                createMenu$1.call(this, v.menus, level);
+            }
         }, this);
     }
 

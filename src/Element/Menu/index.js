@@ -1,13 +1,17 @@
 import Element from "../index";
 import render from "./render";
 
-export default function Menu(parent, diameter, pageBackground) {
+const sizeRatio = [1, 5/3, 5/3];
+//const percent = [0.32, 0.45, 0.45];
+//const centralDegRatio = [1, 0.618, 0.618];
+
+export default function Menu(parent, config, menus, level) {
     this.parent = parent;
+    var diameter = config.diameter * sizeRatio;
     this.width = this.height = diameter + "px";
     this.marginLeft = this.marginTop = diameter / 2 + "px";
-    this.pageBackground = pageBackground;
+    this.pageBackground = config.pageBackground;
 }
-
 
 Menu.prototype = Element.prototype;
 
