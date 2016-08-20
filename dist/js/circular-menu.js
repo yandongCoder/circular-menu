@@ -647,6 +647,7 @@
         
         this.classed('circular-menu', true);
 
+        console.log(this);
         this.styles({
                         "width": this.width,
                         "height": this.height,
@@ -681,7 +682,7 @@
 
     function Menu(parent, config, menus, level) {
         this.parent = parent;
-        var diameter = config.diameter * sizeRatio$2;
+        var diameter = config.diameter * sizeRatio$2[level];
         this.width = this.height = diameter + "px";
         this.marginLeft = this.marginTop = diameter / 2 + "px";
         this.pageBackground = config.pageBackground;

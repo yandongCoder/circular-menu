@@ -3,6 +3,7 @@ export default function () {
     
     this.classed('circular-menu', true);
 
+    console.log(this);
     this.styles({
                     "width": this.width,
                     "height": this.height,
