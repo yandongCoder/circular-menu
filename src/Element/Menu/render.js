@@ -1,6 +1,6 @@
 export default function () {
-    this.element = document.createElement('div');
     
+
     this.classed('circular-menu', true);
 
     this.styles({

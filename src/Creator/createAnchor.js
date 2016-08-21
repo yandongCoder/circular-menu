@@ -1,6 +1,6 @@
 import style from "./../Element/style";
 import classed from "./../Element/classed";
-import on from "./../on";
+import on from "./../Element/on";
 import styleSheet from "./../Element/styleSheet";
 
 function hasSubMenus(menus) {
@@ -13,16 +13,7 @@ function ifDisabled(disabled){
         return Boolean(disabled);
 }
 
-function setHref(ele, href){
-    if(!href) return;
 
-    if(href instanceof Object){
-        ele.href = href.url;
-        ele.target = href.blank? "_blank" : "";
-    }else{
-        ele.href = href;
-    }
-}
 
 
 

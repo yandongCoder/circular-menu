@@ -7,6 +7,7 @@ import hide from "./hide";
 export default function Menu(parent, config, menus, level) {
     Element.call(this);
     this.parent = parent;
+    this.element = document.createElement('div');
     this.config = config;
     this.menus = menus;
 

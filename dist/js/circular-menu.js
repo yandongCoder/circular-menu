@@ -317,6 +317,12 @@
         return this;
     };
 
+    function on (type, callback, data) {
+        this.element.addEventListener(type, function(e){
+            callback.call(this, e, data);
+        });
+    }
+
     function setCoordinate(coordinate){
         if( !(coordinate instanceof Array) || !(coordinate.length === 2) ) return;
 
@@ -382,14 +388,16 @@
     Element.prototype = {
         constructor: Element,
         styles: styles,
+        styleSheet: styleSheet,
         styleSheets: styleSheets,
         classed: classed,
-        appendFirst: appendFirst
+        appendFirst: appendFirst,
+        on: on
     };
 
     function render () {
-        this.element = document.createElement('div');
         
+
         this.classed('circular-menu', true);
 
         this.styles({
@@ -422,26 +430,81 @@
     }
 
     function render$1 () {
-        this.element = document.createElement('li');
-
         this.styles({
                         'width': this.config.listSize.width,
                         'height': this.config.listSize.height,
                         'transform': 'rotate(' + this.config.rotateDeg(this.index) + 'deg) skew(' + this.config.skewDeg + 'deg)'
                     });
-        // style(list, 'width', this._calc.listSize.width);
-        // style(list, 'height', this._calc.listSize.height);
-        // style(list, 'transform', 'rotate('+ this._calc.rotateDeg(index) +'deg) skew('+ this._calc.skewDeg +'deg)');
-        
+
+        this.parent.appendChild(this.element);
+
+        this.anchor.render();
+
+
+    }
+
+    function render$2 () {
+        this.setHref(this.menu.href);
+
+        this.styles({
+                       "width": this.config.clickZoneSize.width,
+                       "height": this.config.clickZoneSize.height,
+                       "right": this.config.clickZoneSize.marginRight,
+                       "bottom": this.config.clickZoneSize.marginBottom,
+                       "transform": 'skew(' + -this.config.skewDeg + 'deg) rotate(' + this.config.unskewDeg + 'deg) scale(1)'
+                   });
+
+        this.classed('disabled', this.getDisabled());
+
+
+        var percent = this.config.percent * 100 + "%";
+
+        this.styleSheet(this.element, 'background', 'radial-gradient(transparent ' + percent + ', ' + this.config.background + ' ' + percent + ')');
+        this.styleSheet(this.element, 'background', 'radial-gradient(transparent ' + percent + ', ' + this.config.backgroundHover + ' ' + percent + ')', 'hover');
+
         this.parent.appendChild(this.element);
     }
+
+    function setHref$1 (href){
+        if(!href) return;
+
+        if(href instanceof Object){
+            this.element.href = href.url;
+            this.element.target = href.blank? "_blank" : "";
+        }else{
+            this.element.href = href;
+        }
+    }
+
+    function getDisabled (){
+        if(this.menu.disabled instanceof Function)
+            return this.menu.disabled();
+        else
+            return Boolean(this.menu.disabled);
+    }
+
+    function Anchor(parent, config, menu) {
+        this.parent = parent;
+        this.config = config;
+        this.element = document.createElement('a');
+        this.menu = menu;
+
+    }
+
+    Anchor.prototype = Object.create(Element.prototype);
+    Anchor.prototype.constructor = Anchor;
+    Anchor.prototype.render = render$2;
+    Anchor.prototype.setHref = setHref$1;
+    Anchor.prototype.getDisabled = getDisabled;
 
     function Item(parent, config, menu, index) {
         Element.call(this);
         this.parent = parent.firstChild;
+        this.element = document.createElement('li');
         this.config = config;
         this.index = index;
-        this.menu = menu;
+        
+        this.anchor = new Anchor(this.element, config, menu);
     }
 
     Item.prototype = Object.create(Element.prototype);
@@ -469,6 +532,7 @@
     function Menu(parent, config, menus, level) {
         Element.call(this);
         this.parent = parent;
+        this.element = document.createElement('div');
         this.config = config;
         this.menus = menus;
 
