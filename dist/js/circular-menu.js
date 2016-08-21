@@ -631,6 +631,11 @@
         return this;
     }
 
+    function appendFirst(parent, element){
+        if(parent.firstChild) parent.insertBefore(element, parent.firstChild);
+        else parent.appendChild(element);
+    }
+
     function Element() {
         
     }
@@ -639,7 +644,8 @@
         constructor: Element,
         styles: styles,
         styleSheets: styleSheets,
-        classed: classed
+        classed: classed,
+        appendFirst: appendFirst
     };
 
     function render () {
@@ -647,16 +653,16 @@
         
         this.classed('circular-menu', true);
 
-        console.log(this);
         this.styles({
                         "width": this.width,
                         "height": this.height,
-                        "marginTop": this.marginTop,
-                        "marginLeft": this.marginLeft
+                        "margin-top": this.marginTop,
+                        "margin-left": this.marginLeft
                     });
         
 
         var self = this;
+
         setTimeout(function () {
             self.styles({'display': 'block'});
         }, 100);
@@ -669,23 +675,27 @@
                              'border': '3px solid ' + this.pageBackground
                          }, 'after');
 
-        
-        this.parent.appendChild(this.element);
 
+        this.appendFirst(this.parent, this.element);
         //var ul = p.appendChild(document.createElement('ul'));
         //this._createLists(ul);
     }
 
-    const sizeRatio$2 = [1, 5/3, 5/3];
+    const sizeRatio$2 = [1, 5/3, 25/9];
     //const percent = [0.32, 0.45, 0.45];
     //const centralDegRatio = [1, 0.618, 0.618];
 
     function Menu(parent, config, menus, level) {
         this.parent = parent;
+
         var diameter = config.diameter * sizeRatio$2[level];
         this.width = this.height = diameter + "px";
         this.marginLeft = this.marginTop = diameter / 2 + "px";
         this.pageBackground = config.pageBackground;
+
+        this.items = [];
+        this._createItems();
+
     }
 
     Menu.prototype = Element.prototype;
