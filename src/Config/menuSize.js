@@ -1,6 +1,6 @@
-export default function (config) {
-    var l = config.diameter;
-    var m = - config.diameter / 2;
+export default function (diameter) {
+    var l = diameter;
+    var m = - diameter / 2;
 
     l += "px";
     m += "px";

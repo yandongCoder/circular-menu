@@ -13,8 +13,8 @@
         return - (this.rotateDeg(i) + this.unskewDeg);
     }
 
-    function startDeg(config) {
-        var top = -(config.totalAngle - 180) / 2,
+    function startDeg(start, totalAngle, position) {
+        var top = -(totalAngle - 180) / 2,
             positions = {
                 top: top,
                 left: top - 90,
@@ -22,7 +22,7 @@
                 bottom: top + 180
             };
 
-        return config.start !== undefined ? config.start : positions[config.position];
+        return start !== undefined ? start : positions[position];
     }
 
     const antialiasing = 3;
@@ -47,9 +47,9 @@
         };
     }
 
-    function menuSize (config) {
-        var l = config.diameter;
-        var m = - config.diameter / 2;
+    function menuSize (diameter) {
+        var l = diameter;
+        var m = - diameter / 2;
 
         l += "px";
         m += "px";
@@ -64,9 +64,9 @@
 
     const fixedTop  = 10;
 
-    function clickZoneSize (config) {
-        var l = config.diameter;
-        var m = - config.diameter / 2;
+    function clickZoneSize (diameter) {
+        var l = diameter;
+        var m = - diameter / 2;
 
         l += "px";
         m += "px";
@@ -79,8 +79,8 @@
         };
     }
 
-    function listSize (config) {
-        var l = (config.diameter / 2) + 'px';
+    function listSize (diameter) {
+        var l = (diameter / 2) + 'px';
 
         return {
             width:  l,
@@ -95,46 +95,98 @@
 
     }
 
-    function Calculation(config) {
-        this._config = config;
+    function extend$1 () {
+        // Variables
+        var extended = {};
+        var deep = false;
+        var i = 0;
+        var length = arguments.length;
 
-        var c = this.config = config,
-            itemsNum = c.menus.length,
-            spaceNumber = c.totalAngle === 360 ? itemsNum : itemsNum - 1;
+        // Check if a deep merge
+        if (Object.prototype.toString.call(arguments[0]) === '[object Boolean]') {
+            deep = arguments[0];
+            i++;
+        }
 
-        this.radius = config.diameter / 2;
-        this.coverRadius = coverRadius(this.radius, config.percent);
+        // Merge the object into the extended object
+        var merge = function (obj) {
+            for (var prop in obj) {
+                if (Object.prototype.hasOwnProperty.call(obj, prop)) {
+                    // If deep merge and property is an object, merge properties
+                    if (deep && Object.prototype.toString.call(obj[prop]) === '[object Object]') {
+                        extended[prop] = extend(true, extended[prop], obj[prop]);
+                    } else {
+                        extended[prop] = obj[prop];
+                    }
+                }
+            }
+        };
+
+        // Loop through each object and conduct a merge
+        for (; i < length; i++) {
+            var obj = arguments[i];
+            merge(obj);
+        }
+
+        return extended;
+
+    };
+
+    const DefaultConfig = {
+        totalAngle: 360,//deg,
+        spaceDeg: 0,//deg
+        background: "#323232",
+        backgroundHover: "#515151",
+        pageBackground: "transparent",
+        percent: 0.32,//%
+        diameter: 300,//px
+        position: 'top',
+        horizontal: true,
+        animation: "into",
+        hideAfterClick: true
+    };
+
+    const sizeRatio = [1, 5/3, 25/9];
+    //const percent = [0.32, 0.45, 0.45];
+    //const centralDegRatio = [1, 0.618, 0.618];
+
+
+    function Config(config, level) {
+
+        config = extend$1(DefaultConfig, config);
+        for (var k in config) {
+            this[k] = config[k];
+        }
+
+        this.diameter = this.diameter * sizeRatio[level];
+
+        
+        
+        var itemsNum = this.menus.length,
+            spaceNumber = this.totalAngle === 360 ? itemsNum : itemsNum - 1;
+        
+        this.radius = this.diameter / 2;
+        this.coverRadius = coverRadius(this.radius, this.percent);
         this.clickZoneRadius = this.radius - this.coverRadius;
-
-
-
-        this.listSize = listSize(config);
-        this.clickZoneSize = clickZoneSize(config);
-        this.menuSize = menuSize(config);
-        this.coverSize = coverSize(this.coverRadius);
-        this.startDeg = startDeg(config);
-        this.centralDeg = (c.totalAngle - (c.spaceDeg * spaceNumber)) / itemsNum;
-        this.rotateUnit = this.centralDeg + c.spaceDeg;
+        
+        
+        this.listSize = listSize(this.diameter);
+        this.clickZoneSize = clickZoneSize(this.diameter);
+        this.menuSize = menuSize(this.diameter);
+        this.coverSize = coverSize(this.coverRadius, this.percent);
+        this.startDeg = startDeg(this.start, this.totalAngle, this.position);
+        this.centralDeg = (this.totalAngle - (this.spaceDeg * spaceNumber)) / itemsNum;
+        this.rotateUnit = this.centralDeg + this.spaceDeg;
         this.skewDeg = 90 - this.centralDeg;
-        this.unskewDeg = - (90 - this.centralDeg / 2);
+        this.unskewDeg = -(90 - this.centralDeg / 2);
         this.textTop = textTop(this.clickZoneRadius);
     }
 
-    Calculation.prototype = {
-        constructor: Calculation,
+    Config.prototype = {
+        constructor: Config,
         rotateDeg: rotateDeg,
         horizontalDeg: rotateDeg$1
     };
-
-    function createLists (parent) {
-        
-        this._config.menus.forEach(function(v, k){
-
-            this._createList(parent, v, k);
-            
-        }, this);
-
-    }
 
     function defaultView(node) {
         return (node.ownerDocument && node.ownerDocument.defaultView) // node is a Node
@@ -167,19 +219,6 @@
             : defaultView(node = ele)
             .getComputedStyle(node, null)
             .getPropertyValue(name);
-    }
-
-    function createList(parent, data, index){
-
-        var list = document.createElement('li');
-        style(list, 'width', this._calc.listSize.width);
-        style(list, 'height', this._calc.listSize.height);
-        style(list, 'transform', 'rotate('+ this._calc.rotateDeg(index) +'deg) skew('+ this._calc.skewDeg +'deg)');
-
-        parent.appendChild(list);
-
-        this._createAnchor(list, data, index);
-
     }
 
     function classArray(string) {
@@ -278,307 +317,6 @@
         return this;
     };
 
-    function createMenu(){
-        var p = this._container;
-
-        classed(p, 'circular-menu', true);
-        style(p, 'width', this._calc.menuSize.width);
-        style(p, 'height', this._calc.menuSize.height);
-        style(p, 'margin-top', this._calc.menuSize.marginTop);
-        style(p, 'margin-left', this._calc.menuSize.marginLeft);
-
-        
-        setTimeout(function(){
-            style(p, 'display', 'block');
-        },100);
-
-        styleSheet(p, 'width', this._calc.coverSize.width, 'after');
-        styleSheet(p, 'height', this._calc.coverSize.height, 'after');
-        styleSheet(p, 'margin-left', this._calc.coverSize.marginLeft, 'after');
-        styleSheet(p, 'margin-top', this._calc.coverSize.marginTop, 'after');
-        styleSheet(p, 'border', "3px solid " + this._config.pageBackground, 'after');
-
-
-        var ul = p.appendChild(document.createElement('ul'));
-        this._createLists(ul);
-    }
-
-    function on (ele, type, callback, data) {
-        ele.addEventListener(type, function(e){
-            callback.call(this, e, data);
-        });
-    }
-
-    function hasSubMenus(menus) {
-        return menus instanceof Array && menus.length !== 0;
-    }
-    function ifDisabled(disabled){
-        if(disabled instanceof Function)
-            return disabled();
-        else
-            return Boolean(disabled);
-    }
-
-    function setHref(ele, href){
-        if(!href) return;
-
-        if(href instanceof Object){
-            ele.href = href.url;
-            ele.target = href.blank? "_blank" : "";
-        }else{
-            ele.href = href;
-        }
-    }
-
-
-
-    var delayShow = null;// delayShow reference the last setTimeout triggered by any one of menu item(anchor)
-
-    function createAnchor (parent, data, index) {
-        var self = this;
-
-        var delayHide = null;// delayHide reference the last setTimeout triggered by the menu item itself
-
-        var a = document.createElement('a');
-
-        setHref(a, data.href);
-
-        a.setDisabled = function(){
-            classed(a, 'disabled', ifDisabled(data.disabled));
-        };
-        this._anchors.push(a);
-
-
-        style(a, 'width', this._calc.clickZoneSize.width);
-        style(a, 'height', this._calc.clickZoneSize.height);
-        style(a, 'right', this._calc.clickZoneSize.marginRight);
-        style(a, 'bottom', this._calc.clickZoneSize.marginBottom);
-        style(a, 'transform', 'skew(' + -this._calc.skewDeg + 'deg) rotate(' + this._calc.unskewDeg + 'deg) scale(1)');
-
-        classed(a, 'disabled', ifDisabled(data.disabled));
-
-
-        var percent = this._config.percent * 100 + "%";
-        styleSheet(a, 'background', 'radial-gradient(transparent ' + percent + ', ' + this._config.background + ' ' + percent + ')');
-        styleSheet(a, 'background', 'radial-gradient(transparent ' + percent + ', ' + this._config.backgroundHover + ' ' + percent + ')', 'hover');
-
-
-        function clickCallBack(e, data){
-            if (data.click) data.click.call(this, e, data);
-
-            if(self._config.hideAfterClick){
-                self._cMenu.hide();
-                if(self._cMenu._pMenu) self._cMenu._pMenu.hide();
-                if(subMenu) subMenu.hide();
-            }
-        }
-
-        on(a, 'click', clickCallBack, data);
-
-        parent.appendChild(a);
-
-        this._createHorizontal(a, data, index);
-        
-        
-        //toggle subMenu
-        if (hasSubMenus(data.menus)) {
-            var subMenu = this._createSubMenu(self, data.menus, index);
-
-            on(a, 'mouseenter', function () {
-                delayShow = setTimeout(function () {
-                    subMenu
-                        .styles({
-                                    top: self._container.offsetTop + self._calc.radius + 'px',
-                                    left: self._container.offsetLeft + self._calc.radius + 'px'
-                                })
-                        .show();
-                }, 150);
-            });
-
-            on(a, 'mouseleave', function (e) {
-                if (!subMenu._container.contains(e.toElement)) {
-                    delayHide = setTimeout(function () {
-                        subMenu.hide();
-                    }, 200);
-                }
-            });
-
-            on(subMenu._container, 'mouseenter', function () {
-                clearTimeout(delayShow);
-                clearTimeout(delayHide);
-            });
-
-            on(subMenu._container, 'mouseleave', function (e) {
-                if (!a.contains(e.toElement)) {
-                    subMenu.hide();
-                }
-            });
-        }
-    }
-
-    const sizeRatio = 0.65;
-    const marginTopRatio = 0.2;
-    const fontHeight = 13;
-
-    function hasIcon(icon){
-        if(icon === undefined) return false;
-        else if(typeof icon === "string") return icon !== "";
-        else return icon.length && icon[0] !== "";
-    }
-
-    function getIcon(icon){
-        return typeof icon === "string"? icon : icon[0];
-    }
-
-    function getIconColor(icon){
-        return typeof icon === "string"? null : icon[1];
-    }
-
-    function createIcon (parent, data, index) {
-        if(!hasIcon(data.icon)) return;
-
-        var span = document.createElement('span');
-
-        var icon = getIcon(data.icon),
-            color = getIconColor(data.icon);
-
-        classed(span, icon + " cm-icon", true);
-        style(span, 'color', color);
-
-        var l = this._calc.clickZoneRadius * sizeRatio - fontHeight + "px",
-            m = this._calc.clickZoneRadius * marginTopRatio - fontHeight + "px";
-        style(span, 'width', l);
-        style(span, 'height', l);
-        style(span, 'font-size', l);
-        style(span, 'margin-top', m);
-
-        parent.appendChild(span);
-    }
-
-    const withIconMarginTop = "3px";
-    const withIconTop = "-3px";
-
-    function createText (parent, data, index) {
-
-        var span = document.createElement('span');
-        span.textContent = data.title;
-
-        classed(span, 'text', true);
-        style(span, 'margin-top', hasIcon(data.icon)? withIconMarginTop : this._calc.textTop);
-        style(span, 'top', hasIcon(data.icon)? withIconTop : 0);
-
-        parent.appendChild(span);
-    }
-
-    function createHorizontal (parent, data, index) {
-
-        var div = document.createElement('div');
-        classed(div, "horizontal", true);
-
-        if(this._config.horizontal) style(div, 'transform', 'rotate('+ this._calc.horizontalDeg(index) +'deg)');
-
-        parent.appendChild(div);
-
-        this._createIcon(div, data, index);
-        this._createText(div, data, index);
-    }
-
-    function extend$1 () {
-        // Variables
-        var extended = {};
-        var deep = false;
-        var i = 0;
-        var length = arguments.length;
-
-        // Check if a deep merge
-        if (Object.prototype.toString.call(arguments[0]) === '[object Boolean]') {
-            deep = arguments[0];
-            i++;
-        }
-
-        // Merge the object into the extended object
-        var merge = function (obj) {
-            for (var prop in obj) {
-                if (Object.prototype.hasOwnProperty.call(obj, prop)) {
-                    // If deep merge and property is an object, merge properties
-                    if (deep && Object.prototype.toString.call(obj[prop]) === '[object Object]') {
-                        extended[prop] = extend(true, extended[prop], obj[prop]);
-                    } else {
-                        extended[prop] = obj[prop];
-                    }
-                }
-            }
-        };
-
-        // Loop through each object and conduct a merge
-        for (; i < length; i++) {
-            var obj = arguments[i];
-            merge(obj);
-        }
-
-        return extended;
-
-    };
-
-    const sizeRatio$1 = 5 / 3;
-    const percentRatio = 0.45;
-    const centralDegRatio = 0.618;
-
-
-    function createSubMenu(creator, menus, index) {
-        var subMenu = document.createElement('div');
-
-        classed(subMenu, 'circular-sub-menu', true);
-
-        this._container.parentNode.insertBefore(subMenu, this._container);
-
-        var totalAngle = this._calc.centralDeg * centralDegRatio * menus.length;
-        var startDeg = this._calc.rotateDeg(index) - totalAngle / 2 + this._calc.centralDeg / 2;
-
-        var config = extend$1(this._config, {
-            totalAngle: totalAngle,//deg,
-            percent: percentRatio,//%
-            diameter: this._config.diameter * sizeRatio$1,//px
-            start: startDeg,//deg
-            animation: "into",
-            menus: menus
-        });
-        
-        return new CMenu(subMenu, creator._cMenu)
-            .config(config);
-    }
-
-    function Creator(cMenu, config){
-        this._cMenu = cMenu;
-        this._container = cMenu._container;
-        this._config = config;
-        this._calc = new Calculation(config);
-        this._anchors = [];
-    }
-
-
-    Creator.prototype = {
-        constructor: Creator,
-        createMenu: createMenu,
-        _createLists: createLists,
-        _createList: createList,
-        _createAnchor: createAnchor,
-        _createText: createText,
-        _createHorizontal: createHorizontal,
-        _createIcon: createIcon,
-        _createSubMenu: createSubMenu
-    };
-
-    function config (config) {
-
-        config = extend$1(defaultConfig, config);
-
-        this._creator = new Creator(this, config);
-        this._creator.createMenu();
-
-        return this;
-    }
-
     function setCoordinate(coordinate){
         if( !(coordinate instanceof Array) || !(coordinate.length === 2) ) return;
 
@@ -654,10 +392,10 @@
         this.classed('circular-menu', true);
 
         this.styles({
-                        "width": this.width,
-                        "height": this.height,
-                        "margin-top": this.marginTop,
-                        "margin-left": this.marginLeft
+                        "width": this.config.menuSize.width,
+                        "height": this.config.menuSize.height,
+                        "margin-top": this.config.menuSize.marginTop,
+                        "margin-left": this.config.menuSize.marginLeft
                     });
         
 
@@ -668,50 +406,80 @@
         }, 100);
 
         this.styleSheets({
-                             'width': this.width,
-                             'height': this.height,
-                             'margin-left': this.marginLeft,
-                             'margin-top': this.marginTop,
-                             'border': '3px solid ' + this.pageBackground
+                             'width': this.config.coverSize.width,
+                             'height': this.config.coverSize.height,
+                             'margin-left': this.config.coverSize.marginLeft,
+                             'margin-top': this.config.coverSize.marginTop,
+                             'border': '3px solid ' + this.config.pageBackground
                          }, 'after');
 
 
         this.appendFirst(this.parent, this.element);
-        //var ul = p.appendChild(document.createElement('ul'));
-        //this._createLists(ul);
-    }
 
-    const sizeRatio$2 = [1, 5/3, 25/9];
-    //const percent = [0.32, 0.45, 0.45];
-    //const centralDegRatio = [1, 0.618, 0.618];
-
-    function Menu(parent, config, menus, level) {
-        this.parent = parent;
-
-        var diameter = config.diameter * sizeRatio$2[level];
-        this.width = this.height = diameter + "px";
-        this.marginLeft = this.marginTop = diameter / 2 + "px";
-        this.pageBackground = config.pageBackground;
-
-        this.items = [];
         this._createItems();
 
     }
 
-    Menu.prototype = Element.prototype;
+    function render$1 () {
+        this.element = document.createElement('li');
 
-    Menu.prototype.constructor = Menu;
-    Menu.prototype.render = render;
+        this.styles({
+                        'width': this.config.listSize.width,
+                        'height': this.config.listSize.height,
+                        'transform': 'rotate(' + this.config.rotateDeg(this.index) + 'deg) skew(' + this.config.skewDeg + 'deg)'
+                    });
+        // style(list, 'width', this._calc.listSize.width);
+        // style(list, 'height', this._calc.listSize.height);
+        // style(list, 'transform', 'rotate('+ this._calc.rotateDeg(index) +'deg) skew('+ this._calc.skewDeg +'deg)');
+        
+        this.parent.appendChild(this.element);
+    }
 
-    function _createMenus () {
+    function Item(parent, config, menu, index) {
+        Element.call(this);
+        this.parent = parent.firstChild;
+        this.config = config;
+        this.index = index;
+        this.menu = menu;
+    }
 
-        createMenu$1.call(this, this.config.menus, 0);
+    Item.prototype = Object.create(Element.prototype);
+    Item.prototype.constructor = Item;
+    Item.prototype.render = render$1;
+
+    function createItems () {
+        this.element.appendChild(document.createElement('ul'));
+
+        this.menus.forEach(function (v, i) {
+            var item = new Item(this.element, this.config, v, i);
+            item.render();
+            this.items.push(item);
+        }, this);
+    }
+
+    function Menu(parent, config, menus, level) {
+        Element.call(this);
+        this.parent = parent;
+        this.config = config;
+        this.menus = menus;
+
+        this.items = [];
 
     }
 
-    function createMenu$1(menus, level) {
+    Menu.prototype = Object.create(Element.prototype);
 
-        var menu = new Menu(this.element, this.config, menus, level);
+    Menu.prototype.constructor = Menu;
+    Menu.prototype.render = render;
+    Menu.prototype._createItems = createItems;
+
+    function createMenus () {
+
+        createMenu$1.call(this, this.config.menus, 0);
+    }
+
+    function createMenu$1(menus, level) {
+        var menu = new Menu(this.element, new Config(this.config, level), menus);
         menu.render();
 
         this.menus.push(menu);
@@ -725,34 +493,18 @@
         }, this);
     }
 
-    const DefaultConfig = {
-        totalAngle: 360,//deg,
-        spaceDeg: 0,//deg
-        background: "#323232",
-        backgroundHover: "#515151",
-        pageBackground: "transparent",
-        percent: 0.32,//%
-        diameter: 300,//px
-        position: 'top',
-        horizontal: true,
-        animation: "into",
-        hideAfterClick: true
-    };
-
     function CMenu(element, config){//pMenu
         this.element = element;
         this.menus = [];
-
-        this.config = extend$1(DefaultConfig, config);
-
+        this.config = config;
 
         this._createMenus();
     }
 
     CMenu.prototype = {
         constructor: CMenu,
-        _createMenus: _createMenus,
-        config: config,//get,set config
+        _createMenus: createMenus,
+        //config: config,//get,set config
         show: show,
         hide: hide,
         styles: styles

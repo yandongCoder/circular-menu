@@ -1,4 +1,4 @@
-import Calculation from '../Calculation/index';
+import Calculation from '../Config/index';
 import createLists from "./createLists";
 import createList from "./createList";
 import createMenu from "./createMenu";

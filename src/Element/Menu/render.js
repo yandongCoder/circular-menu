@@ -4,10 +4,10 @@ export default function () {
     this.classed('circular-menu', true);
 
     this.styles({
-                    "width": this.width,
-                    "height": this.height,
-                    "margin-top": this.marginTop,
-                    "margin-left": this.marginLeft
+                    "width": this.config.menuSize.width,
+                    "height": this.config.menuSize.height,
+                    "margin-top": this.config.menuSize.marginTop,
+                    "margin-left": this.config.menuSize.marginLeft
                 });
     
 
@@ -18,15 +18,16 @@ export default function () {
     }, 100);
 
     this.styleSheets({
-                         'width': this.width,
-                         'height': this.height,
-                         'margin-left': this.marginLeft,
-                         'margin-top': this.marginTop,
-                         'border': '3px solid ' + this.pageBackground
+                         'width': this.config.coverSize.width,
+                         'height': this.config.coverSize.height,
+                         'margin-left': this.config.coverSize.marginLeft,
+                         'margin-top': this.config.coverSize.marginTop,
+                         'border': '3px solid ' + this.config.pageBackground
                      }, 'after');
 
 
     this.appendFirst(this.parent, this.element);
-    //var ul = p.appendChild(document.createElement('ul'));
-    //this._createLists(ul);
+
+    this._createItems();
+
 }
