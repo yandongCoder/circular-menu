@@ -34,30 +34,6 @@ export default function (parent, data, index) {
     this._anchors.push(a);
 
 
-    style(a, 'width', this._calc.clickZoneSize.width);
-    style(a, 'height', this._calc.clickZoneSize.height);
-    style(a, 'right', this._calc.clickZoneSize.marginRight);
-    style(a, 'bottom', this._calc.clickZoneSize.marginBottom);
-    style(a, 'transform', 'skew(' + -this._calc.skewDeg + 'deg) rotate(' + this._calc.unskewDeg + 'deg) scale(1)');
-
-    classed(a, 'disabled', ifDisabled(data.disabled));
-
-
-    var percent = this._config.percent * 100 + "%";
-    styleSheet(a, 'background', 'radial-gradient(transparent ' + percent + ', ' + this._config.background + ' ' + percent + ')');
-    styleSheet(a, 'background', 'radial-gradient(transparent ' + percent + ', ' + this._config.backgroundHover + ' ' + percent + ')', 'hover');
-
-
-    function clickCallBack(e, data){
-        if (data.click) data.click.call(this, e, data);
-
-        if(self._config.hideAfterClick){
-            self._cMenu.hide();
-            if(self._cMenu._pMenu) self._cMenu._pMenu.hide();
-            if(subMenu) subMenu.hide();
-        }
-    }
-
     on(a, 'click', clickCallBack, data);
 
     parent.appendChild(a);

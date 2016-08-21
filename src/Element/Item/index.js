@@ -9,7 +9,7 @@ export default function Item(parent, config, menu, index) {
     this.config = config;
     this.index = index;
     
-    this.anchor = new Anchor(this.element, config, menu);
+    this.anchor = new Anchor(this.element, config, menu, index);
 }
 
 Item.prototype = Object.create(Element.prototype);

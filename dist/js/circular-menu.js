@@ -445,6 +445,7 @@
 
     function render$2 () {
         this.setHref(this.menu.href);
+        this.setCallBack();
 
         this.styles({
                        "width": this.config.clickZoneSize.width,
@@ -456,13 +457,13 @@
 
         this.classed('disabled', this.getDisabled());
 
-
         var percent = this.config.percent * 100 + "%";
-
         this.styleSheet(this.element, 'background', 'radial-gradient(transparent ' + percent + ', ' + this.config.background + ' ' + percent + ')');
         this.styleSheet(this.element, 'background', 'radial-gradient(transparent ' + percent + ', ' + this.config.backgroundHover + ' ' + percent + ')', 'hover');
 
         this.parent.appendChild(this.element);
+
+        this.horizontal.render();
     }
 
     function setHref$1 (href){
@@ -483,11 +484,49 @@
             return Boolean(this.menu.disabled);
     }
 
-    function Anchor(parent, config, menu) {
+    function setCallBack () {
+        var self = this;
+        this.on('click', clickCallBack, this.menu);
+
+        function clickCallBack(e, data){
+            if (data.click) data.click.call(this, e, data);
+
+            // if(self._config.hideAfterClick){
+            //     self._cMenu.hide();
+            //     if(self._cMenu._pMenu) self._cMenu._pMenu.hide();
+            //     if(subMenu) subMenu.hide();
+            // }
+        }
+
+
+    }
+
+    function render$3 () {
+        this.classed("horizontal", true);
+        if(this.config.horizontal) this.styles({'transform': 'rotate('+ this.config.horizontalDeg(this.index) +'deg)'});
+
+        this.parent.appendChild(this.element);
+    }
+
+    function Horizontal(parent, config, menu, index) {
+        this.parent = parent;
+        this.config = config;
+        this.menu = menu;
+        this.index = index;
+
+        this.element = document.createElement('div');
+    }
+
+    Horizontal.prototype = Object.create(Element.prototype);
+    Horizontal.prototype.constructor = Horizontal;
+    Horizontal.prototype.render = render$3;
+
+    function Anchor(parent, config, menu, index) {
         this.parent = parent;
         this.config = config;
         this.element = document.createElement('a');
         this.menu = menu;
+        this.horizontal = new Horizontal(this.element, config, menu, index);
 
     }
 
@@ -496,6 +535,7 @@
     Anchor.prototype.render = render$2;
     Anchor.prototype.setHref = setHref$1;
     Anchor.prototype.getDisabled = getDisabled;
+    Anchor.prototype.setCallBack = setCallBack;
 
     function Item(parent, config, menu, index) {
         Element.call(this);
@@ -504,7 +544,7 @@
         this.config = config;
         this.index = index;
         
-        this.anchor = new Anchor(this.element, config, menu);
+        this.anchor = new Anchor(this.element, config, menu, index);
     }
 
     Item.prototype = Object.create(Element.prototype);
