@@ -276,7 +276,7 @@
         (value.apply(this, arguments) ? classedAdd : classedRemove)(this, names);
     }
 
-    function classed(name, value) {
+    function classed(name, value, ele) {
 
         var names = classArray(name + "");
 
@@ -289,7 +289,7 @@
         var callee = (typeof value === "function"
             ? classedFunction : value
             ? classedTrue
-            : classedFalse).call(this.element, names, value);
+            : classedFalse).call(ele || this.element, names, value);
     }
 
     var UID = {
@@ -327,20 +327,21 @@
 
     //check disabled
 
-    function setDisabled(){
-        this._creator._anchors.forEach(function(v){
-            v.setDisabled();
-        });
-    }
+    // function setDisabled(){
+    //     this._creator._anchors.forEach(function(v){
+    //         v.setDisabled();
+    //     });
+    // }
 
     function show (coordinate) {
 
 
-        setDisabled.call(this);
+        //setDisabled.call(this);
 
         setCoordinate.call(this, coordinate);
 
-        classed(this._container, 'opened-nav', true);
+        this.menus[0].show();
+
         return this;
     }
 
@@ -457,6 +458,14 @@
         }, this);
     }
 
+    function show$1 () {
+        this.classed('opened-nav', true);
+    }
+
+    function hide$1 () {
+        
+    }
+
     function Menu(parent, config, menus, level) {
         Element.call(this);
         this.parent = parent;
@@ -472,6 +481,8 @@
     Menu.prototype.constructor = Menu;
     Menu.prototype.render = render;
     Menu.prototype._createItems = createItems;
+    Menu.prototype.show = show$1;
+    Menu.prototype.hide = hide$1;
 
     function createMenus () {
 
@@ -501,15 +512,13 @@
         this._createMenus();
     }
 
-    CMenu.prototype = {
-        constructor: CMenu,
-        _createMenus: createMenus,
-        //config: config,//get,set config
-        show: show,
-        hide: hide,
-        styles: styles
 
-    };
+    CMenu.prototype = Object.create(Element.prototype);
+    CMenu.prototype.constructor = CMenu;
+    CMenu.prototype._createMenus = createMenus;
+    CMenu.prototype.show = show;
+    CMenu.prototype.hide = hide;
+    //CMenu.prototype.config = config;
 
     function index (selector, config) {
         return typeof selector === "string"

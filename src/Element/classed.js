@@ -53,7 +53,7 @@ function classedFunction(names, value) {
     (value.apply(this, arguments) ? classedAdd : classedRemove)(this, names);
 }
 
-export default function(name, value) {
+export default function(name, value, ele) {
 
     var names = classArray(name + "");
 
@@ -66,5 +66,5 @@ export default function(name, value) {
     var callee = (typeof value === "function"
         ? classedFunction : value
         ? classedTrue
-        : classedFalse).call(this.element, names, value);
+        : classedFalse).call(ele || this.element, names, value);
 }

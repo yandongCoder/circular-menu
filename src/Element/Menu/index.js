@@ -1,7 +1,8 @@
 import Element from "../index";
 import render from "./render";
 import createItems from "./createItems";
-
+import show from "./show";
+import hide from "./hide";
 
 export default function Menu(parent, config, menus, level) {
     Element.call(this);
@@ -18,4 +19,6 @@ Menu.prototype = Object.create(Element.prototype);
 Menu.prototype.constructor = Menu;
 Menu.prototype.render = render;
 Menu.prototype._createItems = createItems;
+Menu.prototype.show = show;
+Menu.prototype.hide = hide;
 

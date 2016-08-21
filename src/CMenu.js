@@ -3,6 +3,7 @@ import show from "./show";
 import hide from "./hide";
 import styles from "./Element/styles";
 import createMenus from "./createMenus";
+import Element from "./Element/index";
 
 export default function CMenu(element, config){//pMenu
     this.element = element;
@@ -12,12 +13,10 @@ export default function CMenu(element, config){//pMenu
     this._createMenus();
 }
 
-CMenu.prototype = {
-    constructor: CMenu,
-    _createMenus: createMenus,
-    //config: config,//get,set config
-    show: show,
-    hide: hide,
-    styles: styles
 
-};
+CMenu.prototype = Object.create(Element.prototype);
+CMenu.prototype.constructor = CMenu;
+CMenu.prototype._createMenus = createMenus;
+CMenu.prototype.show = show;
+CMenu.prototype.hide = hide;
+//CMenu.prototype.config = config;

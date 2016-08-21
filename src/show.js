@@ -11,19 +11,20 @@ function setCoordinate(coordinate){
 
 //check disabled
 
-function setDisabled(){
-    this._creator._anchors.forEach(function(v){
-        v.setDisabled();
-    });
-}
+// function setDisabled(){
+//     this._creator._anchors.forEach(function(v){
+//         v.setDisabled();
+//     });
+// }
 
 export default function (coordinate) {
 
 
-    setDisabled.call(this);
+    //setDisabled.call(this);
 
     setCoordinate.call(this, coordinate);
 
-    classed(this._container, 'opened-nav', true);
+    this.menus[0].show();
+
     return this;
 }
