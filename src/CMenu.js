@@ -1,7 +1,6 @@
 import config from "./config";
 import show from "./show";
 import hide from "./hide";
-import styles from "./Element/styles";
 import createMenus from "./createMenus";
 import Element from "./Element/index";
 

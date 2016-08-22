@@ -16,6 +16,8 @@ export default function () {
     this.styleSheet(this.element, 'background', 'radial-gradient(transparent ' + percent + ', ' + this.config.background + ' ' + percent + ')');
     this.styleSheet(this.element, 'background', 'radial-gradient(transparent ' + percent + ', ' + this.config.backgroundHover + ' ' + percent + ')', 'hover');
 
+
+
     this.parent.appendChild(this.element);
 
     this.horizontal.render();

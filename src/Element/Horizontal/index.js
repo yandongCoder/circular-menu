@@ -2,6 +2,7 @@ import Element from "../index";
 import render from "./render";
 import Icon from "../Icon/index";
 import Text from "../Text/index";
+import getHorizontalDeg from "./getHorizontalDeg";
 
 
 export default function Horizontal(parent, config, menu, index) {
@@ -20,3 +21,4 @@ export default function Horizontal(parent, config, menu, index) {
 Horizontal.prototype = Object.create(Element.prototype);
 Horizontal.prototype.constructor = Horizontal;
 Horizontal.prototype.render = render;
+Horizontal.prototype.getHorizontalDeg = getHorizontalDeg;

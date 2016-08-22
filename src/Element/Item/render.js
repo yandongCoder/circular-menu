@@ -2,7 +2,7 @@ export default function () {
     this.styles({
                     'width': this.config.listSize.width,
                     'height': this.config.listSize.height,
-                    'transform': 'rotate(' + this.config.rotateDeg(this.index) + 'deg) skew(' + this.config.skewDeg + 'deg)'
+                    'transform': 'rotate(' + this.config.getRotateDeg(this.index) + 'deg) skew(' + this.config.skewDeg + 'deg)'
                 });
 
     this.parent.appendChild(this.element);

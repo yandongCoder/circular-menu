@@ -1,5 +1,4 @@
-import rotateDeg from './rotateDeg';
-import horizontalDeg from './horizontalDeg';
+import getRotateDeg from './getRotateDeg';
 import startDeg from './startDeg';
 import {default as coverSize, coverRadius} from "./coverSize";
 import menuSize from "./menuSize";
@@ -14,7 +13,6 @@ const DefaultConfig = {
     background: "#323232",
     backgroundHover: "#515151",
     pageBackground: "transparent",
-    percent: 0.32,//%
     diameter: 300,//px
     position: 'top',
     horizontal: true,
@@ -23,11 +21,12 @@ const DefaultConfig = {
 };
 
 const sizeRatio = [1, 5/3, 25/9];
-//const percent = [0.32, 0.45, 0.45];
-//const centralDegRatio = [1, 0.618, 0.618];
+const percents = [0.32, 0.45, 0.45];
+const centralDegRatio = [1, 0.618, 0.618];
 
 
 export default function Config(config, level) {
+    this.level = level;
 
     config = extend(DefaultConfig, config);
     for (var k in config) {
@@ -35,8 +34,9 @@ export default function Config(config, level) {
     }
 
     this.diameter = this.diameter * sizeRatio[level];
+    this.percent = percents[level];
 
-    
+
     
     var itemsNum = this.menus.length,
         spaceNumber = this.totalAngle === 360 ? itemsNum : itemsNum - 1;
@@ -56,10 +56,14 @@ export default function Config(config, level) {
     this.skewDeg = 90 - this.centralDeg;
     this.unskewDeg = -(90 - this.centralDeg / 2);
     this.textTop = textTop(this.clickZoneRadius);
+
+    if(level > 0){
+        this.totalAngle = this.centralDeg * centralDegRatio[level] * this.menus.length;
+        //this.startDeg = this._calc.rotateDeg(index) - totalAngle / 2 + this._calc.centralDeg / 2;
+    }
 }
 
 Config.prototype = {
     constructor: Config,
-    rotateDeg: rotateDeg,
-    horizontalDeg: horizontalDeg
+    getRotateDeg: getRotateDeg
 };

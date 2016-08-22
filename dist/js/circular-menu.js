@@ -5,12 +5,10 @@
     (global.CMenu = factory());
 }(this, function () { 'use strict';
 
-    function rotateDeg (i){
-        return this.startDeg + this.rotateUnit * i;
-    }
-
-    function rotateDeg$1 (i){
-        return - (this.rotateDeg(i) + this.unskewDeg);
+    function getRotateDeg (i) {
+        var rotateDeg = this.startDeg + this.rotateUnit * i;
+        if(this.level === 0) return rotateDeg;
+        else return rotateDeg - this.totalAngle / 2 + this.centralDeg / 2;
     }
 
     function startDeg(start, totalAngle, position) {
@@ -138,7 +136,6 @@
         background: "#323232",
         backgroundHover: "#515151",
         pageBackground: "transparent",
-        percent: 0.32,//%
         diameter: 300,//px
         position: 'top',
         horizontal: true,
@@ -147,11 +144,12 @@
     };
 
     const sizeRatio = [1, 5/3, 25/9];
-    //const percent = [0.32, 0.45, 0.45];
-    //const centralDegRatio = [1, 0.618, 0.618];
+    const percents = [0.32, 0.45, 0.45];
+    const centralDegRatio = [1, 0.618, 0.618];
 
 
     function Config(config, level) {
+        this.level = level;
 
         config = extend$1(DefaultConfig, config);
         for (var k in config) {
@@ -159,8 +157,9 @@
         }
 
         this.diameter = this.diameter * sizeRatio[level];
+        this.percent = percents[level];
 
-        
+
         
         var itemsNum = this.menus.length,
             spaceNumber = this.totalAngle === 360 ? itemsNum : itemsNum - 1;
@@ -180,12 +179,16 @@
         this.skewDeg = 90 - this.centralDeg;
         this.unskewDeg = -(90 - this.centralDeg / 2);
         this.textTop = textTop(this.clickZoneRadius);
+
+        if(level > 0){
+            this.totalAngle = this.centralDeg * centralDegRatio[level] * this.menus.length;
+            //this.startDeg = this._calc.rotateDeg(index) - totalAngle / 2 + this._calc.centralDeg / 2;
+        }
     }
 
     Config.prototype = {
         constructor: Config,
-        rotateDeg: rotateDeg,
-        horizontalDeg: rotateDeg$1
+        getRotateDeg: getRotateDeg
     };
 
     function defaultView(node) {
@@ -433,7 +436,7 @@
         this.styles({
                         'width': this.config.listSize.width,
                         'height': this.config.listSize.height,
-                        'transform': 'rotate(' + this.config.rotateDeg(this.index) + 'deg) skew(' + this.config.skewDeg + 'deg)'
+                        'transform': 'rotate(' + this.config.getRotateDeg(this.index) + 'deg) skew(' + this.config.skewDeg + 'deg)'
                     });
 
         this.parent.appendChild(this.element);
@@ -460,6 +463,8 @@
         var percent = this.config.percent * 100 + "%";
         this.styleSheet(this.element, 'background', 'radial-gradient(transparent ' + percent + ', ' + this.config.background + ' ' + percent + ')');
         this.styleSheet(this.element, 'background', 'radial-gradient(transparent ' + percent + ', ' + this.config.backgroundHover + ' ' + percent + ')', 'hover');
+
+
 
         this.parent.appendChild(this.element);
 
@@ -503,7 +508,7 @@
 
     function render$3 () {
         this.classed("horizontal", true);
-        if(this.config.horizontal) this.styles({'transform': 'rotate('+ this.config.horizontalDeg(this.index) +'deg)'});
+        if(this.config.horizontal) this.styles({'transform': 'rotate('+ this.getHorizontalDeg() +'deg)'});
 
         this.parent.appendChild(this.element);
 
@@ -595,6 +600,10 @@
     Text.prototype.constructor = Text;
     Text.prototype.render = render$5;
 
+    function getHorizontalDeg (){
+        return -(this.config.getRotateDeg(this.index) + this.config.unskewDeg);
+    }
+
     function Horizontal(parent, config, menu, index) {
         this.parent = parent;
         this.config = config;
@@ -611,6 +620,7 @@
     Horizontal.prototype = Object.create(Element.prototype);
     Horizontal.prototype.constructor = Horizontal;
     Horizontal.prototype.render = render$3;
+    Horizontal.prototype.getHorizontalDeg = getHorizontalDeg;
 
     function Anchor(parent, config, menu, index) {
         this.parent = parent;
