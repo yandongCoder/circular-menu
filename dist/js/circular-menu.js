@@ -506,7 +506,94 @@
         if(this.config.horizontal) this.styles({'transform': 'rotate('+ this.config.horizontalDeg(this.index) +'deg)'});
 
         this.parent.appendChild(this.element);
+
+        this.icon.render();
+        this.text.render();
     }
+
+    const sizeRatio$3 = 0.65;
+    const marginTopRatio$1 = 0.2;
+    const fontHeight$1 = 13;
+
+    function render$4 () {
+        if(!this.hasIcon()) return;
+
+        var icon = this.getIcon(),
+            color = this.getIconColor(),
+            l = this.config.clickZoneRadius * sizeRatio$3 - fontHeight$1 + "px",
+            m = this.config.clickZoneRadius * marginTopRatio$1 - fontHeight$1 + "px";
+        
+        this.classed(icon + " cm-icon", true);
+
+        this.styles({
+                        "color": color,
+                        "width": l,
+                        "height": l,
+                        "font-size": l,
+                        "margin-top": m
+                    });
+        
+        this.parent.appendChild(this.element);
+    }
+
+    function hasIcon$1 () {
+        var icon = this.menu.icon;
+        if(icon === undefined) return false;
+        else if(typeof icon === "string") return icon !== "";
+        else return icon.length && icon[0] !== "";
+    }
+
+    function getIcon$1 () {
+        var icon = this.menu.icon;
+        return typeof icon === "string"? icon : icon[0];
+    }
+
+    function getIconColor$1 () {
+        var icon = this.menu.icon;
+        return typeof icon === "string"? null : icon[1];
+    }
+
+    function Icon(parent, config, menu) {
+        this.parent = parent;
+        this.menu = menu;
+        this.config = config;
+        this.element = document.createElement('span');
+    }
+
+    Icon.prototype = Object.create(Element.prototype);
+    Icon.prototype.constructor = Icon;
+    Icon.prototype.render = render$4;
+    Icon.prototype.hasIcon = hasIcon$1;
+    Icon.prototype.getIcon = getIcon$1;
+    Icon.prototype.getIconColor = getIconColor$1;
+
+    const withIconMarginTop$1 = "3px";
+    const withIconTop$1 = "-3px";
+
+    function render$5 () {
+        this.element.textContent = this.menu.title;
+        
+        this.classed('text', true);
+        
+        this.styles({
+                        "margin-top": this.icon.hasIcon() ? withIconMarginTop$1 : this.config.textTop,
+                        "top": this.icon.hasIcon() ? withIconTop$1 : 0
+                    });
+
+        this.parent.appendChild(this.element);
+    }
+
+    function Text(parent, config, menu, icon) {
+        this.parent = parent;
+        this.menu = menu;
+        this.config = config;
+        this.icon = icon;
+        this.element = document.createElement('span');
+    }
+
+    Text.prototype = Object.create(Element.prototype);
+    Text.prototype.constructor = Text;
+    Text.prototype.render = render$5;
 
     function Horizontal(parent, config, menu, index) {
         this.parent = parent;
@@ -515,6 +602,10 @@
         this.index = index;
 
         this.element = document.createElement('div');
+        
+        this.icon = new Icon(this.element, config, menu);
+
+        this.text = new Text(this.element, config, menu, this.icon);
     }
 
     Horizontal.prototype = Object.create(Element.prototype);

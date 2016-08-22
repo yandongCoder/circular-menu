@@ -3,4 +3,7 @@ export default function () {
     if(this.config.horizontal) this.styles({'transform': 'rotate('+ this.config.horizontalDeg(this.index) +'deg)'});
 
     this.parent.appendChild(this.element);
+
+    this.icon.render();
+    this.text.render();
 }
