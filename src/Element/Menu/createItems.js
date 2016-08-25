@@ -4,7 +4,7 @@ export default function () {
     this.element.appendChild(document.createElement('ul'));
 
     this.menus.forEach(function (v, i) {
-        var item = new Item(this.element, this.config, v, i);
+        var item = new Item(this.element, this.config, v, i, this);
         item.render();
         this.items.push(item);
     }, this);

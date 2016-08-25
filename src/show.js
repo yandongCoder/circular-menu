@@ -24,7 +24,7 @@ export default function (coordinate) {
 
     setCoordinate.call(this, coordinate);
 
-    this.menus[0].show();
+    this.menu.show();
 
     return this;
 }

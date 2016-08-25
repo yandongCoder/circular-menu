@@ -4,14 +4,14 @@ import createItems from "./createItems";
 import show from "./show";
 import hide from "./hide";
 
-export default function Menu(parent, config, menus, level) {
+export default function Menu(parent, config, menus, supMenu) {
     Element.call(this);
     this.parent = parent;
     this.element = document.createElement('div');
     this.config = config;
     this.menus = menus;
-
     this.items = [];
+    this.supMenu = supMenu;
 
 }
 
