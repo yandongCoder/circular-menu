@@ -103,7 +103,7 @@ export default function (parent, data, index) {
         });
 
         on(subMenu._container, 'mouseleave', function (e) {
-            if (!a.contains(e.toElement)) {
+            if (!a.contains(e.toElement) && e.toElement.nodeName !== "LI") {
                 subMenu.hide();
             }
         });
