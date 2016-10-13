@@ -1,6 +1,9 @@
 # Circular-Menu
 aka, circular menu, wheel menu, circular navigation, wheel navigation.
 
+##Thanks for
+[Circular Navigation With CSS Transforms](https://github.com/SaraSoueidan/circular-navigation) by [Sara Soueidan](https://github.com/SaraSoueidan)
+
 ## install
     ```npm install circular-menu```
 
