@@ -1,6 +1,6 @@
 {
   "name": "circular-menu",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "cool,highly interactive circular menu",
   "main": "index.js",
   "directories": {
