@@ -408,7 +408,7 @@
             });
 
             on(subMenu._container, 'mouseleave', function (e) {
-                if ( (!a.contains(e.toElement) || e.toElement.children[0] === a) && e.toElement.nodeName !== "LI") {
+                if (!a.contains(e.toElement) || e.toElement.children[0] === a) {
                     subMenu.hide();
                 }
             });
