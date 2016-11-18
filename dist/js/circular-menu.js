@@ -277,6 +277,12 @@
         return this;
     };
 
+    function on (ele, type, callback, data) {
+        ele.addEventListener(type, function(e){
+            callback.call(this, e, data);
+        });
+    }
+
     function createMenu(){
         var p = this._container;
 
@@ -285,8 +291,13 @@
         style(p, 'height', this._calc.menuSize.height);
         style(p, 'margin-top', this._calc.menuSize.marginTop);
         style(p, 'margin-left', this._calc.menuSize.marginLeft);
-
         
+        var self = this;
+        on(p, "click", function(e){
+            if(e.toElement === p){
+                self._cMenu.hide();
+            }
+        });
         setTimeout(function(){
             style(p, 'display', 'block');
         },100);
@@ -300,12 +311,6 @@
 
         var ul = p.appendChild(document.createElement('ul'));
         this._createLists(ul);
-    }
-
-    function on (ele, type, callback, data) {
-        ele.addEventListener(type, function(e){
-            callback.call(this, e, data);
-        });
     }
 
     function hasSubMenus(menus) {

@@ -1,6 +1,7 @@
 import classed from "./../classed";
 import style from "./../style";
 import styleSheet from "./styleSheet";
+import on from "../on";
 
 export default function(){
     var p = this._container;
@@ -10,8 +11,13 @@ export default function(){
     style(p, 'height', this._calc.menuSize.height);
     style(p, 'margin-top', this._calc.menuSize.marginTop);
     style(p, 'margin-left', this._calc.menuSize.marginLeft);
-
     
+    var self = this;
+    on(p, "click", function(e){
+        if(e.toElement === p){
+            self._cMenu.hide();
+        }
+    });
     setTimeout(function(){
         style(p, 'display', 'block');
     },100);
